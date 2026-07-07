@@ -25,9 +25,10 @@
       "docker-desktop"
     ];
 
-    # Mac App Store apps (RunCat, TabBack) are deferred to the manual Phase 8
-    # step — MAS needs exact IDs of already-purchased apps, added declaratively
-    # later once confirmed on-device via `mas search`.
-    # masApps = { };
+    # Mac App Store apps (needs App Store sign-in, which is done).
+    masApps = {
+      "Moom Classic" = 419330170; # Moom 3.x — the classic version (not the v4 cask)
+    };
+    # RunCat / TabBack still deferred until their IDs are confirmed on-device.
   };
 }
