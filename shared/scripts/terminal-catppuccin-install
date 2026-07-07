@@ -1,0 +1,41 @@
+#!/bin/sh
+# terminal-catppuccin-install — import the Catppuccin Latte/Mocha Terminal.app
+# profiles and set the one matching the current macOS appearance as default.
+# Terminal.app profiles can't be managed declaratively by Nix (they live in the
+# com.apple.Terminal prefs as archived NSColor blobs), so this is run once.
+set -eu
+
+REPO="${DOTFILES:-$HOME/Repos/github.com/johanhanses/nix-config}"
+DIR="$REPO/shared/terminal"
+
+open "$DIR/Catppuccin Mocha.terminal"
+open "$DIR/Catppuccin Latte.terminal"
+
+# wait for Terminal to register both profiles
+i=0
+while [ "$i" -lt 10 ]; do
+  n=$(defaults read com.apple.Terminal "Window Settings" 2>/dev/null | grep -cE '"Catppuccin (Mocha|Latte)" =' || true)
+  [ "${n:-0}" -ge 2 ] && break
+  sleep 1
+  i=$((i + 1))
+done
+
+if [ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]; then
+  PROFILE="Catppuccin Mocha"
+else
+  PROFILE="Catppuccin Latte"
+fi
+
+osascript <<EOF
+tell application "Terminal"
+  set default settings to settings set "$PROFILE"
+  set startup settings to settings set "$PROFILE"
+  repeat with w in windows
+    try
+      set current settings of tabs of w to settings set "$PROFILE"
+    end try
+  end repeat
+end tell
+EOF
+
+echo "Terminal.app: imported Catppuccin profiles, default = $PROFILE"
