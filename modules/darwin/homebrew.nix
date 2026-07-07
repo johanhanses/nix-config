@@ -25,10 +25,10 @@
       "docker-desktop"
     ];
 
-    # Mac App Store apps (App Store signed in with the account owning these).
-    masApps = {
-      "Moom Classic" = 419330170; # Moom 3.x — the classic version (not the v4 cask)
-    };
-    # RunCat / TabBack still deferred until their IDs are confirmed on-device.
+    # Mac App Store apps deferred: Moom Classic (419330170) isn't owned on this
+    # Apple ID (the old Moom was a Many Tricks direct license, not an App Store
+    # purchase), so it's installed from the Many Tricks direct download instead.
+    # RunCat / TabBack also deferred until their IDs are confirmed on-device.
+    # masApps = { };
   };
 }
