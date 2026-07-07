@@ -1,0 +1,6 @@
+# result symlinks from nix build
+result
+result-*
+# never commit secrets
+/secrets/
+.DS_Store
