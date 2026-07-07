@@ -25,7 +25,7 @@
       "docker-desktop"
     ];
 
-    # Mac App Store apps (needs App Store sign-in, which is done).
+    # Mac App Store apps (App Store signed in with the account owning these).
     masApps = {
       "Moom Classic" = 419330170; # Moom 3.x — the classic version (not the v4 cask)
     };
