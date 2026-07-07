@@ -4,6 +4,10 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
+    # lazy.nvim plugins don't need the ruby/python/node remote providers.
+    withRuby = false;
+    withPython3 = false;
+    withNodeJs = false;
   };
 
   # Ship the existing lazy.nvim config as-is; lazy.nvim manages plugins at

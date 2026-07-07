@@ -3,6 +3,7 @@
   imports = [
     ../../modules/darwin/system.nix
     ../../modules/darwin/homebrew.nix
+    ../../modules/darwin/defaults.nix
   ];
 
   # Machine name (ComputerName / HostName / LocalHostName).

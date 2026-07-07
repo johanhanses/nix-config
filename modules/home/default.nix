@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ./packages.nix
@@ -17,4 +17,9 @@
   home.stateVersion = "25.11";
 
   programs.home-manager.enable = true;
+
+  # Screenshot destination (matches system.defaults.screencapture.location).
+  home.activation.screenshotsDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run mkdir -p "$HOME/Pictures/Screenshots"
+  '';
 }

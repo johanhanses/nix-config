@@ -2,21 +2,6 @@
 {
   programs.git = {
     enable = true;
-    userName = "Johan Hanses";
-    userEmail = "johanhanses@gmail.com";
-
-    delta = {
-      enable = true;
-      options = {
-        line-numbers = true;
-        navigate = true;
-        side-by-side = false;
-        decorations = true;
-        # base16 uses the terminal's ANSI palette, so it follows the
-        # Catppuccin Latte/Mocha light/dark switch automatically.
-        syntax-theme = "base16";
-      };
-    };
 
     ignores = [
       ".DS_Store"
@@ -36,7 +21,11 @@
       "**/.claude/settings.local.json"
     ];
 
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Johan Hanses";
+        email = "johanhanses@gmail.com";
+      };
       init.defaultBranch = "main";
       pull.rebase = false;
       push = {
@@ -60,6 +49,19 @@
         sslCert = "/Users/johanhanses/Repos/github.com/Digital-Tvilling/.lkab/on-prem/cert/certificate.pem";
         sslKey = "/Users/johanhanses/Repos/github.com/Digital-Tvilling/.lkab/on-prem/cert/private_key.pem";
       };
+    };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      line-numbers = true;
+      navigate = true;
+      side-by-side = false;
+      decorations = true;
+      # base16 follows the terminal's ANSI palette → tracks Catppuccin light/dark.
+      syntax-theme = "base16";
     };
   };
 }
