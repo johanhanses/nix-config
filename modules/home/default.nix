@@ -1,5 +1,9 @@
 { ... }:
 {
+  imports = [
+    ./packages.nix
+  ];
+
   home.username = "johanhanses";
   home.homeDirectory = "/Users/johanhanses";
 
