@@ -34,7 +34,7 @@
     tailwindcss-language-server
     lua-language-server
     biome
-    nodePackages.prettier
+    prettier
     stylua
     shellcheck
     tree-sitter
