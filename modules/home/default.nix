@@ -2,6 +2,12 @@
 {
   imports = [
     ./packages.nix
+    ./zsh.nix
+    ./git.nix
+    ./tmux.nix
+    ./cli.nix
+    ./btop.nix
+    ./neovim.nix
   ];
 
   home.username = "johanhanses";

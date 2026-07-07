@@ -1,0 +1,47 @@
+#!/bin/sh
+# theme-sync — align terminal-adjacent tools with the current macOS appearance.
+# Invoked by the macOS appearance Shortcut (see Phase 8) and by tmux <prefix>+r.
+#
+# Catppuccin Latte (light) / Mocha (dark):
+#   - Terminal.app  : switch the profile (requires the two profiles imported)
+#   - btop          : rewrite color_theme in the mutable btop.conf
+#   - tmux          : re-source (status bar uses ANSI, follows the terminal)
+#   - bat / fzf / delta / nvim self-follow (ANSI palette / auto-dark-mode)
+set -eu
+
+if [ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]; then
+  MODE=dark
+  TERM_PROFILE="Catppuccin Mocha"
+  BTOP_THEME="catppuccin_mocha"
+else
+  MODE=light
+  TERM_PROFILE="Catppuccin Latte"
+  BTOP_THEME="catppuccin_latte"
+fi
+
+# Terminal.app — set default + all open windows to the matching profile.
+if pgrep -x Terminal >/dev/null 2>&1; then
+  osascript <<EOF 2>/dev/null || true
+tell application "Terminal"
+  set default settings to settings set "$TERM_PROFILE"
+  repeat with w in windows
+    try
+      set current settings of tabs of w to settings set "$TERM_PROFILE"
+    end try
+  end repeat
+end tell
+EOF
+fi
+
+# btop — rewrite the theme in the mutable conf.
+BTOP_CONF="$HOME/.config/btop/btop.conf"
+if [ -f "$BTOP_CONF" ]; then
+  /usr/bin/sed -i '' "s/^color_theme = .*/color_theme = \"$BTOP_THEME\"/" "$BTOP_CONF" 2>/dev/null || true
+fi
+
+# tmux — reload (ANSI status follows the terminal palette).
+if command -v tmux >/dev/null 2>&1 && tmux info >/dev/null 2>&1; then
+  tmux source-file "$HOME/.config/tmux/tmux.conf" >/dev/null 2>&1 || true
+fi
+
+echo "theme-sync: $MODE"

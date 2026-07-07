@@ -13,6 +13,9 @@
     # git tooling
     lazygit
 
+    # tmux session manager (used by the sesh popup + wts alias)
+    sesh
+
     # kubernetes
     kubectl
     kubernetes-helm

@@ -1,0 +1,46 @@
+# sesh — smart tmux session manager
+# https://github.com/joshmedeski/sesh
+#
+# Sesh auto-discovers existing tmux sessions out of the box, so once `wt` /
+# `wtp` have spun up per-repo sessions they show up in the picker without
+# any config. Static sessions below surface common repo roots in the picker
+# even before they've been opened.
+#
+# Picker keybind: <prefix>+T in tmux (see tmux/tmux.conf). From any shell:
+# `wts` opens the same picker without needing the prefix key.
+
+[[session]]
+name = "nix-config"
+path = "~/Repos/github.com/johanhanses/nix-config"
+
+[[session]]
+name = "dt-apps"
+path = "~/Repos/github.com/Digital-Tvilling/dt-apps"
+
+# Names match `basename` of the repo path so they collide with sessions
+# created by `wt` / `wtc` / `wtg` (which derive the session name from the
+# main worktree's basename). Don't rename without updating _wt_session.
+[[session]]
+name = "digital-tvilling-dev"
+path = "~/Repos/github.com/Digital-Tvilling/digital-tvilling-dev"
+
+[[session]]
+name = "digital-tvilling-prod"
+path = "~/Repos/github.com/Digital-Tvilling/digital-tvilling-prod"
+
+[[session]]
+name = "digital-tvilling-infra"
+path = "~/Repos/github.com/Digital-Tvilling/digital-tvilling-infra"
+
+[[session]]
+name = "obsidian"
+path = "~/Repos/github.com/Digital-Tvilling/obsidian"
+
+[[session]]
+name = "zettelkasten"
+path = "~/Repos/github.com/johanhanses/zettelkasten"
+
+# Add more as needed:
+# [[session]]
+# name = "<repo-basename>"
+# path = "<absolute-or-tilde-path>"
