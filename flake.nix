@@ -14,6 +14,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Declarative Homebrew (owns /opt/homebrew, taps pinned as inputs).
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+
     # Determinate owns the Nix installation/daemon (nix.enable = false in nix-darwin).
     determinate.url = "github:DeterminateSystems/determinate";
   };
@@ -24,6 +35,9 @@
       nixpkgs,
       nix-darwin,
       home-manager,
+      nix-homebrew,
+      homebrew-core,
+      homebrew-cask,
       determinate,
     }:
     {
@@ -33,6 +47,21 @@
         modules = [
           determinate.darwinModules.default
           ./hosts/megamackan
+
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = false;
+              user = "johanhanses";
+              taps = {
+                "homebrew/homebrew-core" = homebrew-core;
+                "homebrew/homebrew-cask" = homebrew-cask;
+              };
+              mutableTaps = false;
+            };
+          }
+
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

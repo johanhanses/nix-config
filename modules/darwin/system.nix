@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   # Determinate Nix manages the Nix installation and daemon, so nix-darwin
   # must NOT manage nix itself. (Top cause of Determinate + nix-darwin breakage.)
@@ -12,4 +12,10 @@
 
   # zsh is the login shell; full config lives in home-manager (Phase 4).
   programs.zsh.enable = true;
+
+  # Fonts (nerd fonts for the terminal + nvim icons).
+  fonts.packages = with pkgs; [
+    nerd-fonts.geist-mono
+    nerd-fonts.symbols-only
+  ];
 }
