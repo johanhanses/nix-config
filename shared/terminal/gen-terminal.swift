@@ -17,7 +17,8 @@ func arch(_ obj: Any) -> Data {
     return try! NSKeyedArchiver.archivedData(withRootObject: obj, requiringSecureCoding: false)
 }
 
-let font = NSFont(name: "GeistMonoNFM-Regular", size: 15)!
+// Full-width Nerd Font variant (NF, not NFM/Mono) so powerline caps render smooth.
+let font = NSFont(name: "GeistMonoNF-Regular", size: 15)!
 
 func makeProfile(name: String, bg: String, fg: String, cursor: String, sel: String, ansi: [String]) -> [String: Any] {
     let ansiKeys = [
