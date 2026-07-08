@@ -177,7 +177,8 @@ alias wts='sesh connect "$(sesh list -tcd | sort | fzf --height=40% --reverse --
 # session+window. Works from any shell, doesn't need to be inside a repo.
 # Override WT_REPOS (colon-separated paths) to point at different roots.
 wtg() {
-  local repos="${WT_REPOS:-$HOME/Repos/github.com/johanhanses/nix-config:$HOME/Repos/github.com/johanhanses/zettelkasten:$HOME/Repos/github.com/Digital-Tvilling/dt-apps:$HOME/Repos/github.com/Digital-Tvilling/digital-tvilling-dev:$HOME/Repos/github.com/Digital-Tvilling/digital-tvilling-prod:$HOME/Repos/github.com/Digital-Tvilling/obsidian}"
+  # Personal defaults; extend via WT_REPOS in ~/.config/zsh/local.zsh (e.g. work repos).
+  local repos="${WT_REPOS:-$HOME/Repos/github.com/johanhanses/nix-config:$HOME/Repos/github.com/johanhanses/zettelkasten}"
   local root sess path entries=() line
   for root in ${(s/:/)repos}; do
     [[ -e "$root/.git" ]] || continue
@@ -289,15 +290,7 @@ alias dot="cd $DOTFILES"
 alias scripts="cd $DOTFILES/scripts"
 alias rwdot="cd $REPOS/github.com/rwxrob/dot"
 alias rob="cd $REPOS/github.com/rwxrob"
-alias dt="cd $REPOS/github.com/Digital-Tvilling"
-alias plan="cd $REPOS/github.com/Digital-Tvilling/DT-Frontend-planning"
-alias lkab="cd $REPOS/github.com/Digital-Tvilling/digitaltvilling"
-alias rtm="cd $REPOS/github.com/Digital-Tvilling/dt-apps"
-alias deploy="cd $REPOS/github.com/Digital-Tvilling/deployment-configuration"
-alias backend="cd $REPOS/github.com/Digital-Tvilling/deployment-configuration/external/localhost"
-alias dti="cd $REPOS/github.com/Digital-Tvilling/dti"
-alias dev="cd $REPOS/github.com/Digital-Tvilling/digital-tvilling-dev"
-alias prod="cd $REPOS/github.com/Digital-Tvilling/digital-tvilling-prod"
+# Work / client directory aliases live in ~/.config/zsh/local.zsh (untracked).
 alias home="cd $REPOS/github.com/johanhanses/johanhanses.com/"
 alias sb="cd $SECOND_BRAIN"
 alias config="cd $XDG_CONFIG_HOME"
@@ -358,3 +351,6 @@ alias dc="docker compose"
 
 # source zshrc
 alias szr="source ~/.zshrc"
+
+# Local, untracked overrides (work/client env, aliases, WT_REPOS) — not in the public repo.
+[ -f "$HOME/.config/zsh/local.zsh" ] && source "$HOME/.config/zsh/local.zsh"

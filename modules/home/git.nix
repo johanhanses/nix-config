@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   programs.git = {
     enable = true;
@@ -21,6 +21,12 @@
       "**/.claude/settings.local.json"
     ];
 
+    # Work / client-specific git config (extra credential helpers, client TLS
+    # certs, etc.) lives in an untracked local file, kept out of this repo.
+    includes = [
+      { path = "${config.home.homeDirectory}/.config/git/local.gitconfig"; }
+    ];
+
     settings = {
       user = {
         name = "Johan Hanses";
@@ -35,20 +41,12 @@
       merge.conflictstyle = "diff3";
       diff.colorMoved = "default";
 
-      # Default helper for hosts using ~/.git-credentials (e.g. gitlab.delaval.cloud).
+      # Default helper for other hosts using ~/.git-credentials.
       credential.helper = "store";
 
       # GitHub via gh's credential helper.
       "credential \"https://github.com\"".helper = [ "" "!gh auth git-credential" ];
       "credential \"https://gist.github.com\"".helper = [ "" "!gh auth git-credential" ];
-
-      # LKAB on-prem GitHub Enterprise: client cert + macOS keychain.
-      "credential \"https://github.lkab.com\"".helper = [ "" "osxkeychain" ];
-      "http \"https://github.lkab.com/\"" = {
-        sslVerify = true;
-        sslCert = "/Users/johanhanses/Repos/github.com/Digital-Tvilling/.lkab/on-prem/cert/certificate.pem";
-        sslKey = "/Users/johanhanses/Repos/github.com/Digital-Tvilling/.lkab/on-prem/cert/private_key.pem";
-      };
     };
   };
 

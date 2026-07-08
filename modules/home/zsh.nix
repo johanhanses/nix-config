@@ -24,10 +24,8 @@
       DOTFILES = "$HOME/Repos/github.com/johanhanses/nix-config";
       SCRIPTS = "$HOME/Repos/github.com/johanhanses/nix-config/shared/scripts";
       SECOND_BRAIN = "$HOME/Repos/github.com/johanhanses/zettelkasten";
-      WORK_DIR = "$HOME/Repos/github.com/Digital-Tvilling";
-      LKAB_DIR = "$HOME/Repos/github.com/Digital-Tvilling/.lkab";
-      ONPREM_CONFIG_DIR = "$HOME/Repos/github.com/Digital-Tvilling/.lkab/on-prem/config";
-      ONPREM_CERT_DIR = "$HOME/Repos/github.com/Digital-Tvilling/.lkab/on-prem/cert";
+      # Work-specific env (WORK_DIR, client dirs, WT_REPOS) + aliases live in
+      # the untracked ~/.config/zsh/local.zsh, sourced from shared/zsh/init.zsh.
       AWS_PROFILE = "saml";
       KUBECONFIG = "$HOME/.kube/config";
     };
