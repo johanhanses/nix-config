@@ -52,12 +52,12 @@ func makeProfile(name: String, bg: String, fg: String, cursor: String, sel: Stri
     return d
 }
 
-let macchiato = makeProfile(
-    name: "Catppuccin Macchiato",
-    bg: "24273a", fg: "cad3f5", cursor: "f4dbd6", sel: "5b6078",
+let frappe = makeProfile(
+    name: "Catppuccin Frappe",
+    bg: "303446", fg: "c6d0f5", cursor: "f2d5cf", sel: "626880",
     ansi: [
-        "494d64", "ed8796", "a6da95", "eed49f", "8aadf4", "f5bde6", "8bd5ca", "b8c0e0",
-        "5b6078", "ed8796", "a6da95", "eed49f", "8aadf4", "f5bde6", "8bd5ca", "a5adcb",
+        "51576d", "e78284", "a6d189", "e5c890", "8caaee", "f4b8e4", "81c8be", "b5bfe2",
+        "626880", "e78284", "a6d189", "e5c890", "8caaee", "f4b8e4", "81c8be", "a5adce",
     ]
 )
 
@@ -71,7 +71,7 @@ let latte = makeProfile(
 )
 
 let outDir = CommandLine.arguments[1]
-for (fname, dict) in [("Catppuccin Macchiato.terminal", macchiato), ("Catppuccin Latte.terminal", latte)] {
+for (fname, dict) in [("Catppuccin Frappe.terminal", frappe), ("Catppuccin Latte.terminal", latte)] {
     let data = try! PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
     let url = URL(fileURLWithPath: outDir).appendingPathComponent(fname)
     try! data.write(to: url)

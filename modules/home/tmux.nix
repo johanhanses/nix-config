@@ -78,7 +78,7 @@
       #     Flavour chosen by macOS appearance at startup; re-sourced on toggle
       #     by theme-sync (Macchiato = dark, Latte = light). ---
       if-shell '[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]' \
-        "source-file ~/.config/tmux/themes/catppuccin-macchiato.tmux" \
+        "source-file ~/.config/tmux/themes/catppuccin-frappe.tmux" \
         "source-file ~/.config/tmux/themes/catppuccin-latte.tmux"
     '';
   };
