@@ -1,6 +1,6 @@
 // Generates the Catppuccin Terminal.app profiles (.terminal plists) with proper
 // archived NSColor/NSFont blobs. Run: swift gen-terminal.swift <output-dir>
-// Dark flavor = Macchiato, light flavor = Latte.
+// Dark flavor = Frappe, light flavor = Latte.
 import AppKit
 
 func color(_ hex: String) -> NSColor {

@@ -76,7 +76,7 @@
 
       # --- theme: expressive Catppuccin status bar (segmented powerline).
       #     Flavour chosen by macOS appearance at startup; re-sourced on toggle
-      #     by theme-sync (Macchiato = dark, Latte = light). ---
+      #     by theme-sync (Frappe = dark, Latte = light). ---
       if-shell '[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]' \
         "source-file ~/.config/tmux/themes/catppuccin-frappe.tmux" \
         "source-file ~/.config/tmux/themes/catppuccin-latte.tmux"
@@ -85,7 +85,7 @@
 
   # Ship the tmux status-bar themes (sourced above + by theme-sync).
   xdg.configFile = {
-    "tmux/themes/catppuccin-macchiato.tmux".source = ../../shared/tmux/themes/catppuccin-macchiato.tmux;
+    "tmux/themes/catppuccin-frappe.tmux".source = ../../shared/tmux/themes/catppuccin-frappe.tmux;
     "tmux/themes/catppuccin-latte.tmux".source = ../../shared/tmux/themes/catppuccin-latte.tmux;
   };
 }
