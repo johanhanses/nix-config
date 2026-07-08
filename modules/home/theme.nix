@@ -14,7 +14,8 @@ in
         "exec ${scripts}/theme-watch"
       ];
       EnvironmentVariables = {
-        PATH = "/usr/bin:/bin:/usr/sbin:/sbin:/run/current-system/sw/bin";
+        # per-user profile bin gives theme-sync access to jq (Mattermost push).
+        PATH = "/usr/bin:/bin:/usr/sbin:/sbin:/etc/profiles/per-user/johanhanses/bin:/run/current-system/sw/bin";
         THEME_SYNC = "${scripts}/theme-sync";
       };
       RunAtLoad = true;

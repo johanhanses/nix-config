@@ -6,7 +6,9 @@
 #   - Terminal.app  : switch the profile (requires the two profiles imported)
 #   - btop          : rewrite color_theme in the mutable btop.conf
 #   - tmux          : re-source (status bar uses ANSI, follows the terminal)
+#   - Mattermost    : push a custom theme via REST (needs the private config)
 #   - bat / fzf / delta / nvim self-follow (ANSI palette / auto-dark-mode)
+set -u
 
 # Detect appearance. `defaults read -g AppleInterfaceStyle` is unreliable in
 # non-interactive / launchd contexts (cfprefsd returns "does not exist" even in
@@ -54,6 +56,28 @@ fi
 # tmux — reload (ANSI status follows the terminal palette).
 if command -v tmux >/dev/null 2>&1 && tmux info >/dev/null 2>&1; then
   tmux source-file "$HOME/.config/tmux/tmux.conf" >/dev/null 2>&1 || true
+fi
+
+# Mattermost Desktop via REST — push a Catppuccin custom theme (user + teams).
+MM_CFG="$HOME/Repos/github.com/johanhanses/dotfiles-private/mattermost/config"
+CAT_MOCHA='{"sidebarBg":"#181825","sidebarText":"#bac2de","sidebarUnreadText":"#cdd6f4","sidebarTextHoverBg":"#313244","sidebarTextActiveBorder":"#89b4fa","sidebarTextActiveColor":"#cdd6f4","sidebarHeaderBg":"#11111b","sidebarHeaderTextColor":"#cdd6f4","onlineIndicator":"#a6e3a1","awayIndicator":"#f9e2af","dndIndicator":"#f38ba8","mentionBg":"#89b4fa","mentionColor":"#1e1e2e","centerChannelBg":"#1e1e2e","centerChannelColor":"#cdd6f4","newMessageSeparator":"#eba0ac","linkColor":"#89b4fa","buttonBg":"#89b4fa","buttonColor":"#1e1e2e","errorTextColor":"#f38ba8","mentionHighlightBg":"#45475a","mentionHighlightLink":"#b4befe","codeTheme":"monokai","sidebarTeamBarBg":"#11111b"}'
+CAT_LATTE='{"sidebarBg":"#e6e9ef","sidebarText":"#5c5f77","sidebarUnreadText":"#4c4f69","sidebarTextHoverBg":"#ccd0da","sidebarTextActiveBorder":"#1e66f5","sidebarTextActiveColor":"#4c4f69","sidebarHeaderBg":"#dce0e8","sidebarHeaderTextColor":"#4c4f69","onlineIndicator":"#40a02b","awayIndicator":"#df8e1d","dndIndicator":"#d20f39","mentionBg":"#1e66f5","mentionColor":"#eff1f5","centerChannelBg":"#eff1f5","centerChannelColor":"#4c4f69","newMessageSeparator":"#e64553","linkColor":"#1e66f5","buttonBg":"#1e66f5","buttonColor":"#eff1f5","errorTextColor":"#d20f39","mentionHighlightBg":"#bcc0cc","mentionHighlightLink":"#7287fd","codeTheme":"github","sidebarTeamBarBg":"#dce0e8"}'
+if [ -f "$MM_CFG" ] && command -v jq >/dev/null 2>&1; then
+  # shellcheck source=/dev/null
+  . "$MM_CFG"
+  if [ -n "${MATTERMOST_URL:-}" ] && [ -n "${MATTERMOST_TOKEN:-}" ]; then
+    if [ "$MODE" = dark ]; then MM_THEME="$CAT_MOCHA"; else MM_THEME="$CAT_LATTE"; fi
+    MM_UID=$(curl -sf -H "Authorization: Bearer $MATTERMOST_TOKEN" "$MATTERMOST_URL/api/v4/users/me" 2>/dev/null | jq -r '.id' 2>/dev/null || true)
+    if [ -n "${MM_UID:-}" ] && [ "$MM_UID" != null ]; then
+      MM_PAYLOAD=$(jq -n --arg uid "$MM_UID" --arg theme "$MM_THEME" '[{user_id:$uid,category:"theme",name:"",value:$theme}]')
+      for TID in $(curl -sf -H "Authorization: Bearer $MATTERMOST_TOKEN" "$MATTERMOST_URL/api/v4/users/$MM_UID/teams" 2>/dev/null | jq -r '.[].id' 2>/dev/null); do
+        MM_PAYLOAD=$(printf '%s' "$MM_PAYLOAD" | jq --arg uid "$MM_UID" --arg tid "$TID" --arg theme "$MM_THEME" '. + [{user_id:$uid,category:"theme",name:$tid,value:$theme}]')
+      done
+      curl -sf -X PUT -H "Authorization: Bearer $MATTERMOST_TOKEN" -H "Content-Type: application/json" \
+        --data "$MM_PAYLOAD" "$MATTERMOST_URL/api/v4/users/$MM_UID/preferences" >/dev/null 2>&1 \
+        && echo "mattermost: synced ($MODE)" || true
+    fi
+  fi
 fi
 
 echo "theme-sync: $MODE"
