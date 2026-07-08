@@ -18,8 +18,9 @@ func arch(_ obj: Any) -> Data {
 }
 
 // Full-width Nerd Font variant (NF, not NFM/Mono) so powerline caps render smooth.
-// Medium weight — Regular reads too thin, especially on the light (Latte) bg.
-let font = NSFont(name: "GeistMonoNF-Medium", size: 15)!
+// SemiBold weight — Regular/Medium read too thin, especially on the light (Latte) bg.
+// (Step between Medium and Bold; swap to GeistMonoNF-Bold for more punch.)
+let font = NSFont(name: "GeistMonoNF-SemiBold", size: 15)!
 
 func makeProfile(name: String, bg: String, fg: String, cursor: String, sel: String, ansi: [String]) -> [String: Any] {
     let ansiKeys = [
