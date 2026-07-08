@@ -8,6 +8,7 @@
     ./cli.nix
     ./btop.nix
     ./neovim.nix
+    ./theme.nix
   ];
 
   home.username = "johanhanses";

@@ -39,4 +39,10 @@
 
     LaunchServices.LSQuarantine = false; # no "are you sure you want to open" nag
   };
+
+  # Remap Caps Lock -> Control.
+  system.keyboard = {
+    enableKeyMapping = true;
+    remapCapsLockToControl = true;
+  };
 }
