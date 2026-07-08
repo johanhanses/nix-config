@@ -9,8 +9,8 @@
 # Picker keybind: <prefix>+T in tmux (see tmux/tmux.conf). From any shell:
 # `wts` opens the same picker without needing the prefix key.
 #
-# Work/client repo entries are kept out of this public repo — add them in a
-# personal overlay if desired (running tmux sessions are auto-discovered anyway).
+# Work/client repo entries live in an untracked overlay, kept out of this repo.
+import = ["~/.config/sesh/local.toml"]
 
 [[session]]
 name = "nix-config"

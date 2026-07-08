@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   programs.fzf = {
     enable = true;
@@ -39,4 +39,14 @@
   # sesh — smart tmux session manager (static session list; live sessions are
   # auto-discovered). No native HM module, so ship the config file directly.
   xdg.configFile."sesh/sesh.toml".source = ../../shared/sesh/sesh.toml;
+
+  # sesh.toml imports an untracked work/client overlay; sesh errors if the
+  # import target is missing, so ensure it always exists (empty on fresh setups).
+  home.activation.seshLocal = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    f="$HOME/.config/sesh/local.toml"
+    if [ ! -e "$f" ]; then
+      run mkdir -p "$HOME/.config/sesh"
+      run touch "$f"
+    fi
+  '';
 }
