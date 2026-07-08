@@ -17,6 +17,21 @@ Iterate safely by building first (no sudo), then switching:
 nix build ~/Repos/github.com/johanhanses/nix-config#darwinConfigurations.megamackan.system
 ```
 
+### Aliases (defined in `shared/zsh/init.zsh`)
+
+| Alias | What it does |
+|-------|--------------|
+| `nrs` | rebuild + apply (`darwin-rebuild switch`) — run after editing config |
+| `nrb` | build/test only, no sudo (catch errors before switching) |
+| `nup` | `nix flake update` (bump nixpkgs/inputs) **then** rebuild + apply |
+| `ngen` | list system generations |
+| `ngc` | delete old generations + garbage-collect the store |
+| `ncfg` | `cd` to the config repo |
+
+**Typical loop:** edit files under `modules/`, run `nrb` to check it builds, then `nrs`
+to apply. To pull in newer package versions, run `nup` (then `git commit` the updated
+`flake.lock`). Homebrew casks auto-update on each switch (`upgrade = true`).
+
 ## What Nix manages
 
 - **System** (`modules/darwin/`): Determinate Nix (`nix.enable = false`), hostname,

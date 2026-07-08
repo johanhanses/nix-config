@@ -349,6 +349,14 @@ alias zj="zellij"
 alias d="docker"
 alias dc="docker compose"
 
+# nix-darwin — manage this machine's config ($DOTFILES = nix-config repo)
+alias nrs='sudo darwin-rebuild switch --flake "$DOTFILES#megamackan"'                                          # rebuild + apply
+alias nrb='darwin-rebuild build --flake "$DOTFILES#megamackan"'                                                # build/test only (no sudo)
+alias nup='(cd "$DOTFILES" && nix flake update) && sudo darwin-rebuild switch --flake "$DOTFILES#megamackan"'  # update flake inputs + apply
+alias ngen='sudo darwin-rebuild --list-generations'                                                            # list system generations
+alias ngc='sudo nix-collect-garbage -d'                                                                        # delete old generations + GC the store
+alias ncfg='cd "$DOTFILES"'                                                                                     # jump to the config repo
+
 # source zshrc
 alias szr="source ~/.zshrc"
 
