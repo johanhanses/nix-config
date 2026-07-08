@@ -43,5 +43,7 @@
   home.sessionPath = [
     "$HOME/.local/bin"
     "${config.home.homeDirectory}/Repos/github.com/johanhanses/nix-config/shared/scripts"
+    # zettelkasten holds personal scripts (notes, day) that run as commands.
+    "${config.home.homeDirectory}/Repos/github.com/johanhanses/zettelkasten"
   ];
 }
