@@ -19,6 +19,7 @@
       AppleShowAllExtensions = true;
       KeyRepeat = 1;
       InitialKeyRepeat = 10;
+      ApplePressAndHoldEnabled = false; # hold a key to repeat, not the accent popup
       NSAutomaticSpellingCorrectionEnabled = false;
       NSAutomaticCapitalizationEnabled = false;
       NSAutomaticPeriodSubstitutionEnabled = false;

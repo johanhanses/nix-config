@@ -2,17 +2,20 @@
 # theme-watch — run theme-sync whenever the macOS appearance changes.
 # Runs as a user launchd agent (KeepAlive); polls every few seconds, same
 # cadence as auto-dark-mode.nvim. Fires once at startup to set the initial theme.
+#
+# Uses System Events for detection — `defaults read -g AppleInterfaceStyle` is
+# unreliable in launchd contexts (returns "does not exist" even in dark mode).
 SYNC="${THEME_SYNC:-$HOME/Repos/github.com/johanhanses/nix-config/shared/scripts/theme-sync}"
 last=""
 while :; do
-  if defaults read -g AppleInterfaceStyle >/dev/null 2>&1; then
-    cur=Dark
-  else
-    cur=Light
-  fi
-  if [ "$cur" != "$last" ]; then
+  cur=$(osascript -e 'tell application "System Events" to tell appearance preferences to get dark mode' 2>/dev/null)
+  case "$cur" in
+    true | false) ;;
+    *) cur="$last" ;; # query failed — keep previous, don't thrash
+  esac
+  if [ -n "$cur" ] && [ "$cur" != "$last" ]; then
     last="$cur"
-    "$SYNC" >/dev/null 2>&1 || true
+    "$SYNC" 2>&1
   fi
   sleep 3
 done
