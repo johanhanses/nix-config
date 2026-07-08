@@ -46,7 +46,10 @@ Constraints that aren't obvious from any single file:
 
 - **Determinate Nix owns the daemon** — keep `nix.enable = false`; do not add
   nix-darwin's own Nix management.
-- **Theming**: Catppuccin Latte (light) / Frappe (dark) everywhere. Most CLI tools
+- **Theming**: a custom Claude-warm palette everywhere — ivory `#faf9f5` light /
+  warm charcoal `#262624` dark, coral `#c96442` accent, no purple. Canonical hex
+  values live in `shared/terminal/gen-terminal.swift`; the tmux/btop/nvim themes
+  mirror them and must be kept in sync. Most CLI tools
   inherit the terminal's ANSI palette and switch for free; nvim and btop switch
   explicitly. A `theme-watch` launchd agent (defined in `modules/home/theme.nix`)
   polls macOS appearance via System Events and runs `theme-sync` — `defaults read -g

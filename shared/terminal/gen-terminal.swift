@@ -1,6 +1,7 @@
-// Generates the Catppuccin Terminal.app profiles (.terminal plists) with proper
+// Generates the Claude-warm Terminal.app profiles (.terminal plists) with proper
 // archived NSColor/NSFont blobs. Run: swift gen-terminal.swift <output-dir>
-// Dark flavor = Frappe, light flavor = Latte.
+// Palette modeled on the Claude desktop app: warm charcoal dark / ivory light,
+// coral accent, olive-sage-gold-slate ANSI hues (no purple).
 import AppKit
 
 func color(_ hex: String) -> NSColor {
@@ -18,7 +19,7 @@ func arch(_ obj: Any) -> Data {
 }
 
 // Full-width Nerd Font variant (NF, not NFM/Mono) so powerline caps render smooth.
-// SemiBold weight — Regular/Medium read too thin, especially on the light (Latte) bg.
+// SemiBold weight — Regular/Medium read too thin, especially on the light (ivory) bg.
 // (Step between Medium and Bold; swap to GeistMonoNF-Bold for more punch.)
 let font = NSFont(name: "GeistMonoNF-SemiBold", size: 15)!
 
@@ -52,26 +53,26 @@ func makeProfile(name: String, bg: String, fg: String, cursor: String, sel: Stri
     return d
 }
 
-let frappe = makeProfile(
-    name: "Catppuccin Frappe",
-    bg: "303446", fg: "c6d0f5", cursor: "f2d5cf", sel: "626880",
+let dark = makeProfile(
+    name: "Claude Dark",
+    bg: "262624", fg: "e8e6dc", cursor: "c96442", sel: "4a453e",
     ansi: [
-        "51576d", "e78284", "a6d189", "e5c890", "8caaee", "f4b8e4", "81c8be", "b5bfe2",
-        "626880", "e78284", "a6d189", "e5c890", "8caaee", "f4b8e4", "81c8be", "a5adce",
+        "1f1e1d", "e0705f", "90a870", "d0a45c", "85a3c4", "c68a94", "7fae9b", "c9c5b9",
+        "6b675c", "e88373", "a3b985", "ddb46f", "9ab4d1", "d3a0ab", "93bfae", "e8e6dc",
     ]
 )
 
-let latte = makeProfile(
-    name: "Catppuccin Latte",
-    bg: "eff1f5", fg: "4c4f69", cursor: "dc8a78", sel: "acb0be",
+let light = makeProfile(
+    name: "Claude Light",
+    bg: "faf9f5", fg: "3d3d3a", cursor: "c96442", sel: "e3ddd0",
     ansi: [
-        "5c5f77", "d20f39", "40a02b", "df8e1d", "1e66f5", "ea76cb", "179299", "acb0be",
-        "6c6f85", "d20f39", "40a02b", "df8e1d", "1e66f5", "ea76cb", "179299", "bcc0cc",
+        "3d3d3a", "b0432f", "5a7a37", "9c7420", "4c6d96", "9c5468", "457a68", "e8e6dc",
+        "6b675c", "c9573f", "6d8c4a", "b08a34", "5f80a8", "b06a80", "5a8f7d", "faf9f5",
     ]
 )
 
 let outDir = CommandLine.arguments[1]
-for (fname, dict) in [("Catppuccin Frappe.terminal", frappe), ("Catppuccin Latte.terminal", latte)] {
+for (fname, dict) in [("Claude Dark.terminal", dark), ("Claude Light.terminal", light)] {
     let data = try! PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
     let url = URL(fileURLWithPath: outDir).appendingPathComponent(fname)
     try! data.write(to: url)

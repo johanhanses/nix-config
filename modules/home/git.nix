@@ -58,7 +58,7 @@
       navigate = true;
       side-by-side = false;
       decorations = true;
-      # base16 follows the terminal's ANSI palette → tracks Catppuccin light/dark.
+      # base16 follows the terminal's ANSI palette → tracks the theme light/dark.
       syntax-theme = "base16";
     };
   };

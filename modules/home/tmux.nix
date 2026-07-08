@@ -74,18 +74,18 @@
       # toggle status bar
       bind-key b set-option status
 
-      # --- theme: expressive Catppuccin status bar (segmented powerline).
-      #     Flavour chosen by macOS appearance at startup; re-sourced on toggle
-      #     by theme-sync (Frappe = dark, Latte = light). ---
+      # --- theme: Claude-warm status bar (segmented powerline).
+      #     Variant chosen by macOS appearance at startup; re-sourced on toggle
+      #     by theme-sync. ---
       if-shell '[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]' \
-        "source-file ~/.config/tmux/themes/catppuccin-frappe.tmux" \
-        "source-file ~/.config/tmux/themes/catppuccin-latte.tmux"
+        "source-file ~/.config/tmux/themes/claude-dark.tmux" \
+        "source-file ~/.config/tmux/themes/claude-light.tmux"
     '';
   };
 
   # Ship the tmux status-bar themes (sourced above + by theme-sync).
   xdg.configFile = {
-    "tmux/themes/catppuccin-frappe.tmux".source = ../../shared/tmux/themes/catppuccin-frappe.tmux;
-    "tmux/themes/catppuccin-latte.tmux".source = ../../shared/tmux/themes/catppuccin-latte.tmux;
+    "tmux/themes/claude-dark.tmux".source = ../../shared/tmux/themes/claude-dark.tmux;
+    "tmux/themes/claude-light.tmux".source = ../../shared/tmux/themes/claude-light.tmux;
   };
 }

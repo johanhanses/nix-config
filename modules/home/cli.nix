@@ -6,7 +6,7 @@
     defaultCommand = "fd --type f --hidden --follow --exclude .git";
     fileWidget.command = "fd --type f --hidden --follow --exclude .git";
     changeDirWidget.command = "fd --type d --hidden --follow --exclude .git";
-    # no custom colours → fzf inherits the terminal's Catppuccin palette
+    # no custom colours → fzf inherits the terminal's terminal palette
   };
 
   programs.bat = {

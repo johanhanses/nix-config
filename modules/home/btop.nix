@@ -2,10 +2,10 @@
 {
   home.packages = [ pkgs.btop ];
 
-  # Catppuccin btop themes (read-only is fine for theme files).
+  # Claude-warm btop themes (read-only is fine for theme files).
   xdg.configFile = {
-    "btop/themes/catppuccin_frappe.theme".source = ../../shared/themes/btop/catppuccin_frappe.theme;
-    "btop/themes/catppuccin_latte.theme".source = ../../shared/themes/btop/catppuccin_latte.theme;
+    "btop/themes/claude_dark.theme".source = ../../shared/themes/btop/claude_dark.theme;
+    "btop/themes/claude_light.theme".source = ../../shared/themes/btop/claude_light.theme;
   };
 
   # btop.conf must stay mutable so theme-sync can rewrite color_theme on the

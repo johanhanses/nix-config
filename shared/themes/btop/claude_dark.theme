@@ -1,0 +1,85 @@
+# Claude Dark — warm charcoal, coral accent (no purple)
+
+# Main background, empty for terminal default, need to be empty if you want transparent background
+theme[main_bg]="#262624"
+
+# Main text color
+theme[main_fg]="#e8e6dc"
+
+# Title color for boxes
+theme[title]="#e8e6dc"
+
+# Highlight color for keyboard shortcuts
+theme[hi_fg]="#c96442"
+
+# Background color of selected item in processes box
+theme[selected_bg]="#403e3a"
+
+# Foreground color of selected item in processes box
+theme[selected_fg]="#c96442"
+
+# Color of inactive/disabled text
+theme[inactive_fg]="#918e83"
+
+# Color of text appearing on top of graphs, i.e uptime and current network graph scaling
+theme[graph_text]="#c9c5b9"
+
+# Background color of the percentage meters
+theme[meter_bg]="#403e3a"
+
+# Misc colors for processes box including mini cpu graphs, details memory graph and details status text
+theme[proc_misc]="#c9c5b9"
+
+# CPU, Memory, Network, Proc box outline colors
+theme[cpu_box]="#c96442" #Coral
+theme[mem_box]="#90a870" #Olive
+theme[net_box]="#c68a94" #Rose
+theme[proc_box]="#85a3c4" #Slate
+
+# Box divider line and small boxes line color
+theme[div_line]="#55524b"
+
+# Temperature graph color (Olive -> Gold -> Red)
+theme[temp_start]="#90a870"
+theme[temp_mid]="#d0a45c"
+theme[temp_end]="#e0705f"
+
+# CPU graph colors (Sage -> Slate)
+theme[cpu_start]="#7fae9b"
+theme[cpu_mid]="#85a3c4"
+theme[cpu_end]="#9ab4d1"
+
+# Mem/Disk free meter (Rose -> Slate)
+theme[free_start]="#c68a94"
+theme[free_mid]="#a596ac"
+theme[free_end]="#85a3c4"
+
+# Mem/Disk cached meter (Sage -> Slate)
+theme[cached_start]="#7fae9b"
+theme[cached_mid]="#93bfae"
+theme[cached_end]="#9ab4d1"
+
+# Mem/Disk available meter (Gold -> Coral)
+theme[available_start]="#d0a45c"
+theme[available_mid]="#cc8450"
+theme[available_end]="#c96442"
+
+# Mem/Disk used meter (Olive -> Sage)
+theme[used_start]="#90a870"
+theme[used_mid]="#8aab8c"
+theme[used_end]="#7fae9b"
+
+# Download graph colors (Gold -> Red)
+theme[download_start]="#d0a45c"
+theme[download_mid]="#d98a55"
+theme[download_end]="#e0705f"
+
+# Upload graph colors (Olive -> Sage)
+theme[upload_start]="#90a870"
+theme[upload_mid]="#8aab8c"
+theme[upload_end]="#7fae9b"
+
+# Process box color gradient for threads, mem and cpu usage (Slate -> Rose)
+theme[process_start]="#85a3c4"
+theme[process_mid]="#a596ac"
+theme[process_end]="#c68a94"
