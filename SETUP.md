@@ -2,7 +2,7 @@
 
 nix-darwin + home-manager configuration for this Mac (hostname **megamackan**),
 migrated from the script-based `dotfiles2026`. Curated: minimal GUI apps, full
-terminal/CLI/tmux-worktree workflow, **Catppuccin** (Latte/Mocha) with automatic
+terminal/CLI/tmux-worktree workflow, **Catppuccin** (Latte/Macchiato) with automatic
 light/dark switching.
 
 ## Rebuild
@@ -28,7 +28,7 @@ nix build ~/Repos/github.com/johanhanses/nix-config#darwinConfigurations.megamac
 
 ## Theming (Catppuccin, auto light/dark)
 
-Terminal.app carries the palette (Latte/Mocha profiles); most CLI tools follow the
+Terminal.app carries the palette (Latte/Macchiato profiles); most CLI tools follow the
 terminal's ANSI colors, so they switch for free. nvim (catppuccin + auto-dark-mode)
 and btop switch explicitly. The `theme-watch` launchd agent polls appearance via
 **System Events** and runs `theme-sync` on change (`defaults read -g

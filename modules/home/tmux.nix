@@ -74,18 +74,18 @@
       # toggle status bar
       bind-key b set-option status
 
-      # --- theme: ANSI colours follow the terminal's Catppuccin Latte/Mocha
-      #     palette, so the status bar switches light/dark with the terminal. ---
-      set -g status-style "bg=default,fg=colour7"
-      set -g status-left "#[fg=colour4,bold] #S #[default]"
-      set -g status-left-length 30
-      set -g status-right "#[fg=colour8]#{?client_prefix,#[fg=colour1]PREFIX ,}%H:%M "
-      set -g window-status-format "#[fg=colour8] #I:#W "
-      set -g window-status-current-format "#[fg=colour4,bold] #I:#W "
-      set -g pane-border-style "fg=colour8"
-      set -g pane-active-border-style "fg=colour4"
-      set -g message-style "bg=default,fg=colour4"
-      set -g mode-style "bg=colour4,fg=colour0"
+      # --- theme: expressive Catppuccin status bar (segmented powerline).
+      #     Flavour chosen by macOS appearance at startup; re-sourced on toggle
+      #     by theme-sync (Macchiato = dark, Latte = light). ---
+      if-shell '[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]' \
+        "source-file ~/.config/tmux/themes/catppuccin-macchiato.tmux" \
+        "source-file ~/.config/tmux/themes/catppuccin-latte.tmux"
     '';
+  };
+
+  # Ship the tmux status-bar themes (sourced above + by theme-sync).
+  xdg.configFile = {
+    "tmux/themes/catppuccin-macchiato.tmux".source = ../../shared/tmux/themes/catppuccin-macchiato.tmux;
+    "tmux/themes/catppuccin-latte.tmux".source = ../../shared/tmux/themes/catppuccin-latte.tmux;
   };
 }

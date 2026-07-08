@@ -4,7 +4,7 @@
 
   # Catppuccin btop themes (read-only is fine for theme files).
   xdg.configFile = {
-    "btop/themes/catppuccin_mocha.theme".source = ../../shared/themes/btop/catppuccin_mocha.theme;
+    "btop/themes/catppuccin_macchiato.theme".source = ../../shared/themes/btop/catppuccin_macchiato.theme;
     "btop/themes/catppuccin_latte.theme".source = ../../shared/themes/btop/catppuccin_latte.theme;
   };
 

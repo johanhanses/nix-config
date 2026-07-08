@@ -6,7 +6,7 @@ return {
     lazy = false,
     config = function()
       require("catppuccin").setup({
-        background = { light = "latte", dark = "mocha" },
+        background = { light = "latte", dark = "macchiato" },
         styles = {
           comments = { "italic" },
         },

@@ -27,6 +27,8 @@
       NSAutomaticDashSubstitutionEnabled = false;
       NSNavPanelExpandedStateForSaveMode = true;
       NSNavPanelExpandedStateForSaveMode2 = true;
+      # Auto-hide scroll bars (hides Terminal's scrollbar until scrolling). App-wide.
+      AppleShowScrollBars = "WhenScrolling";
       "com.apple.mouse.tapBehavior" = 1; # tap to click
     };
 

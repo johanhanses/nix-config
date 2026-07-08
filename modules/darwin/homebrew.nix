@@ -25,10 +25,13 @@
       "docker-desktop"
     ];
 
-    # Mac App Store apps deferred: Moom Classic (419330170) isn't owned on this
-    # Apple ID (the old Moom was a Many Tricks direct license, not an App Store
-    # purchase), so it's installed from the Many Tricks direct download instead.
-    # RunCat / TabBack also deferred until their IDs are confirmed on-device.
-    # masApps = { };
+    # Mac App Store apps (App Store signed in; IDs confirmed on-device via `mas list`).
+    # Moom Classic (419330170) is NOT here — not owned on this Apple ID; it's
+    # installed from the Many Tricks direct download instead (see SETUP.md).
+    masApps = {
+      "RunCat" = 1429033973;
+      "TabBack for Safari" = 1660506599;
+      "uBlock Origin Lite" = 6745342698;
+    };
   };
 }
