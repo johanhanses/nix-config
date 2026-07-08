@@ -28,6 +28,9 @@
     azure-cli
     saml2aws
 
+    # agent/scripting runtime (macOS system python3 is EOL 3.9)
+    python3
+
     # neovim toolchain — runtimes, language servers, formatters, linters
     nodejs_22
     pnpm
