@@ -295,6 +295,16 @@ alias home="cd $REPOS/github.com/johanhanses/johanhanses.com/"
 alias sb="cd $SECOND_BRAIN"
 alias config="cd $XDG_CONFIG_HOME"
 
+# obs [path] — open a note or vault in Obsidian (default: current directory).
+# The path must be inside a vault already registered in Obsidian ("Open folder
+# as vault" once per vault) — the obsidian:// URI can't register new vaults.
+obs() {
+  local target="${1:-$PWD}"
+  [[ -e "$target" ]] || { echo "obs: no such path: $target"; return 1; }
+  target="${target:a}"
+  open "obsidian://open?path=$(printf %s "$target" | jq -sRr @uri)"
+}
+
 # Tool aliases
 alias cat="bat --style=plain"
 alias fast="fast -u --single-line"

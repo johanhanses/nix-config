@@ -23,6 +23,9 @@
       "mattermost"
       "microsoft-teams"
       "docker-desktop"
+      "obsidian"
+      "google-chrome"
+      "firefox"
     ];
 
     # Mac App Store apps (App Store signed in; IDs confirmed on-device via `mas list`).
