@@ -19,8 +19,10 @@ return {
       { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent files" },
       { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
       { "<leader><space>", function() Snacks.picker.files() end, desc = "Find files" },
+      { "<leader>e", function() Snacks.explorer() end, desc = "Explorer" },
     },
     opts = {
+      explorer = { replace_netrw = true },
       picker = {
         sources = {
           files = {
@@ -31,6 +33,10 @@ return {
           grep = {
             hidden = true,
             ignored = true,
+            exclude = { ".git", "node_modules", ".next", "dist" },
+          },
+          explorer = {
+            hidden = true,
             exclude = { ".git", "node_modules", ".next", "dist" },
           },
         },
