@@ -44,8 +44,5 @@
     stylua
     shellcheck
     tree-sitter
-
-    # misc
-    terminal-notifier
   ];
 }

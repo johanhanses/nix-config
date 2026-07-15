@@ -14,6 +14,13 @@
     # taps are pinned via nix-homebrew (mutableTaps = false).
     taps = builtins.attrNames config.nix-homebrew.taps;
 
+    # Exception to the CLI-from-Nix rule: macOS ties notification permission to
+    # the app bundle path, and the nix store path changes every update, so the
+    # nix build never keeps its grant (notifications get dropped silently).
+    brews = [
+      "terminal-notifier"
+    ];
+
     casks = [
       "1password"
       "tailscale-app"
