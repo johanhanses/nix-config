@@ -8,6 +8,7 @@
     ./cli.nix
     ./btop.nix
     ./neovim.nix
+    ./ghostty.nix
     ./theme.nix
   ];
 

@@ -33,6 +33,7 @@
       "obsidian"
       "google-chrome"
       "firefox"
+      "ghostty"
     ];
 
     # Mac App Store apps (App Store signed in; IDs confirmed on-device via `mas list`).
@@ -42,6 +43,7 @@
       "RunCat" = 1429033973;
       "TabBack for Safari" = 1660506599;
       "uBlock Origin Lite" = 6745342698;
+      "Darker - Dark Mode for Safari" = 1637413102;
     };
   };
 }

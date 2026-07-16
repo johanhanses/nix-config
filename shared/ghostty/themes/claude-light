@@ -1,0 +1,23 @@
+# Claude Light — mirrors shared/terminal/gen-terminal.swift (canonical palette).
+background = #faf9f5
+foreground = #3d3d3a
+cursor-color = #c96442
+selection-background = #e3ddd0
+selection-foreground = #3d3d3a
+
+palette = 0=#3d3d3a
+palette = 1=#b0432f
+palette = 2=#5a7a37
+palette = 3=#9c7420
+palette = 4=#4c6d96
+palette = 5=#9c5468
+palette = 6=#457a68
+palette = 7=#e8e6dc
+palette = 8=#6b675c
+palette = 9=#c9573f
+palette = 10=#6d8c4a
+palette = 11=#b08a34
+palette = 12=#5f80a8
+palette = 13=#b06a80
+palette = 14=#5a8f7d
+palette = 15=#faf9f5

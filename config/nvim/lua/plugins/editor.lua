@@ -11,6 +11,15 @@ return {
   },
   {
     "folke/snacks.nvim",
+    lazy = false,
+    init = function()
+      -- Open the explorer sidebar on startup, keeping focus on the edited file.
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          Snacks.explorer({ focus = false })
+        end,
+      })
+    end,
     keys = {
       { "<leader>ff", function() Snacks.picker.files() end, desc = "Find files" },
       { "<leader>fg", function() Snacks.picker.grep() end, desc = "Grep" },
