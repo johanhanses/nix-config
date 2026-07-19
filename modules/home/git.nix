@@ -22,7 +22,8 @@
     ];
 
     # Work / client-specific git config (extra credential helpers, client TLS
-    # certs, etc.) lives in an untracked local file, kept out of this repo.
+    # certs, etc.) is tracked in the private dotfiles-private repo and linked
+    # out-of-store to ~/.config/git/local.gitconfig (see xdg.configFile below).
     includes = [
       { path = "${config.home.homeDirectory}/.config/git/local.gitconfig"; }
     ];
@@ -62,4 +63,10 @@
       syntax-theme = "base16";
     };
   };
+
+  # Work/client git overlay (included above) — content tracked in the private
+  # dotfiles-private repo, linked out-of-store so it never enters the nix store.
+  xdg.configFile."git/local.gitconfig".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/Repos/github.com/johanhanses/dotfiles-private/config/git/local.gitconfig";
 }

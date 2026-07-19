@@ -25,7 +25,8 @@
       SCRIPTS = "$HOME/Repos/github.com/johanhanses/nix-config/shared/scripts";
       SECOND_BRAIN = "$HOME/Repos/github.com/johanhanses/zettelkasten";
       # Work-specific env (WORK_DIR, client dirs, WT_REPOS) + aliases live in
-      # the untracked ~/.config/zsh/local.zsh, sourced from shared/zsh/init.zsh.
+      # ~/.config/zsh/local.zsh — linked out-of-store from the private
+      # dotfiles-private repo (see xdg.configFile below), sourced by init.zsh.
       AWS_PROFILE = "saml";
       KUBECONFIG = "$HOME/.kube/config";
     };
@@ -46,4 +47,11 @@
     # zettelkasten holds personal scripts (notes, day) that run as commands.
     "${config.home.homeDirectory}/Repos/github.com/johanhanses/zettelkasten"
   ];
+
+  # Work/client zsh overlay — content tracked in the private dotfiles-private
+  # repo, linked out-of-store so it never lands in the world-readable nix store.
+  # Requires that repo cloned at ~/Repos/github.com/johanhanses/dotfiles-private.
+  xdg.configFile."zsh/local.zsh".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/Repos/github.com/johanhanses/dotfiles-private/config/zsh/local.zsh";
 }

@@ -66,14 +66,26 @@ Run once on a fresh machine, in order:
 2. **Secrets** (out of repo): copy `~/.ssh`, `~/.aws`, `~/.saml2aws`,
    `~/.git-credentials`, `~/.config/gh/hosts.yml`, `~/.kube`, `~/.env` from backup
    (keys `chmod 600`, `.ssh` dir `700`).
-3. **Terminal.app profiles**: `terminal-theme-install` (imports the two Claude
+3. **Private overlays** (`dotfiles-private`): clone the private repo to the exact
+   path the config links against. Home-manager links
+   `~/.config/{zsh/local.zsh, sesh/local.toml, git/local.gitconfig}` **out-of-store**
+   into its `config/` tree (work `WT_REPOS` + client dir aliases, the extra sesh
+   sessions, and the LKAB enterprise git credential helper + TLS certs). Needs `~/.ssh`
+   (step 2) or `gh auth` (step 6):
+   ```sh
+   git clone git@github.com:johanhanses/dotfiles-private.git \
+     ~/Repos/github.com/johanhanses/dotfiles-private
+   ```
+   Until it exists those overlay symlinks dangle and `sesh` errors on invocation —
+   clone it, then re-run `nrs`.
+4. **Terminal.app profiles**: `terminal-theme-install` (imports the two Claude
    Dark/Light profiles from `shared/terminal/` and sets the appearance-matched one).
-4. **Moom** (classic 3.x — not owned on the App Store): install from Many Tricks
+5. **Moom** (classic 3.x — not owned on the App Store): install from Many Tricks
    `https://manytricks.com/download/moom/classic`, enter license, allow Accessibility.
-5. **Auth** (tokens expire): `gh auth login`, `saml2aws login`.
-6. **App Store menu-bar apps** (RunCat/TabBack): install from the App Store, then add
+6. **Auth** (tokens expire): `gh auth login`, `saml2aws login`.
+7. **App Store menu-bar apps** (RunCat/TabBack): install from the App Store, then add
    their IDs to `homebrew.nix` `masApps` (find with `mas search <name>`).
-7. **Log out / back in** so Caps Lock→Control + key-repeat settings fully apply.
+8. **Log out / back in** so Caps Lock→Control + key-repeat settings fully apply.
 
 ## Notes
 
