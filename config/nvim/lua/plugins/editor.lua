@@ -46,6 +46,7 @@ return {
           },
           explorer = {
             hidden = true,
+            ignored = true,
             exclude = { ".git", "node_modules", ".next", "dist" },
           },
         },

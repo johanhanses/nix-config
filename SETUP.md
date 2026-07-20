@@ -65,7 +65,11 @@ Run once on a fresh machine, in order:
    (if `/etc/nix/nix.custom.conf` conflicts, `sudo mv` it to `*.before-nix-darwin`).
 2. **Secrets** (out of repo): copy `~/.ssh`, `~/.aws`, `~/.saml2aws`,
    `~/.git-credentials`, `~/.config/gh/hosts.yml`, `~/.kube`, `~/.env` from backup
-   (keys `chmod 600`, `.ssh` dir `700`).
+   (keys `chmod 600`, `.ssh` dir `700`). Also restore the **LKAB on-prem client certs**
+   to `~/Repos/github.com/Digital-Tvilling/.lkab/on-prem/cert/` (`private_key.pem`,
+   `certificate.pem`, …) — the git overlay (`config/git/local.gitconfig` in
+   `dotfiles-private`, step 3) points `sslCert`/`sslKey` at that exact path for
+   `github.lkab.com`, so enterprise-git auth breaks without them.
 3. **Private overlays** (`dotfiles-private`): clone the private repo to the exact
    path the config links against. Home-manager links
    `~/.config/{zsh/local.zsh, sesh/local.toml, git/local.gitconfig}` **out-of-store**

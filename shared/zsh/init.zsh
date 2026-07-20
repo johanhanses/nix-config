@@ -59,15 +59,10 @@ _wt_open() {
     fi
   fi
 
-  # Worktrees don't inherit submodule checkouts — init/sync them so things like
-  # dt-apps' .agent-skills (shared skills, symlinked into .agents/skills) resolve
-  # instead of dangling. Idempotent; runs on re-open too so an existing worktree
-  # picks up pointer bumps. No-op for repos without submodules.
-  if [[ -f "$wt_path/.gitmodules" ]]; then
-    git -C "$wt_path" submodule update --init --recursive \
-      || echo "wt: submodule init failed (continuing)"
-  fi
-
+  # tsetup runs the repo's bootstrap: symlink .env files, install packages, and
+  # init any git submodules (see tsetup below). dt-apps no longer uses a submodule
+  # for skills — `npm install` fetches @digital-tvilling/agent-skills and its
+  # postinstall links them — so there's nothing worktree-specific to do here.
   ( cd "$wt_path" && tsetup ) || echo "wt: tsetup returned non-zero (continuing)"
 
   _wt_ensure_session "$sess" "$main_root"
