@@ -8,6 +8,7 @@ theme = light:claude-light,dark:claude-dark
 font-family = GeistMono Nerd Font
 font-style = SemiBold
 font-size = 15
+adjust-cell-height = 10%
 
 # Match the Terminal.app profile geometry and cursor.
 window-width = 120

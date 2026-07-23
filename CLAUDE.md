@@ -46,7 +46,7 @@ Constraints that aren't obvious from any single file:
 
 - **Determinate Nix owns the daemon** — keep `nix.enable = false`; do not add
   nix-darwin's own Nix management.
-- **Theming**: a custom Claude-warm palette everywhere — ivory `#faf9f5` light /
+- **Theming**: a custom Claude-warm palette everywhere — warm beige `#f0eee6` light /
   warm charcoal `#262624` dark, coral `#c96442` accent, no purple. Canonical hex
   values live in `shared/terminal/gen-terminal.swift`; the tmux/btop/nvim themes
   mirror them and must be kept in sync. Most CLI tools

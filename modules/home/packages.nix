@@ -28,8 +28,12 @@
     azure-cli
     saml2aws
 
-    # agent/scripting runtime (macOS system python3 is EOL 3.9)
-    python3
+    # agent/scripting runtime (macOS system python3 is EOL 3.9); pip covers
+    # ad-hoc installs into venvs — the nix site-packages itself is immutable
+    (python3.withPackages (ps: [
+      ps.pip
+      ps.pyyaml
+    ]))
 
     # neovim toolchain — runtimes, language servers, formatters, linters
     nodejs_22

@@ -44,7 +44,7 @@ to apply. To pull in newer package versions, run `nup` (then `git commit` the up
 ## Theming (Claude-warm, auto light/dark)
 
 Custom palette modeled on the Claude desktop app — warm charcoal `#262624` dark /
-ivory `#faf9f5` light, coral `#c96442` accent, olive/gold/slate/sage ANSI hues (no
+warm beige `#f0eee6` light, coral `#c96442` accent, olive/gold/slate/sage ANSI hues (no
 purple). Defined in `shared/terminal/gen-terminal.swift` and mirrored in the tmux,
 btop, and nvim themes — keep them in sync when tweaking.
 

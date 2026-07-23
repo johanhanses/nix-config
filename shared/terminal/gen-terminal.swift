@@ -64,10 +64,12 @@ let dark = makeProfile(
 
 let light = makeProfile(
     name: "Claude Light",
-    bg: "faf9f5", fg: "3d3d3a", cursor: "c96442", sel: "e3ddd0",
+    // warm parchment rather than beige f0eee6/ivory faf9f5 — a shade darker paper,
+    // with charcoal ink (same as the dark bg) so contrast rises to ~11.5:1
+    bg: "e6e0d1", fg: "262624", cursor: "c96442", sel: "d8d0bc",
     ansi: [
-        "3d3d3a", "b0432f", "5a7a37", "9c7420", "4c6d96", "9c5468", "457a68", "e8e6dc",
-        "6b675c", "c9573f", "6d8c4a", "b08a34", "5f80a8", "b06a80", "5a8f7d", "faf9f5",
+        "262624", "9e3a27", "4f6d2f", "8a661a", "426187", "8c4a5c", "3c6d5c", "dcd6c6",
+        "5f5b51", "b34c35", "5f7d3e", "9c7a28", "547397", "9e5e72", "4f8070", "e6e0d1",
     ]
 )
 
