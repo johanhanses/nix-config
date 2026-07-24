@@ -1,16 +1,16 @@
-# Claude Dark — warm charcoal, coral accent — powerline status bar (rounded caps + icons).
-# Needs a full-width Nerd Font (GeistMonoNF) — the Mono/NFM variant squeezes caps.
+# One Dark — Atom One Dark Pro, blue accent — powerline status bar (rounded caps + icons).
+# Needs a full-width Nerd Font (BlexMonoNF) — the Mono/NFM variant squeezes caps.
 
-%hidden BG="#262624"
-%hidden FG="#e8e6dc"
-%hidden SURFACE="#403e3a"
-%hidden MUTED="#918e83"
-%hidden ACCENT="#c96442"
-%hidden GREEN="#90a870"
-%hidden YELLOW="#d0a45c"
-%hidden RED="#e0705f"
-%hidden MAGENTA="#c68a94"
-%hidden CYAN="#7fae9b"
+%hidden BG="#282c34"
+%hidden FG="#abb2bf"
+%hidden SURFACE="#3e4451"
+%hidden MUTED="#5c6370"
+%hidden ACCENT="#61afef"
+%hidden GREEN="#98c379"
+%hidden YELLOW="#e5c07b"
+%hidden RED="#e06c75"
+%hidden MAGENTA="#c678dd"
+%hidden CYAN="#56b6c2"
 
 set -g status on
 set -g status-position bottom

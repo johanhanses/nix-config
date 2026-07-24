@@ -1,12 +1,13 @@
-# Ghostty — matches the Claude-warm Terminal.app profiles.
+# Ghostty — matches the One Dark/Light Terminal.app profiles.
 # Themes live in ./themes; Ghostty follows macOS appearance natively,
 # so light/dark switching needs no theme-sync wiring.
-theme = light:claude-light,dark:claude-dark
+theme = light:one-light,dark:one-dark
 
-# Same face as Terminal.app (its "GeistMonoNF-SemiBold" is the PostScript name;
-# the family is "GeistMono Nerd Font"): full-width NF variant, SemiBold at 15.
-font-family = GeistMono Nerd Font
-font-style = SemiBold
+# Same face as Terminal.app (its "BlexMonoNF-Medium" is the PostScript name;
+# the family is "BlexMono Nerd Font", i.e. IBM Plex Mono): full-width NF
+# variant, Medium at 15 (a notch lighter than SemiBold, heavier than Regular).
+font-family = BlexMono Nerd Font
+font-style = Medium
 font-size = 15
 adjust-cell-height = 10%
 

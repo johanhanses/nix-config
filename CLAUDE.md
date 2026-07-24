@@ -46,15 +46,25 @@ Constraints that aren't obvious from any single file:
 
 - **Determinate Nix owns the daemon** — keep `nix.enable = false`; do not add
   nix-darwin's own Nix management.
-- **Theming**: a custom Claude-warm palette everywhere — warm beige `#f0eee6` light /
-  warm charcoal `#262624` dark, coral `#c96442` accent, no purple. Canonical hex
-  values live in `shared/terminal/gen-terminal.swift`; the tmux/btop/nvim themes
-  mirror them and must be kept in sync. Most CLI tools
+- **Theming**: Atom One / One Dark Pro everywhere — grey-white `#fafafa` light /
+  slate `#282c34` dark, blue `#61afef`/`#4078f2` accent. Canonical hex
+  values live in `shared/terminal/gen-terminal.swift`; the ghostty/tmux/btop themes
+  mirror them and must be kept in sync (nvim uses the upstream
+  `olimorris/onedarkpro.nvim` plugin: `onedark`/`onelight`). Most CLI tools
   inherit the terminal's ANSI palette and switch for free; nvim and btop switch
   explicitly. A `theme-watch` launchd agent (defined in `modules/home/theme.nix`)
   polls macOS appearance via System Events and runs `theme-sync` — `defaults read -g
   AppleInterfaceStyle` is unreliable inside launchd, so don't "simplify" to it.
   When adding a themed tool, wire both flavors.
+- **Agent workflow**: always validate with `nrb` before asking the user to apply with
+  `nrs`. The tmux theme files (`shared/tmux/themes/`) embed Nerd Font powerline glyphs
+  that are destroyed by rewriting the file — derive new variants via `sed` from the
+  existing ones, never retype them. Regenerating the Terminal.app profiles
+  (`swift gen-terminal.swift`) requires the configured font to be registered with macOS;
+  if it isn't installed yet (pre-`nrs`), temporarily copy the TTFs from the nix store
+  into `~/Library/Fonts`, generate, then remove them. `drift-check`
+  (`shared/scripts/`) reports brew/mas installs and stray binaries not declared in the
+  flake — anything it flags gets zapped or orphaned on the next switch.
 - `secrets/` is gitignored and intentionally empty in the repo; secrets are restored
   from backup manually (see SETUP.md). Never commit anything under it.
 - `home.stateVersion` / `system.stateVersion` must not be changed.

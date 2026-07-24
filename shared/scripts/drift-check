@@ -1,0 +1,52 @@
+#!/bin/sh
+# drift-check — report what's installed outside the declarative config.
+# The flake enforces its own world on switch (homebrew cleanup = "zap"), but
+# anything installed between switches is undeclared and silently doomed —
+# this makes that gap visible. Exit 0 = clean, 1 = drift found.
+set -eu
+
+REPO="${DOTFILES:-$HOME/Repos/github.com/johanhanses/nix-config}"
+HB="$REPO/modules/darwin/homebrew.nix"
+
+# Extract quoted names from a nix list attribute: nix_list '<attr> = \['
+nix_list() {
+  awk "/$1/,/\];/" "$HB" | grep -o '"[^"]*"' | tr -d '"'
+}
+
+drift=0
+
+declared_brews=$(nix_list 'brews = \[')
+for f in $(brew leaves 2>/dev/null); do
+  echo "$declared_brews" | grep -qx "$f" || { echo "formula not declared: $f"; drift=1; }
+done
+
+declared_casks=$(nix_list 'casks = \[')
+for c in $(brew list --cask 2>/dev/null); do
+  echo "$declared_casks" | grep -qx "$c" || { echo "cask not declared: $c"; drift=1; }
+done
+
+# Mac App Store apps vs masApps (compare by app id).
+if command -v mas >/dev/null 2>&1; then
+  declared_mas=$(grep -oE '= [0-9]+;' "$HB" | grep -oE '[0-9]+')
+  mas list 2>/dev/null | while read -r id name; do
+    echo "$declared_mas" | grep -qx "$id" || echo "mas app not declared: $name ($id)"
+  done | grep . && drift=1 || true
+fi
+
+# Manually installed strays: on Apple Silicon /usr/local/bin isn't brew's
+# prefix, so real files there came from installers/curl, outside any manager.
+# Allowlist: determinate-nixd (Determinate pkg, SETUP.md step 1) and tailscale
+# (CLI shim installed by the tailscale-app cask).
+strays=$(find /usr/local/bin -maxdepth 1 -type f -perm +111 2>/dev/null \
+  | grep -vE '/(determinate-nixd|tailscale)$' || true)
+if [ -n "$strays" ]; then
+  printf 'stray binary (not brew/nix): %s\n' $strays
+  drift=1
+fi
+
+if [ "$drift" -eq 0 ]; then
+  echo "drift-check: clean"
+else
+  echo "drift-check: drift found (declare it in the flake or remove it)"
+fi
+exit "$drift"

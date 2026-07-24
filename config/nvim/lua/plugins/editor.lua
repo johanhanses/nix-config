@@ -13,10 +13,10 @@ return {
     "folke/snacks.nvim",
     lazy = false,
     init = function()
-      -- Open the explorer sidebar on startup, keeping focus on the edited file.
+      -- Open the explorer sidebar on startup with the cursor in the file tree.
       vim.api.nvim_create_autocmd("VimEnter", {
         callback = function()
-          Snacks.explorer({ focus = false })
+          Snacks.explorer()
         end,
       })
     end,
@@ -48,6 +48,10 @@ return {
             hidden = true,
             ignored = true,
             exclude = { ".git", "node_modules", ".next", "dist" },
+            -- No search box: drop the input window from the sidebar layout and
+            -- put the cursor straight into the file tree.
+            focus = "list",
+            layout = { preset = "sidebar", preview = false, hidden = { "input" } },
           },
         },
       },

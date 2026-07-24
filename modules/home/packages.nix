@@ -27,6 +27,10 @@
     awscli2
     azure-cli
     saml2aws
+    _1password-cli # `op` — agent sessions read the DT hub-Vault root token from 1Password
+
+    # databases (postgres CLI client with autocompletion; servers run in docker/k8s)
+    pgcli
 
     # agent/scripting runtime (macOS system python3 is EOL 3.9); pip covers
     # ad-hoc installs into venvs — the nix site-packages itself is immutable

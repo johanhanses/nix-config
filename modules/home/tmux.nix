@@ -74,18 +74,18 @@
       # toggle status bar
       bind-key b set-option status
 
-      # --- theme: Claude-warm status bar (segmented powerline).
+      # --- theme: One Dark/Light status bar (segmented powerline).
       #     Variant chosen by macOS appearance at startup; re-sourced on toggle
       #     by theme-sync. ---
       if-shell '[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]' \
-        "source-file ~/.config/tmux/themes/claude-dark.tmux" \
-        "source-file ~/.config/tmux/themes/claude-light.tmux"
+        "source-file ~/.config/tmux/themes/one-dark.tmux" \
+        "source-file ~/.config/tmux/themes/one-light.tmux"
     '';
   };
 
   # Ship the tmux status-bar themes (sourced above + by theme-sync).
   xdg.configFile = {
-    "tmux/themes/claude-dark.tmux".source = ../../shared/tmux/themes/claude-dark.tmux;
-    "tmux/themes/claude-light.tmux".source = ../../shared/tmux/themes/claude-light.tmux;
+    "tmux/themes/one-dark.tmux".source = ../../shared/tmux/themes/one-dark.tmux;
+    "tmux/themes/one-light.tmux".source = ../../shared/tmux/themes/one-light.tmux;
   };
 }

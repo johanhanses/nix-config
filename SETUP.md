@@ -2,8 +2,8 @@
 
 nix-darwin + home-manager configuration for this Mac (hostname **megamackan**),
 migrated from the script-based `dotfiles2026`. Curated: minimal GUI apps, full
-terminal/CLI/tmux-worktree workflow, **Claude-warm theme** (ivory light / warm
-charcoal dark, coral accent) with automatic light/dark switching.
+terminal/CLI/tmux-worktree workflow, **Atom One / One Dark Pro theme** (grey-white
+light / slate dark, blue accent) with automatic light/dark switching.
 
 ## Rebuild
 
@@ -35,22 +35,22 @@ to apply. To pull in newer package versions, run `nup` (then `git commit` the up
 ## What Nix manages
 
 - **System** (`modules/darwin/`): Determinate Nix (`nix.enable = false`), hostname,
-  fonts (Geist Mono + symbols nerd fonts), Homebrew casks (`homebrew.nix`), macOS
+  fonts (IBM Plex Mono + symbols nerd fonts), Homebrew casks (`homebrew.nix`), macOS
   defaults incl. Caps Lock→Control & key repeat (`defaults.nix`).
 - **Home** (`modules/home/`): zsh (prompt/aliases/worktree fns), git (+delta),
   tmux, fzf/bat/eza/zoxide/gh/sesh, btop, neovim, and the `theme-watch` agent.
 - **CLI tools**: `packages.nix` (ripgrep, fd, k8s, aws/azure/saml2aws, node+LSPs…).
 
-## Theming (Claude-warm, auto light/dark)
+## Theming (Atom One / One Dark Pro, auto light/dark)
 
-Custom palette modeled on the Claude desktop app — warm charcoal `#262624` dark /
-warm beige `#f0eee6` light, coral `#c96442` accent, olive/gold/slate/sage ANSI hues (no
-purple). Defined in `shared/terminal/gen-terminal.swift` and mirrored in the tmux,
-btop, and nvim themes — keep them in sync when tweaking.
+Atom One / One Dark Pro — slate `#282c34` dark / grey-white `#fafafa` light,
+blue `#61afef`/`#4078f2` accent. Defined in
+`shared/terminal/gen-terminal.swift` and mirrored in the ghostty, tmux, and
+btop themes — keep them in sync when tweaking.
 
-Terminal.app carries the palette (Claude Dark/Light profiles); most CLI tools follow the
-terminal's ANSI colors, so they switch for free. nvim (github-theme + auto-dark-mode)
-and btop switch explicitly. The `theme-watch` launchd agent polls appearance via
+Terminal.app carries the palette (One Dark/Light profiles); most CLI tools follow
+the terminal's ANSI colors, so they switch for free. nvim (olimorris/onedarkpro.nvim +
+auto-dark-mode) and btop switch explicitly. The `theme-watch` launchd agent polls appearance via
 **System Events** and runs `theme-sync` on change (`defaults read -g
 AppleInterfaceStyle` is unreliable in launchd contexts).
 
@@ -82,7 +82,7 @@ Run once on a fresh machine, in order:
    ```
    Until it exists those overlay symlinks dangle and `sesh` errors on invocation —
    clone it, then re-run `nrs`.
-4. **Terminal.app profiles**: `terminal-theme-install` (imports the two Claude
+4. **Terminal.app profiles**: `terminal-theme-install` (imports the two One
    Dark/Light profiles from `shared/terminal/` and sets the appearance-matched one).
 5. **Moom** (classic 3.x — not owned on the App Store): install from Many Tricks
    `https://manytricks.com/download/moom/classic`, enter license, allow Accessibility.
@@ -95,6 +95,6 @@ Run once on a fresh machine, in order:
 
 - Determinate owns the Nix daemon → keep `nix.enable = false`.
 - Neovim keeps its lazy.nvim config (`config/nvim`, shipped via `xdg.configFile`);
-  the colorscheme is github-nvim-theme with the Claude-warm palette overrides.
+  the colorscheme is olimorris/onedarkpro.nvim (`onedark`/`onelight`).
   Plugins pinned by `lazy-lock.json`.
 - Secrets are never committed (`/secrets` gitignored).

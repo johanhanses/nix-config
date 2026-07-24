@@ -1,16 +1,16 @@
-# Claude Light — warm parchment, coral accent — powerline status bar (rounded caps + icons).
-# Needs a full-width Nerd Font (GeistMonoNF) — the Mono/NFM variant squeezes caps.
+# One Light — Atom One Light, blue accent — powerline status bar (rounded caps + icons).
+# Needs a full-width Nerd Font (BlexMonoNF) — the Mono/NFM variant squeezes caps.
 
-%hidden BG="#e6e0d1"
-%hidden FG="#262624"
-%hidden SURFACE="#d8d0bc"
-%hidden MUTED="#7a786e"
-%hidden ACCENT="#c96442"
-%hidden GREEN="#4f6d2f"
-%hidden YELLOW="#8a661a"
-%hidden RED="#9e3a27"
-%hidden MAGENTA="#8c4a5c"
-%hidden CYAN="#3c6d5c"
+%hidden BG="#fafafa"
+%hidden FG="#383a42"
+%hidden SURFACE="#e5e5e6"
+%hidden MUTED="#a0a1a7"
+%hidden ACCENT="#4078f2"
+%hidden GREEN="#50a14f"
+%hidden YELLOW="#c18401"
+%hidden RED="#e45649"
+%hidden MAGENTA="#a626a4"
+%hidden CYAN="#0184bc"
 
 set -g status on
 set -g status-position bottom
@@ -21,7 +21,7 @@ set -g status-right-length 200
 set -g status-style "bg=${BG},fg=${FG}"
 
 # Inverted pills for light mode: neutral SURFACE fills, color lives in the text
-# (solid colored pills read too loud against the beige background).
+# (solid colored pills read too loud against the pale background).
 set -g status-left "#[fg=${SURFACE},bg=${BG}]#[fg=${ACCENT},bg=${SURFACE},bold]  #S #[fg=${SURFACE},bg=${BG},nobold] "
 
 set -g window-status-separator ""

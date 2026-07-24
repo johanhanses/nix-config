@@ -12,6 +12,6 @@
 
   # Ship the existing lazy.nvim config as-is; lazy.nvim manages plugins at
   # runtime (pinned by the committed lazy-lock.json). Colorscheme is a Claude-warm
-  # github-nvim-theme (config/nvim/lua/plugins/colorscheme.lua) with auto-dark-mode.nvim.
+  # onedarkpro.nvim (config/nvim/lua/plugins/colorscheme.lua) with auto-dark-mode.nvim.
   xdg.configFile."nvim".source = ../../config/nvim;
 }
