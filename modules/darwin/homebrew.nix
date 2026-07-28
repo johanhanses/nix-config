@@ -33,6 +33,7 @@
       "obsidian"
       "google-chrome"
       "firefox"
+      "brave-browser"
       "ghostty"
     ];
 

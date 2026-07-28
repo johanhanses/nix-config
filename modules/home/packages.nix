@@ -32,6 +32,10 @@
     # databases (postgres CLI client with autocompletion; servers run in docker/k8s)
     pgcli
 
+    # macOS: set the default browser from the CLI (`defaultbrowser browser` = Brave;
+    # macOS still asks for one confirmation click — not settable declaratively)
+    defaultbrowser
+
     # agent/scripting runtime (macOS system python3 is EOL 3.9); pip covers
     # ad-hoc installs into venvs — the nix site-packages itself is immutable
     (python3.withPackages (ps: [
