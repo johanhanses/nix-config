@@ -1,0 +1,33 @@
+# Maximum items to keep per feed
+max-items 500
+
+# macOS — follow the system default browser (set via `defaultbrowser`, currently Brave)
+browser "open -g %u"
+
+# Basic display settings
+show-read-feeds yes
+feed-sort-order unreadarticlecount-asc
+
+# Colors — Atom One (via terminal ANSI palette; auto-follows Ghostty light/dark)
+# `reverse` inverts fg/bg using the terminal's current pair, so the focused row
+# stays high-contrast in both light and dark mode without picking a specific bg color.
+color background       default default
+color listnormal       default default
+color listnormal_unread default default bold
+color listfocus        default default reverse
+color listfocus_unread default default reverse bold
+color info             default blue    bold
+color article          default default
+color title            blue    default bold
+color hint-key         yellow  default bold
+color hint-description default default
+
+# Key bindings
+bind-key j down
+bind-key k up
+bind-key J next-feed
+bind-key K prev-feed
+bind-key G end
+bind-key g home
+bind-key l open
+bind-key h quit

@@ -7,6 +7,7 @@
     ./tmux.nix
     ./cli.nix
     ./btop.nix
+    ./newsboat.nix
     ./neovim.nix
     ./ghostty.nix
     ./theme.nix
