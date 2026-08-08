@@ -19,11 +19,17 @@ func arch(_ obj: Any) -> Data {
 }
 
 // Full-width Nerd Font variant (NF, not NFM/Mono) so powerline caps render smooth.
-// BlexMono = IBM Plex Mono, Nerd Fonts rename. Medium — a notch lighter than
-// SemiBold; the family also has Text (lighter still) and SemiBold/Bold (heavier).
-let font = NSFont(name: "BlexMonoNF-Medium", size: 15)!
+// BlexMono = IBM Plex Mono, Nerd Fonts rename.
+//
+// Weight differs per appearance: light-on-dark text blooms and reads heavier, so
+// dark drops one notch (Medium 500 -> Text 450) to match the light profile's
+// perceived weight. Plex order here: Regular 400 < Text 450 < Medium 500 <
+// SemiBold 600 (Regular's PostScript name is plain "BlexMonoNF").
+func font(_ face: String) -> NSFont {
+    return NSFont(name: face, size: 15)!
+}
 
-func makeProfile(name: String, bg: String, fg: String, cursor: String, sel: String, ansi: [String]) -> [String: Any] {
+func makeProfile(name: String, face: String, bg: String, fg: String, cursor: String, sel: String, ansi: [String]) -> [String: Any] {
     let ansiKeys = [
         "ANSIBlackColor", "ANSIRedColor", "ANSIGreenColor", "ANSIYellowColor",
         "ANSIBlueColor", "ANSIMagentaColor", "ANSICyanColor", "ANSIWhiteColor",
@@ -34,7 +40,7 @@ func makeProfile(name: String, bg: String, fg: String, cursor: String, sel: Stri
         "name": name,
         "type": "Window Settings",
         "ProfileCurrentVersion": 2.07,
-        "Font": arch(font),
+        "Font": arch(font(face)),
         "BackgroundColor": arch(color(bg)),
         "TextColor": arch(color(fg)),
         "TextBoldColor": arch(color(fg)),
@@ -55,6 +61,7 @@ func makeProfile(name: String, bg: String, fg: String, cursor: String, sel: Stri
 
 let dark = makeProfile(
     name: "One Dark",
+    face: "BlexMonoNF-Text",
     bg: "282c34", fg: "abb2bf", cursor: "528bff", sel: "3e4451",
     ansi: [
         "3f4451", "e06c75", "98c379", "d19a66", "61afef", "c678dd", "56b6c2", "abb2bf",
@@ -64,6 +71,7 @@ let dark = makeProfile(
 
 let light = makeProfile(
     name: "One Light",
+    face: "BlexMonoNF-Medium",
     bg: "fafafa", fg: "383a42", cursor: "526fff", sel: "e5e5e6",
     ansi: [
         "383a42", "e45649", "50a14f", "c18401", "4078f2", "a626a4", "0184bc", "a0a1a7",

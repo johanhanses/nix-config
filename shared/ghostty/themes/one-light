@@ -1,4 +1,8 @@
 # One Light — mirrors shared/terminal/gen-terminal.swift (canonical palette).
+
+# See the note in ./one-dark: the font weight switches with the appearance.
+font-style = Medium
+
 background = #fafafa
 foreground = #383a42
 cursor-color = #526fff

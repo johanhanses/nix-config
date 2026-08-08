@@ -1,4 +1,10 @@
 # One Dark — mirrors shared/terminal/gen-terminal.swift (canonical palette).
+
+# A theme file may set any config option except `theme`/`config-file`, so the
+# font weight rides along with the appearance switch: one notch lighter than
+# light mode, since light-on-dark text blooms and reads heavier.
+font-style = Text
+
 background = #282c34
 foreground = #abb2bf
 cursor-color = #528bff

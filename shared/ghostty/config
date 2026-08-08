@@ -3,11 +3,11 @@
 # so light/dark switching needs no theme-sync wiring.
 theme = light:one-light,dark:one-dark
 
-# Same face as Terminal.app (its "BlexMonoNF-Medium" is the PostScript name;
-# the family is "BlexMono Nerd Font", i.e. IBM Plex Mono): full-width NF
-# variant, Medium at 15 (a notch lighter than SemiBold, heavier than Regular).
+# Same face as Terminal.app (family "BlexMono Nerd Font", i.e. IBM Plex Mono):
+# full-width NF variant at 15. The weight is NOT set here — each theme file sets
+# its own `font-style` (Medium light / Text dark), so it switches with the
+# appearance the way the Terminal.app profiles do.
 font-family = BlexMono Nerd Font
-font-style = Medium
 font-size = 15
 adjust-cell-height = 10%
 
