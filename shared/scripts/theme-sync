@@ -6,7 +6,8 @@
 #   - Terminal.app  : switch the profile (requires the two profiles imported)
 #   - btop          : rewrite color_theme in the mutable btop.conf
 #   - tmux          : source the matching status-bar theme
-#   - Mattermost    : push a custom theme via REST (needs the private config)
+#   - Mattermost    : push a custom theme via REST (URL from the private
+#                     config, token from the login keychain)
 #   - bat / fzf / delta / nvim self-follow (ANSI palette / auto-dark-mode)
 set -u
 
@@ -67,17 +68,33 @@ ONE_LIGHT='{"sidebarBg":"#eaeaeb","sidebarText":"#383a42","sidebarUnreadText":"#
 if [ -f "$MM_CFG" ] && command -v jq >/dev/null 2>&1; then
   # shellcheck source=/dev/null
   . "$MM_CFG"
+  # Token lives in the login keychain, never in git. The config file holds only
+  # the URL; MATTERMOST_TOKEN may still be set there as a legacy fallback.
+  MATTERMOST_TOKEN=$(security find-generic-password -s mattermost-token -w 2>/dev/null || printf '%s' "${MATTERMOST_TOKEN:-}")
+  if [ -n "${MATTERMOST_URL:-}" ] && [ -z "${MATTERMOST_TOKEN:-}" ]; then
+    echo "mattermost: skipped — no token in keychain (service 'mattermost-token'); see $MM_CFG" >&2
+  fi
   if [ -n "${MATTERMOST_URL:-}" ] && [ -n "${MATTERMOST_TOKEN:-}" ]; then
     if [ "$MODE" = dark ]; then MM_THEME="$ONE_DARK"; else MM_THEME="$ONE_LIGHT"; fi
-    MM_UID=$(curl -sf -H "Authorization: Bearer $MATTERMOST_TOKEN" "$MATTERMOST_URL/api/v4/users/me" 2>/dev/null | jq -r '.id' 2>/dev/null || true)
-    if [ -n "${MM_UID:-}" ] && [ "$MM_UID" != null ]; then
+    MM_ME=$(curl -s -w '\n%{http_code}' -H "Authorization: Bearer $MATTERMOST_TOKEN" "$MATTERMOST_URL/api/v4/users/me" 2>/dev/null)
+    MM_CODE=$(printf '%s' "$MM_ME" | tail -n1)
+    if [ "$MM_CODE" = 200 ]; then
+      MM_UID=$(printf '%s' "$MM_ME" | sed '$d' | jq -r '.id // empty' 2>/dev/null || true)
+    else
+      MM_UID=""
+      echo "mattermost: skipped — auth failed (HTTP ${MM_CODE:-?}); mint a new token and run: security add-generic-password -s mattermost-token -a $USER -w '<token>' -U -T /usr/bin/security" >&2
+    fi
+    if [ -n "${MM_UID:-}" ]; then
       MM_PAYLOAD=$(jq -n --arg uid "$MM_UID" --arg theme "$MM_THEME" '[{user_id:$uid,category:"theme",name:"",value:$theme}]')
       for TID in $(curl -sf -H "Authorization: Bearer $MATTERMOST_TOKEN" "$MATTERMOST_URL/api/v4/users/$MM_UID/teams" 2>/dev/null | jq -r '.[].id' 2>/dev/null); do
         MM_PAYLOAD=$(printf '%s' "$MM_PAYLOAD" | jq --arg uid "$MM_UID" --arg tid "$TID" --arg theme "$MM_THEME" '. + [{user_id:$uid,category:"theme",name:$tid,value:$theme}]')
       done
-      curl -sf -X PUT -H "Authorization: Bearer $MATTERMOST_TOKEN" -H "Content-Type: application/json" \
-        --data "$MM_PAYLOAD" "$MATTERMOST_URL/api/v4/users/$MM_UID/preferences" >/dev/null 2>&1 \
-        && echo "mattermost: synced ($MODE)" || true
+      if curl -sf -X PUT -H "Authorization: Bearer $MATTERMOST_TOKEN" -H "Content-Type: application/json" \
+        --data "$MM_PAYLOAD" "$MATTERMOST_URL/api/v4/users/$MM_UID/preferences" >/dev/null 2>&1; then
+        echo "mattermost: synced ($MODE)"
+      else
+        echo "mattermost: preference push failed ($MODE)" >&2
+      fi
     fi
   fi
 fi
