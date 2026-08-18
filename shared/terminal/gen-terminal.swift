@@ -1,7 +1,11 @@
-// Generates the One Dark/Light Terminal.app profiles (.terminal plists) with proper
-// archived NSColor/NSFont blobs. Run: swift gen-terminal.swift <output-dir>
-// Palette: Atom One / One Dark Pro — slate dark #282c34 / grey-white light
-// #fafafa, blue accent.
+// Generates the Bluloco Dark/Light Terminal.app profiles (.terminal plists)
+// with proper archived NSColor/NSFont blobs.
+// Run: swift gen-terminal.swift <output-dir>
+// Palette: Bluloco (uloco/bluloco.nvim) — slate #282c34 dark / near-white
+// #f9f9f9 light, vivid blue accent. Same dark ground as Atom One but a
+// markedly more saturated palette on top, and the author's own signature
+// cursors: yellow on dark, pink on light. ANSI values are the upstream
+// kitty exports; surface shades come from its tab colors.
 import AppKit
 
 func color(_ hex: String) -> NSColor {
@@ -18,13 +22,12 @@ func arch(_ obj: Any) -> Data {
     return try! NSKeyedArchiver.archivedData(withRootObject: obj, requiringSecureCoding: false)
 }
 
-// Full-width Nerd Font variant (NF, not NFM/Mono) so powerline caps render smooth.
-// BlexMono = IBM Plex Mono, Nerd Fonts rename.
+// Full-width Nerd Font build (Maple Mono NF, upstream's own) so powerline caps
+// render smooth.
 //
 // Weight differs per appearance: light-on-dark text blooms and reads heavier, so
-// dark drops one notch (Medium 500 -> Text 450) to match the light profile's
-// perceived weight. Plex order here: Regular 400 < Text 450 < Medium 500 <
-// SemiBold 600 (Regular's PostScript name is plain "BlexMonoNF").
+// dark drops one notch (Medium 500 -> Regular 400) to match the light profile's
+// perceived weight. Maple has no 450 step, so the pair is Medium/Regular.
 func font(_ face: String) -> NSFont {
     return NSFont(name: face, size: 15)!
 }
@@ -60,27 +63,27 @@ func makeProfile(name: String, face: String, bg: String, fg: String, cursor: Str
 }
 
 let dark = makeProfile(
-    name: "One Dark",
-    face: "BlexMonoNF-Text",
-    bg: "282c34", fg: "abb2bf", cursor: "528bff", sel: "3e4451",
+    name: "Bluloco Dark",
+    face: "MapleMono-NF-Regular",
+    bg: "282c34", fg: "b9c0cb", cursor: "ffcc00", sel: "2c4271",
     ansi: [
-        "3f4451", "e06c75", "98c379", "d19a66", "61afef", "c678dd", "56b6c2", "abb2bf",
-        "5c6370", "e06c75", "98c379", "e5c07b", "61afef", "c678dd", "56b6c2", "ffffff",
+        "41444d", "fc2f52", "25a45c", "ff936a", "3476ff", "7a82da", "4483aa", "cdd4e0",
+        "8f9aae", "ff6480", "3fc56b", "f9c859", "10b1fe", "ff78f8", "5fb9bc", "ffffff",
     ]
 )
 
 let light = makeProfile(
-    name: "One Light",
-    face: "BlexMonoNF-Medium",
-    bg: "fafafa", fg: "383a42", cursor: "526fff", sel: "e5e5e6",
+    name: "Bluloco Light",
+    face: "MapleMono-NF-Medium",
+    bg: "f9f9f9", fg: "373a41", cursor: "f32759", sel: "daf1ff",
     ansi: [
-        "383a42", "e45649", "50a14f", "c18401", "4078f2", "a626a4", "0184bc", "a0a1a7",
-        "696c77", "e45649", "50a14f", "c18401", "4078f2", "a626a4", "0184bc", "fafafa",
+        "373a41", "d52753", "23974a", "df631c", "275fe4", "823ff1", "27618d", "babbc2",
+        "676a77", "ff6480", "3cbc66", "c5a332", "0099e1", "ce33c0", "6d93bb", "d3d3d3",
     ]
 )
 
 let outDir = CommandLine.arguments[1]
-for (fname, dict) in [("One Dark.terminal", dark), ("One Light.terminal", light)] {
+for (fname, dict) in [("Bluloco Dark.terminal", dark), ("Bluloco Light.terminal", light)] {
     let data = try! PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
     let url = URL(fileURLWithPath: outDir).appendingPathComponent(fname)
     try! data.write(to: url)

@@ -2,7 +2,7 @@
 # theme-sync — align terminal-adjacent tools with the current macOS appearance.
 # Invoked by the theme-watch agent (on appearance change) and tmux <prefix>+r.
 #
-# One Light (light) / One Dark (dark):
+# Bluloco Light (light) / Bluloco Dark (dark):
 #   - Terminal.app  : switch the profile (requires the two profiles imported)
 #   - btop          : rewrite color_theme in the mutable btop.conf
 #   - tmux          : source the matching status-bar theme
@@ -25,14 +25,14 @@ detect_dark() {
 
 if [ "$(detect_dark)" = "dark" ]; then
   MODE=dark
-  TERM_PROFILE="One Dark"
-  BTOP_THEME="one_dark"
-  TMUX_THEME="one-dark"
+  TERM_PROFILE="Bluloco Dark"
+  BTOP_THEME="bluloco_dark"
+  TMUX_THEME="bluloco-dark"
 else
   MODE=light
-  TERM_PROFILE="One Light"
-  BTOP_THEME="one_light"
-  TMUX_THEME="one-light"
+  TERM_PROFILE="Bluloco Light"
+  BTOP_THEME="bluloco_light"
+  TMUX_THEME="bluloco-light"
 fi
 
 # Terminal.app — set default + all open windows to the matching profile.
@@ -61,10 +61,10 @@ if command -v tmux >/dev/null 2>&1 && tmux info >/dev/null 2>&1; then
   tmux source-file "$HOME/.config/tmux/themes/$TMUX_THEME.tmux" >/dev/null 2>&1 || true
 fi
 
-# Mattermost Desktop via REST — push a One Dark/Light custom theme (user + teams).
+# Mattermost Desktop via REST — push a Bluloco custom theme (user + teams).
 MM_CFG="$HOME/Repos/github.com/johanhanses/dotfiles-private/mattermost/config"
-ONE_DARK='{"sidebarBg":"#21252b","sidebarText":"#abb2bf","sidebarUnreadText":"#d7dae0","sidebarTextHoverBg":"#2c313a","sidebarTextActiveBorder":"#61afef","sidebarTextActiveColor":"#d7dae0","sidebarHeaderBg":"#21252b","sidebarHeaderTextColor":"#abb2bf","onlineIndicator":"#98c379","awayIndicator":"#e5c07b","dndIndicator":"#e06c75","mentionBg":"#61afef","mentionColor":"#282c34","centerChannelBg":"#282c34","centerChannelColor":"#abb2bf","newMessageSeparator":"#d19a66","linkColor":"#61afef","buttonBg":"#61afef","buttonColor":"#282c34","errorTextColor":"#e06c75","mentionHighlightBg":"#3e4451","mentionHighlightLink":"#56b6c2","codeTheme":"monokai","sidebarTeamBarBg":"#21252b"}'
-ONE_LIGHT='{"sidebarBg":"#eaeaeb","sidebarText":"#383a42","sidebarUnreadText":"#202227","sidebarTextHoverBg":"#e5e5e6","sidebarTextActiveBorder":"#4078f2","sidebarTextActiveColor":"#202227","sidebarHeaderBg":"#e5e5e6","sidebarHeaderTextColor":"#383a42","onlineIndicator":"#50a14f","awayIndicator":"#c18401","dndIndicator":"#e45649","mentionBg":"#4078f2","mentionColor":"#fafafa","centerChannelBg":"#fafafa","centerChannelColor":"#383a42","newMessageSeparator":"#986801","linkColor":"#4078f2","buttonBg":"#4078f2","buttonColor":"#fafafa","errorTextColor":"#e45649","mentionHighlightBg":"#e2e9f8","mentionHighlightLink":"#0184bc","codeTheme":"github","sidebarTeamBarBg":"#e5e5e6"}'
+BL_DARK='{"sidebarBg":"#23272f","sidebarText":"#b9c0cb","sidebarUnreadText":"#cdd4e0","sidebarTextHoverBg":"#44474d","sidebarTextActiveBorder":"#10b1fe","sidebarTextActiveColor":"#cdd4e0","sidebarHeaderBg":"#23272f","sidebarHeaderTextColor":"#b9c0cb","onlineIndicator":"#3fc56b","awayIndicator":"#f9c859","dndIndicator":"#fc2f52","mentionBg":"#10b1fe","mentionColor":"#282c34","centerChannelBg":"#282c34","centerChannelColor":"#b9c0cb","newMessageSeparator":"#ff936a","linkColor":"#10b1fe","buttonBg":"#3476ff","buttonColor":"#ffffff","errorTextColor":"#fc2f52","mentionHighlightBg":"#2c4271","mentionHighlightLink":"#5fb9bc","codeTheme":"monokai","sidebarTeamBarBg":"#23272f"}'
+BL_LIGHT='{"sidebarBg":"#eeeef0","sidebarText":"#373a41","sidebarUnreadText":"#1f2126","sidebarTextHoverBg":"#e6e6e7","sidebarTextActiveBorder":"#275fe4","sidebarTextActiveColor":"#1f2126","sidebarHeaderBg":"#e6e6e7","sidebarHeaderTextColor":"#373a41","onlineIndicator":"#23974a","awayIndicator":"#c5a332","dndIndicator":"#d52753","mentionBg":"#275fe4","mentionColor":"#f9f9f9","centerChannelBg":"#f9f9f9","centerChannelColor":"#373a41","newMessageSeparator":"#df631c","linkColor":"#275fe4","buttonBg":"#275fe4","buttonColor":"#f9f9f9","errorTextColor":"#d52753","mentionHighlightBg":"#daf1ff","mentionHighlightLink":"#27618d","codeTheme":"github","sidebarTeamBarBg":"#e6e6e7"}'
 if [ -f "$MM_CFG" ] && command -v jq >/dev/null 2>&1; then
   # shellcheck source=/dev/null
   . "$MM_CFG"
@@ -75,7 +75,7 @@ if [ -f "$MM_CFG" ] && command -v jq >/dev/null 2>&1; then
     echo "mattermost: skipped — no token in keychain (service 'mattermost-token'); see $MM_CFG" >&2
   fi
   if [ -n "${MATTERMOST_URL:-}" ] && [ -n "${MATTERMOST_TOKEN:-}" ]; then
-    if [ "$MODE" = dark ]; then MM_THEME="$ONE_DARK"; else MM_THEME="$ONE_LIGHT"; fi
+    if [ "$MODE" = dark ]; then MM_THEME="$BL_DARK"; else MM_THEME="$BL_LIGHT"; fi
     MM_ME=$(curl -s -w '\n%{http_code}' -H "Authorization: Bearer $MATTERMOST_TOKEN" "$MATTERMOST_URL/api/v4/users/me" 2>/dev/null)
     MM_CODE=$(printf '%s' "$MM_ME" | tail -n1)
     if [ "$MM_CODE" = 200 ]; then

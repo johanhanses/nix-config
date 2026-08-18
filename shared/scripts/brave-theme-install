@@ -1,0 +1,53 @@
+#!/bin/sh
+# brave-theme-install — seed Brave's chrome with the Bluloco accent colour.
+#
+# Chromium's GM3 colour system takes ONE seed colour and derives a full tonal
+# palette for light *and* dark, switching with the system appearance on its own
+# — so, like Ghostty, this needs no theme-sync wiring. A Chrome Web Store theme
+# would be the wrong tool: those are a single static palette with no dark
+# variant, and installing one stops the chrome adapting at all.
+#
+# Brave rewrites Preferences on exit, so it must be fully quit or the edit is
+# silently clobbered. Run once; re-run after changing SEED.
+set -eu
+
+SEED="${1:-#3476ff}"          # Bluloco blue; pass another hex to override
+PROFILE="${BRAVE_PROFILE:-Default}"
+DIR="$HOME/Library/Application Support/BraveSoftware/Brave-Browser/$PROFILE"
+PREFS="$DIR/Preferences"
+
+if pgrep -x "Brave Browser" >/dev/null 2>&1; then
+  echo "brave-theme-install: Brave is running — quit it first (its prefs are" >&2
+  echo "  held in memory and rewritten on exit, so the edit would be lost)." >&2
+  exit 1
+fi
+[ -f "$PREFS" ] || { echo "brave-theme-install: no Preferences at $PREFS" >&2; exit 1; }
+
+BACKUP="$PREFS.bak-$(date +%Y%m%d%H%M%S)"
+cp "$PREFS" "$BACKUP"
+
+python3 - "$PREFS" "$SEED" <<'PY'
+import json, sys
+prefs, seed = sys.argv[1], sys.argv[2].lstrip("#")
+rgb = int(seed, 16)
+# Chromium stores SkColor (0xAARRGGBB) as a signed 32-bit int pref.
+argb = 0xFF000000 | rgb
+signed = argb - (1 << 32) if argb >= (1 << 31) else argb
+
+d = json.load(open(prefs))
+theme = d.setdefault("browser", {}).setdefault("theme", {})
+theme["user_color"] = signed
+# an installed Web Store theme would win over the seed colour
+ext = d.get("extensions", {})
+if isinstance(ext.get("theme"), dict):
+    ext["theme"].pop("id", None)
+
+json.dump(d, open(prefs, "w"), separators=(",", ":"))
+print("  seed #%s -> browser.theme.user_color = %d" % (seed, signed))
+PY
+
+echo "brave-theme-install: written (backup: $(basename "$BACKUP"))"
+echo "  Relaunch Brave. Light/dark variants are derived from the seed"
+echo "  automatically — change it under Settings > Appearance, or re-run"
+echo "  this with a different hex. Revert with:"
+echo "    cp '$BACKUP' '$PREFS'"

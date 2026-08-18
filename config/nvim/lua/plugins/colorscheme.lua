@@ -1,20 +1,23 @@
--- One Dark Pro (olimorris/onedarkpro.nvim) — the maintained One Dark Pro port,
--- ships both "onedark" and "onelight". Matches the terminal/tmux/btop palettes;
--- canonical hex values in shared/terminal/gen-terminal.swift.
+-- Bluloco (uloco/bluloco.nvim) — the author's own Neovim port, built on lush.
+-- style = "auto" tracks `vim.o.background` at runtime, so the light/dark swap
+-- is just a background flip; no re-sourcing needed.
+-- Canonical hex values in shared/terminal/gen-terminal.swift.
 return {
   {
-    "olimorris/onedarkpro.nvim",
+    "uloco/bluloco.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
     priority = 1000,
     lazy = false,
     config = function()
-      require("onedarkpro").setup({
-        styles = {
-          comments = "italic",
-        },
+      require("bluloco").setup({
+        style = "auto",
+        italics = true,
+        transparent = false,
+        guicursor = true,
       })
       local is_dark = vim.fn.system("defaults read -g AppleInterfaceStyle 2>/dev/null"):match("Dark")
       vim.o.background = is_dark and "dark" or "light"
-      vim.cmd.colorscheme(is_dark and "onedark" or "onelight")
+      vim.cmd.colorscheme("bluloco")
     end,
   },
   {
@@ -24,11 +27,9 @@ return {
       update_interval = 3000,
       set_dark_mode = function()
         vim.o.background = "dark"
-        vim.cmd.colorscheme("onedark")
       end,
       set_light_mode = function()
         vim.o.background = "light"
-        vim.cmd.colorscheme("onelight")
       end,
     },
   },

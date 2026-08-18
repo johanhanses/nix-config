@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Print ANSI + truecolor swatches so you can see what your terminal palette
-# (via Ghostty's atom-one theme) maps each ANSI slot to, side-by-side with
-# the canonical Atom One Light / Dark hex values.
+# (via Ghostty's bluloco-* theme) maps each ANSI slot to, side-by-side with
+# the canonical Bluloco Light / Dark hex values.
 
 printf '\n  --- ANSI 8-color (uses your Ghostty palette) ---\n'
 for i in 30 31 32 33 34 35 36 37; do
@@ -21,24 +21,24 @@ swatch() {
   printf "  \e[38;2;%d;%d;%dm█████ #%s %s\e[0m\n" "$r" "$g" "$b" "$hex" "$name"
 }
 
-printf '\n  --- Truecolor: Atom One Light accents ---\n'
-swatch 383a42 fg
-swatch e45649 red
-swatch 50a14f green
-swatch c18401 yellow
-swatch 4078f2 blue
-swatch a626a4 magenta
-swatch 0184bc cyan
-swatch 696c77 comment
+printf '\n  --- Truecolor: Bluloco Light accents ---\n'
+swatch 373a41 fg
+swatch d52753 red
+swatch 23974a green
+swatch c5a332 yellow
+swatch 275fe4 blue
+swatch ce33c0 magenta
+swatch 27618d cyan
+swatch 9a9ca5 comment
 
-printf '\n  --- Truecolor: Atom One Dark accents ---\n'
-swatch abb2bf fg
-swatch e06c75 red
-swatch 98c379 green
-swatch e5c07b yellow
-swatch 61afef blue
-swatch c678dd magenta
-swatch 56b6c2 cyan
-swatch 5c6370 comment
+printf '\n  --- Truecolor: Bluloco Dark accents ---\n'
+swatch b9c0cb fg
+swatch fc2f52 red
+swatch 3fc56b green
+swatch f9c859 yellow
+swatch 10b1fe blue
+swatch ff78f8 magenta
+swatch 5fb9bc cyan
+swatch 6b6f79 comment
 
 echo

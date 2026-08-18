@@ -1,4 +1,4 @@
-# Prompt: apple logo + folder + full path + git branch, Atom One accents.
+# Prompt: apple logo + folder + full path + git branch, Bluloco accents.
 # Uses named ANSI colors so it follows the terminal palette (light/dark auto).
 # Requires a Nerd Font (e.g. JetBrainsMono Nerd Font).
 autoload -Uz vcs_info

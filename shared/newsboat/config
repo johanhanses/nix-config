@@ -8,7 +8,7 @@ browser "open -g %u"
 show-read-feeds yes
 feed-sort-order unreadarticlecount-asc
 
-# Colors — Atom One (via terminal ANSI palette; auto-follows Ghostty light/dark)
+# Colors — Bluloco (via terminal ANSI palette; auto-follows Ghostty light/dark)
 # `reverse` inverts fg/bg using the terminal's current pair, so the focused row
 # stays high-contrast in both light and dark mode without picking a specific bg color.
 color background       default default

@@ -23,10 +23,10 @@
   programs.zsh.enable = true;
 
   # Fonts (nerd fonts for the terminal + nvim icons).
-  # nerd-fonts.blex-mono installs as "BlexMono Nerd Font" — the Nerd Fonts
-  # rename of IBM Plex Mono (trademark), same IBM design.
+  # maple-mono.NF installs as family "Maple Mono NF" — upstream's own
+  # Nerd Font build, full-width glyphs.
   fonts.packages = with pkgs; [
-    nerd-fonts.blex-mono
+    maple-mono.NF
     nerd-fonts.symbols-only
   ];
 }

@@ -1,16 +1,16 @@
-# One Light — Atom One Light, blue accent — powerline status bar (rounded caps + icons).
-# Needs a full-width Nerd Font (BlexMonoNF) — the Mono/NFM variant squeezes caps.
+# Bluloco Light — near-white ground, vivid blue accent — powerline status bar (rounded caps + icons).
+# Needs a full-width Nerd Font (Maple Mono NF) — the Mono/NFM variant squeezes caps.
 
-%hidden BG="#fafafa"
-%hidden FG="#383a42"
-%hidden SURFACE="#e5e5e6"
-%hidden MUTED="#a0a1a7"
-%hidden ACCENT="#4078f2"
-%hidden GREEN="#50a14f"
-%hidden YELLOW="#c18401"
-%hidden RED="#e45649"
-%hidden MAGENTA="#a626a4"
-%hidden CYAN="#0184bc"
+%hidden BG="#f9f9f9"
+%hidden FG="#373a41"
+%hidden SURFACE="#e6e6e7"
+%hidden MUTED="#9a9ca5"
+%hidden ACCENT="#275fe4"
+%hidden GREEN="#23974a"
+%hidden YELLOW="#c5a332"
+%hidden RED="#d52753"
+%hidden MAGENTA="#ce33c0"
+%hidden CYAN="#27618d"
 
 set -g status on
 set -g status-position bottom

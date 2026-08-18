@@ -46,11 +46,17 @@ Constraints that aren't obvious from any single file:
 
 - **Determinate Nix owns the daemon** — keep `nix.enable = false`; do not add
   nix-darwin's own Nix management.
-- **Theming**: Atom One / One Dark Pro everywhere — grey-white `#fafafa` light /
-  slate `#282c34` dark, blue `#61afef`/`#4078f2` accent. Canonical hex
-  values live in `shared/terminal/gen-terminal.swift`; the ghostty/tmux/btop themes
-  mirror them and must be kept in sync (nvim uses the upstream
-  `olimorris/onedarkpro.nvim` plugin: `onedark`/`onelight`). Most CLI tools
+- **Theming**: Bluloco everywhere — near-white `#f9f9f9` light / slate `#282c34`
+  dark, vivid blue `#10b1fe`/`#275fe4` accent, and the upstream's signature
+  cursors (yellow on dark, pink on light). Same dark ground as Atom One with a
+  markedly more saturated palette on top. Background lightness is what has
+  driven every past rejection — L* 17.9 / 97.9 here; the near-black and
+  pure-white extremes both failed, so keep any future candidate near these.
+  Canonical hex values live in `shared/terminal/gen-terminal.swift` (ANSI from
+  the upstream kitty exports, surface shades from its tab colors); the
+  ghostty/tmux/btop themes mirror them and must be kept in sync (nvim uses
+  `uloco/bluloco.nvim` with `style = "auto"`, which tracks `vim.o.background`
+  at runtime — it needs `rktjmp/lush.nvim`). Most CLI tools
   inherit the terminal's ANSI palette and switch for free; nvim and btop switch
   explicitly. A `theme-watch` launchd agent (defined in `modules/home/theme.nix`)
   polls macOS appearance via System Events and runs `theme-sync` — `defaults read -g

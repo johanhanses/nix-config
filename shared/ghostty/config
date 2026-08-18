@@ -1,13 +1,13 @@
-# Ghostty — matches the One Dark/Light Terminal.app profiles.
+# Ghostty — matches the Bluloco Dark/Light Terminal.app profiles.
 # Themes live in ./themes; Ghostty follows macOS appearance natively,
 # so light/dark switching needs no theme-sync wiring.
-theme = light:one-light,dark:one-dark
+theme = light:bluloco-light,dark:bluloco-dark
 
-# Same face as Terminal.app (family "BlexMono Nerd Font", i.e. IBM Plex Mono):
-# full-width NF variant at 15. The weight is NOT set here — each theme file sets
-# its own `font-style` (Medium light / Text dark), so it switches with the
+# Same face as Terminal.app (family "Maple Mono NF", upstream's Nerd Font
+# build) at 15. The weight is NOT set here — each theme file sets its own
+# `font-style` (Medium light / Regular dark), so it switches with the
 # appearance the way the Terminal.app profiles do.
-font-family = BlexMono Nerd Font
+font-family = Maple Mono NF
 font-size = 15
 adjust-cell-height = 10%
 
