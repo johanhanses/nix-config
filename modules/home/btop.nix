@@ -2,10 +2,10 @@
 {
   home.packages = [ pkgs.btop ];
 
-  # Bluloco Dark/Light btop themes (read-only is fine for theme files).
+  # Tokyo Night Storm/Day btop themes (read-only is fine for theme files).
   xdg.configFile = {
-    "btop/themes/bluloco_dark.theme".source = ../../shared/themes/btop/bluloco_dark.theme;
-    "btop/themes/bluloco_light.theme".source = ../../shared/themes/btop/bluloco_light.theme;
+    "btop/themes/tokyonight_storm.theme".source = ../../shared/themes/btop/tokyonight_storm.theme;
+    "btop/themes/tokyonight_day.theme".source = ../../shared/themes/btop/tokyonight_day.theme;
   };
 
   # btop.conf must stay mutable so theme-sync can rewrite color_theme on the

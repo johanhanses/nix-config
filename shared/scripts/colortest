@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Print ANSI + truecolor swatches so you can see what your terminal palette
-# (via Ghostty's bluloco-* theme) maps each ANSI slot to, side-by-side with
-# the canonical Bluloco Light / Dark hex values.
+# (via Ghostty's tokyonight-* theme) maps each ANSI slot to, side-by-side with
+# the canonical Tokyo Night Day / Storm hex values.
 
 printf '\n  --- ANSI 8-color (uses your Ghostty palette) ---\n'
 for i in 30 31 32 33 34 35 36 37; do
@@ -21,24 +21,24 @@ swatch() {
   printf "  \e[38;2;%d;%d;%dm█████ #%s %s\e[0m\n" "$r" "$g" "$b" "$hex" "$name"
 }
 
-printf '\n  --- Truecolor: Bluloco Light accents ---\n'
-swatch 373a41 fg
-swatch d52753 red
-swatch 23974a green
-swatch c5a332 yellow
-swatch 275fe4 blue
-swatch ce33c0 magenta
-swatch 27618d cyan
-swatch 9a9ca5 comment
+printf '\n  --- Truecolor: Tokyo Night Day accents ---\n'
+swatch 3760bf fg
+swatch f52a65 red
+swatch 587539 green
+swatch 8c6c3e yellow
+swatch 2e7de9 blue
+swatch 9854f1 magenta
+swatch 007197 cyan
+swatch 848cb5 comment
 
-printf '\n  --- Truecolor: Bluloco Dark accents ---\n'
-swatch b9c0cb fg
-swatch fc2f52 red
-swatch 3fc56b green
-swatch f9c859 yellow
-swatch 10b1fe blue
-swatch ff78f8 magenta
-swatch 5fb9bc cyan
-swatch 6b6f79 comment
+printf '\n  --- Truecolor: Tokyo Night Storm accents ---\n'
+swatch c0caf5 fg
+swatch f7768e red
+swatch 9ece6a green
+swatch e0af68 yellow
+swatch 7aa2f7 blue
+swatch bb9af7 magenta
+swatch 7dcfff cyan
+swatch 565f89 comment
 
 echo

@@ -1,11 +1,13 @@
-// Generates the Bluloco Dark/Light Terminal.app profiles (.terminal plists)
+// Generates the Tokyo Night Storm/Day Terminal.app profiles (.terminal plists)
 // with proper archived NSColor/NSFont blobs.
 // Run: swift gen-terminal.swift <output-dir>
-// Palette: Bluloco (uloco/bluloco.nvim) — slate #282c34 dark / near-white
-// #f9f9f9 light, vivid blue accent. Same dark ground as Atom One but a
-// markedly more saturated palette on top, and the author's own signature
-// cursors: yellow on dark, pink on light. ANSI values are the upstream
-// kitty exports; surface shades come from its tab colors.
+// Palette: Tokyo Night (folke/tokyonight.nvim) — storm-blue #24283b dark /
+// pale blue-grey #e1e2e7 light. Storm rather than the default Night: Night's
+// #1a1b26 sits at L* 10.1, close to the too-dark grounds rejected before,
+// while Storm's L* 16.5 matches the ground that has stuck. Every value below
+// is upstream's own terminal export (extras/ghostty/tokyonight_{storm,day}),
+// which brightens ANSI 9-14 rather than repeating 1-6, so bright and normal
+// stay distinguishable. Cursor is the foreground, as upstream intends.
 import AppKit
 
 func color(_ hex: String) -> NSColor {
@@ -22,12 +24,12 @@ func arch(_ obj: Any) -> Data {
     return try! NSKeyedArchiver.archivedData(withRootObject: obj, requiringSecureCoding: false)
 }
 
-// Full-width Nerd Font build (Maple Mono NF, upstream's own) so powerline caps
-// render smooth.
+// Full-width Nerd Font build (JetBrainsMono Nerd Font, not the NFM/Propo
+// variants) so powerline caps render smooth.
 //
 // Weight differs per appearance: light-on-dark text blooms and reads heavier, so
 // dark drops one notch (Medium 500 -> Regular 400) to match the light profile's
-// perceived weight. Maple has no 450 step, so the pair is Medium/Regular.
+// perceived weight. JetBrains Mono has no 450 step, so the pair is Medium/Regular.
 func font(_ face: String) -> NSFont {
     return NSFont(name: face, size: 15)!
 }
@@ -63,27 +65,27 @@ func makeProfile(name: String, face: String, bg: String, fg: String, cursor: Str
 }
 
 let dark = makeProfile(
-    name: "Bluloco Dark",
-    face: "MapleMono-NF-Regular",
-    bg: "282c34", fg: "b9c0cb", cursor: "ffcc00", sel: "2c4271",
+    name: "Tokyo Night Storm",
+    face: "JetBrainsMonoNF-Regular",
+    bg: "24283b", fg: "c0caf5", cursor: "c0caf5", sel: "2e3c64",
     ansi: [
-        "41444d", "fc2f52", "25a45c", "ff936a", "3476ff", "7a82da", "4483aa", "cdd4e0",
-        "8f9aae", "ff6480", "3fc56b", "f9c859", "10b1fe", "ff78f8", "5fb9bc", "ffffff",
+        "1d202f", "f7768e", "9ece6a", "e0af68", "7aa2f7", "bb9af7", "7dcfff", "a9b1d6",
+        "414868", "ff899d", "9fe044", "faba4a", "8db0ff", "c7a9ff", "a4daff", "c0caf5",
     ]
 )
 
 let light = makeProfile(
-    name: "Bluloco Light",
-    face: "MapleMono-NF-Medium",
-    bg: "f9f9f9", fg: "373a41", cursor: "f32759", sel: "daf1ff",
+    name: "Tokyo Night Day",
+    face: "JetBrainsMonoNF-Medium",
+    bg: "e1e2e7", fg: "3760bf", cursor: "3760bf", sel: "b7c1e3",
     ansi: [
-        "373a41", "d52753", "23974a", "df631c", "275fe4", "823ff1", "27618d", "babbc2",
-        "676a77", "ff6480", "3cbc66", "c5a332", "0099e1", "ce33c0", "6d93bb", "d3d3d3",
+        "b4b5b9", "f52a65", "587539", "8c6c3e", "2e7de9", "9854f1", "007197", "6172b0",
+        "a1a6c5", "ff4774", "5c8524", "a27629", "358aff", "a463ff", "007ea8", "3760bf",
     ]
 )
 
 let outDir = CommandLine.arguments[1]
-for (fname, dict) in [("Bluloco Dark.terminal", dark), ("Bluloco Light.terminal", light)] {
+for (fname, dict) in [("Tokyo Night Storm.terminal", dark), ("Tokyo Night Day.terminal", light)] {
     let data = try! PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
     let url = URL(fileURLWithPath: outDir).appendingPathComponent(fname)
     try! data.write(to: url)

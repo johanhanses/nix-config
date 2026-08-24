@@ -1,16 +1,16 @@
-# Bluloco Dark — slate ground, vivid blue accent — powerline status bar (rounded caps + icons).
-# Needs a full-width Nerd Font (Maple Mono NF) — the Mono/NFM variant squeezes caps.
+# Tokyo Night Storm — storm-blue ground, soft pastel accents — powerline status bar (rounded caps + icons).
+# Needs a full-width Nerd Font (JetBrainsMono Nerd Font) — the Mono/NFM variant squeezes caps.
 
-%hidden BG="#282c34"
-%hidden FG="#b9c0cb"
-%hidden SURFACE="#44474d"
-%hidden MUTED="#6b6f79"
-%hidden ACCENT="#10b1fe"
-%hidden GREEN="#3fc56b"
-%hidden YELLOW="#f9c859"
-%hidden RED="#fc2f52"
-%hidden MAGENTA="#ff78f8"
-%hidden CYAN="#5fb9bc"
+%hidden BG="#24283b"
+%hidden FG="#c0caf5"
+%hidden SURFACE="#414868"
+%hidden MUTED="#565f89"
+%hidden ACCENT="#7aa2f7"
+%hidden GREEN="#9ece6a"
+%hidden YELLOW="#e0af68"
+%hidden RED="#f7768e"
+%hidden MAGENTA="#bb9af7"
+%hidden CYAN="#7dcfff"
 
 set -g status on
 set -g status-position bottom

@@ -46,17 +46,18 @@ Constraints that aren't obvious from any single file:
 
 - **Determinate Nix owns the daemon** — keep `nix.enable = false`; do not add
   nix-darwin's own Nix management.
-- **Theming**: Bluloco everywhere — near-white `#f9f9f9` light / slate `#282c34`
-  dark, vivid blue `#10b1fe`/`#275fe4` accent, and the upstream's signature
-  cursors (yellow on dark, pink on light). Same dark ground as Atom One with a
-  markedly more saturated palette on top. Background lightness is what has
-  driven every past rejection — L* 17.9 / 97.9 here; the near-black and
+- **Theming**: Tokyo Night everywhere — pale blue-grey `#e1e2e7` Day light /
+  storm-blue `#24283b` Storm dark, blue `#7aa2f7`/`#2e7de9` accent, cursor on
+  the foreground colour as upstream intends. Background lightness is what has
+  driven every past rejection — L* 16.5 / 89.9 here; the near-black and
   pure-white extremes both failed, so keep any future candidate near these.
-  Canonical hex values live in `shared/terminal/gen-terminal.swift` (ANSI from
-  the upstream kitty exports, surface shades from its tab colors); the
-  ghostty/tmux/btop themes mirror them and must be kept in sync (nvim uses
-  `uloco/bluloco.nvim` with `style = "auto"`, which tracks `vim.o.background`
-  at runtime — it needs `rktjmp/lush.nvim`). Most CLI tools
+  That is also why the dark flavour is **Storm, not the default Night**: Night's
+  `#1a1b26` is L* 10.1, near the grounds already rejected as too dark.
+  Canonical hex values live in `shared/terminal/gen-terminal.swift` (taken from
+  upstream's own terminal export, which brightens ANSI 9-14 instead of
+  repeating 1-6); the ghostty/tmux/btop themes mirror them and must be kept in
+  sync (nvim uses `folke/tokyonight.nvim` with `style = "storm"` /
+  `light_style = "day"`, picked from `vim.o.background`). Most CLI tools
   inherit the terminal's ANSI palette and switch for free; nvim and btop switch
   explicitly. A `theme-watch` launchd agent (defined in `modules/home/theme.nix`)
   polls macOS appearance via System Events and runs `theme-sync` — `defaults read -g

@@ -5,7 +5,7 @@
   # `theme = light:...,dark:...`, so theme-sync doesn't touch it.
   xdg.configFile = {
     "ghostty/config".source = ../../shared/ghostty/config;
-    "ghostty/themes/bluloco-dark".source = ../../shared/ghostty/themes/bluloco-dark;
-    "ghostty/themes/bluloco-light".source = ../../shared/ghostty/themes/bluloco-light;
+    "ghostty/themes/tokyonight-storm".source = ../../shared/ghostty/themes/tokyonight-storm;
+    "ghostty/themes/tokyonight-day".source = ../../shared/ghostty/themes/tokyonight-day;
   };
 }

@@ -1,5 +1,5 @@
 #!/bin/sh
-# brave-theme-install — seed Brave's chrome with the Bluloco accent colour.
+# brave-theme-install — seed Brave's chrome with the Tokyo Night accent colour.
 #
 # Chromium's GM3 colour system takes ONE seed colour and derives a full tonal
 # palette for light *and* dark, switching with the system appearance on its own
@@ -11,7 +11,7 @@
 # silently clobbered. Run once; re-run after changing SEED.
 set -eu
 
-SEED="${1:-#3476ff}"          # Bluloco blue; pass another hex to override
+SEED="${1:-#7aa2f7}"          # Tokyo Night Storm blue; pass another hex to override
 PROFILE="${BRAVE_PROFILE:-Default}"
 DIR="$HOME/Library/Application Support/BraveSoftware/Brave-Browser/$PROFILE"
 PREFS="$DIR/Preferences"
