@@ -26,6 +26,8 @@
       "tailscale-app"
       "badgeify"
       "claude"
+      "codex"
+      "codex-app"
       "wispr-flow"
       "mattermost"
       "microsoft-teams"
