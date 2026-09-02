@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Print ANSI + truecolor swatches so you can see what your terminal palette
-# (via Ghostty's tokyonight-* theme) maps each ANSI slot to, side-by-side with
-# the canonical Tokyo Night Day / Storm hex values.
+# (via Ghostty's atom-one theme) maps each ANSI slot to, side-by-side with
+# the canonical Atom One Light / Dark hex values.
 
 printf '\n  --- ANSI 8-color (uses your Ghostty palette) ---\n'
 for i in 30 31 32 33 34 35 36 37; do
@@ -21,24 +21,24 @@ swatch() {
   printf "  \e[38;2;%d;%d;%dm█████ #%s %s\e[0m\n" "$r" "$g" "$b" "$hex" "$name"
 }
 
-printf '\n  --- Truecolor: Tokyo Night Day accents ---\n'
-swatch 3760bf fg
-swatch f52a65 red
-swatch 587539 green
-swatch 8c6c3e yellow
-swatch 2e7de9 blue
-swatch 9854f1 magenta
-swatch 007197 cyan
-swatch 848cb5 comment
+printf '\n  --- Truecolor: Atom One Light accents ---\n'
+swatch 383a42 fg
+swatch e45649 red
+swatch 50a14f green
+swatch c18401 yellow
+swatch 4078f2 blue
+swatch a626a4 magenta
+swatch 0184bc cyan
+swatch 696c77 comment
 
-printf '\n  --- Truecolor: Tokyo Night Storm accents ---\n'
-swatch c0caf5 fg
-swatch f7768e red
-swatch 9ece6a green
-swatch e0af68 yellow
-swatch 7aa2f7 blue
-swatch bb9af7 magenta
-swatch 7dcfff cyan
-swatch 565f89 comment
+printf '\n  --- Truecolor: Atom One Dark accents ---\n'
+swatch abb2bf fg
+swatch e06c75 red
+swatch 98c379 green
+swatch e5c07b yellow
+swatch 61afef blue
+swatch c678dd magenta
+swatch 56b6c2 cyan
+swatch 5c6370 comment
 
 echo

@@ -46,23 +46,31 @@ Constraints that aren't obvious from any single file:
 
 - **Determinate Nix owns the daemon** — keep `nix.enable = false`; do not add
   nix-darwin's own Nix management.
-- **Theming**: Tokyo Night everywhere — pale blue-grey `#e1e2e7` Day light /
-  storm-blue `#24283b` Storm dark, blue `#7aa2f7`/`#2e7de9` accent, cursor on
-  the foreground colour as upstream intends. Background lightness is what has
-  driven every past rejection — L* 16.5 / 89.9 here; the near-black and
-  pure-white extremes both failed, so keep any future candidate near these.
-  That is also why the dark flavour is **Storm, not the default Night**: Night's
-  `#1a1b26` is L* 10.1, near the grounds already rejected as too dark.
-  Canonical hex values live in `shared/terminal/gen-terminal.swift` (taken from
-  upstream's own terminal export, which brightens ANSI 9-14 instead of
-  repeating 1-6); the ghostty/tmux/btop themes mirror them and must be kept in
-  sync (nvim uses `folke/tokyonight.nvim` with `style = "storm"` /
-  `light_style = "day"`, picked from `vim.o.background`). Most CLI tools
+- **Theming**: Atom One / One Dark Pro everywhere — grey-white `#fafafa` light /
+  slate `#282c34` dark, blue `#61afef`/`#4078f2` accent, with the font a
+  separate axis: **Maple Mono NF** (see below), not the BlexMono this palette
+  originally shipped with. Background lightness has driven every past rejection,
+  so record it: L* 17.9 dark / 98.3 light here. The dark end sits in the band
+  that has always held (a previous L* 16.5 was fine; `#1a1b26` at L* 10.1 was
+  rejected as too dark). The light end is the known-risky one — a near-white
+  ground was rejected once before, and `#fafafa` is that same near-white, kept
+  here because it was asked for explicitly. If light mode gets rejected again,
+  lightness is the first thing to move, not the accent.
+  Canonical hex values live in `shared/terminal/gen-terminal.swift`; the
+  ghostty/tmux/btop themes mirror them and must be kept in sync (nvim uses
+  `olimorris/onedarkpro.nvim`: `onedark`/`onelight`). Most CLI tools
   inherit the terminal's ANSI palette and switch for free; nvim and btop switch
   explicitly. A `theme-watch` launchd agent (defined in `modules/home/theme.nix`)
   polls macOS appearance via System Events and runs `theme-sync` — `defaults read -g
   AppleInterfaceStyle` is unreliable inside launchd, so don't "simplify" to it.
   When adding a themed tool, wire both flavors.
+- **Font**: `maple-mono.NF` (family "Maple Mono NF"), weight switching with
+  appearance — Medium in light, Regular in dark, since light-on-dark text blooms
+  and reads heavier. Maple has no 450 step, so that pair is the whole ladder.
+  The weight lives in the ghostty *theme* files (`font-style`) and in the
+  Terminal.app profile faces (`MapleMono-NF-Medium` / `-Regular`), never in
+  `shared/ghostty/config`. Theme and font are independent axes here: the palette
+  is the One Dark era's, the font is not.
 - **Agent workflow**: always validate with `nrb` before asking the user to apply with
   `nrs`. The tmux theme files (`shared/tmux/themes/`) embed Nerd Font powerline glyphs
   that are destroyed by rewriting the file — derive new variants via `sed` from the

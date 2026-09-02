@@ -74,18 +74,18 @@
       # toggle status bar
       bind-key b set-option status
 
-      # --- theme: Tokyo Night Storm/Day status bar (segmented powerline).
+      # --- theme: One Dark/Light status bar (segmented powerline).
       #     Variant chosen by macOS appearance at startup; re-sourced on toggle
       #     by theme-sync. ---
       if-shell '[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]' \
-        "source-file ~/.config/tmux/themes/tokyonight-storm.tmux" \
-        "source-file ~/.config/tmux/themes/tokyonight-day.tmux"
+        "source-file ~/.config/tmux/themes/one-dark.tmux" \
+        "source-file ~/.config/tmux/themes/one-light.tmux"
     '';
   };
 
   # Ship the tmux status-bar themes (sourced above + by theme-sync).
   xdg.configFile = {
-    "tmux/themes/tokyonight-storm.tmux".source = ../../shared/tmux/themes/tokyonight-storm.tmux;
-    "tmux/themes/tokyonight-day.tmux".source = ../../shared/tmux/themes/tokyonight-day.tmux;
+    "tmux/themes/one-dark.tmux".source = ../../shared/tmux/themes/one-dark.tmux;
+    "tmux/themes/one-light.tmux".source = ../../shared/tmux/themes/one-light.tmux;
   };
 }

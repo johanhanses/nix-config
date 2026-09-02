@@ -23,11 +23,10 @@
   programs.zsh.enable = true;
 
   # Fonts (nerd fonts for the terminal + nvim icons).
-  # nerd-fonts.jetbrains-mono installs as family "JetBrainsMono Nerd Font" —
-  # the full-width build (not the NFM/Propo variants), so powerline caps and
-  # nvim icons keep their full cell.
+  # maple-mono.NF installs as family "Maple Mono NF" — upstream's own
+  # Nerd Font build, full-width glyphs.
   fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
+    maple-mono.NF
     nerd-fonts.symbols-only
   ];
 }

@@ -1,16 +1,16 @@
-# Tokyo Night Storm — storm-blue ground, soft pastel accents — powerline status bar (rounded caps + icons).
-# Needs a full-width Nerd Font (JetBrainsMono Nerd Font) — the Mono/NFM variant squeezes caps.
+# One Dark — Atom One Dark Pro, blue accent — powerline status bar (rounded caps + icons).
+# Needs a full-width Nerd Font (Maple Mono NF) — the Mono/NFM variant squeezes caps.
 
-%hidden BG="#24283b"
-%hidden FG="#c0caf5"
-%hidden SURFACE="#414868"
-%hidden MUTED="#565f89"
-%hidden ACCENT="#7aa2f7"
-%hidden GREEN="#9ece6a"
-%hidden YELLOW="#e0af68"
-%hidden RED="#f7768e"
-%hidden MAGENTA="#bb9af7"
-%hidden CYAN="#7dcfff"
+%hidden BG="#282c34"
+%hidden FG="#abb2bf"
+%hidden SURFACE="#3e4451"
+%hidden MUTED="#5c6370"
+%hidden ACCENT="#61afef"
+%hidden GREEN="#98c379"
+%hidden YELLOW="#e5c07b"
+%hidden RED="#e06c75"
+%hidden MAGENTA="#c678dd"
+%hidden CYAN="#56b6c2"
 
 set -g status on
 set -g status-position bottom

@@ -1,6 +1,6 @@
-# Prompt: apple logo + folder + full path + git branch, Tokyo Night accents.
+# Prompt: apple logo + folder + full path + git branch, Atom One accents.
 # Uses named ANSI colors so it follows the terminal palette (light/dark auto).
-# Requires a Nerd Font (JetBrainsMono Nerd Font).
+# Requires a Nerd Font (Maple Mono NF).
 autoload -Uz vcs_info
 update_terminal_cwd() {}
 precmd() { vcs_info; printf '\e[2 q'; print -Pn '\e]2;%1~\a' }

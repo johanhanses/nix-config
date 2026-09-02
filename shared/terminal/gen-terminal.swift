@@ -1,13 +1,7 @@
-// Generates the Tokyo Night Storm/Day Terminal.app profiles (.terminal plists)
-// with proper archived NSColor/NSFont blobs.
-// Run: swift gen-terminal.swift <output-dir>
-// Palette: Tokyo Night (folke/tokyonight.nvim) — storm-blue #24283b dark /
-// pale blue-grey #e1e2e7 light. Storm rather than the default Night: Night's
-// #1a1b26 sits at L* 10.1, close to the too-dark grounds rejected before,
-// while Storm's L* 16.5 matches the ground that has stuck. Every value below
-// is upstream's own terminal export (extras/ghostty/tokyonight_{storm,day}),
-// which brightens ANSI 9-14 rather than repeating 1-6, so bright and normal
-// stay distinguishable. Cursor is the foreground, as upstream intends.
+// Generates the One Dark/Light Terminal.app profiles (.terminal plists) with proper
+// archived NSColor/NSFont blobs. Run: swift gen-terminal.swift <output-dir>
+// Palette: Atom One / One Dark Pro — slate dark #282c34 / grey-white light
+// #fafafa, blue accent.
 import AppKit
 
 func color(_ hex: String) -> NSColor {
@@ -24,12 +18,12 @@ func arch(_ obj: Any) -> Data {
     return try! NSKeyedArchiver.archivedData(withRootObject: obj, requiringSecureCoding: false)
 }
 
-// Full-width Nerd Font build (JetBrainsMono Nerd Font, not the NFM/Propo
-// variants) so powerline caps render smooth.
+// Full-width Nerd Font build (Maple Mono NF, upstream's own) so powerline caps
+// render smooth.
 //
 // Weight differs per appearance: light-on-dark text blooms and reads heavier, so
 // dark drops one notch (Medium 500 -> Regular 400) to match the light profile's
-// perceived weight. JetBrains Mono has no 450 step, so the pair is Medium/Regular.
+// perceived weight. Maple has no 450 step, so the pair is Medium/Regular.
 func font(_ face: String) -> NSFont {
     return NSFont(name: face, size: 15)!
 }
@@ -65,27 +59,27 @@ func makeProfile(name: String, face: String, bg: String, fg: String, cursor: Str
 }
 
 let dark = makeProfile(
-    name: "Tokyo Night Storm",
-    face: "JetBrainsMonoNF-Regular",
-    bg: "24283b", fg: "c0caf5", cursor: "c0caf5", sel: "2e3c64",
+    name: "One Dark",
+    face: "MapleMono-NF-Regular",
+    bg: "282c34", fg: "abb2bf", cursor: "528bff", sel: "3e4451",
     ansi: [
-        "1d202f", "f7768e", "9ece6a", "e0af68", "7aa2f7", "bb9af7", "7dcfff", "a9b1d6",
-        "414868", "ff899d", "9fe044", "faba4a", "8db0ff", "c7a9ff", "a4daff", "c0caf5",
+        "3f4451", "e06c75", "98c379", "d19a66", "61afef", "c678dd", "56b6c2", "abb2bf",
+        "5c6370", "e06c75", "98c379", "e5c07b", "61afef", "c678dd", "56b6c2", "ffffff",
     ]
 )
 
 let light = makeProfile(
-    name: "Tokyo Night Day",
-    face: "JetBrainsMonoNF-Medium",
-    bg: "e1e2e7", fg: "3760bf", cursor: "3760bf", sel: "b7c1e3",
+    name: "One Light",
+    face: "MapleMono-NF-Medium",
+    bg: "fafafa", fg: "383a42", cursor: "526fff", sel: "e5e5e6",
     ansi: [
-        "b4b5b9", "f52a65", "587539", "8c6c3e", "2e7de9", "9854f1", "007197", "6172b0",
-        "a1a6c5", "ff4774", "5c8524", "a27629", "358aff", "a463ff", "007ea8", "3760bf",
+        "383a42", "e45649", "50a14f", "c18401", "4078f2", "a626a4", "0184bc", "a0a1a7",
+        "696c77", "e45649", "50a14f", "c18401", "4078f2", "a626a4", "0184bc", "fafafa",
     ]
 )
 
 let outDir = CommandLine.arguments[1]
-for (fname, dict) in [("Tokyo Night Storm.terminal", dark), ("Tokyo Night Day.terminal", light)] {
+for (fname, dict) in [("One Dark.terminal", dark), ("One Light.terminal", light)] {
     let data = try! PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
     let url = URL(fileURLWithPath: outDir).appendingPathComponent(fname)
     try! data.write(to: url)

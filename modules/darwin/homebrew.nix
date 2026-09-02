@@ -43,6 +43,7 @@
     # Moom Classic (419330170) is NOT here — not owned on this Apple ID; it's
     # installed from the Many Tricks direct download instead (see SETUP.md).
     masApps = {
+      "Amphetamine" = 937984704;
       "RunCat" = 1429033973;
       "TabBack for Safari" = 1660506599;
       "uBlock Origin Lite" = 6745342698;

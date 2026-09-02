@@ -2,8 +2,8 @@
 
 nix-darwin + home-manager configuration for this Mac (hostname **megamackan**),
 migrated from the script-based `dotfiles2026`. Curated: minimal GUI apps, full
-terminal/CLI/tmux-worktree workflow, **Tokyo Night theme** (Day light / Storm
-dark, blue accent) with automatic light/dark switching.
+terminal/CLI/tmux-worktree workflow, **Atom One / One Dark Pro theme** (grey-white
+light / slate dark, blue accent) with automatic light/dark switching.
 
 ## Rebuild
 
@@ -35,24 +35,24 @@ to apply. To pull in newer package versions, run `nup` (then `git commit` the up
 ## What Nix manages
 
 - **System** (`modules/darwin/`): Determinate Nix (`nix.enable = false`), hostname,
-  fonts (JetBrainsMono Nerd Font + symbols nerd fonts), Homebrew casks (`homebrew.nix`), macOS
+  fonts (Maple Mono NF + symbols nerd fonts), Homebrew casks (`homebrew.nix`), macOS
   defaults incl. Caps Lock→Control & key repeat (`defaults.nix`).
 - **Home** (`modules/home/`): zsh (prompt/aliases/worktree fns), git (+delta),
   tmux, fzf/bat/eza/zoxide/gh/sesh, btop, neovim, and the `theme-watch` agent.
 - **CLI tools**: `packages.nix` (ripgrep, fd, k8s, aws/azure/saml2aws, node+LSPs…).
 
-## Theming (Tokyo Night, auto light/dark)
+## Theming (Atom One / One Dark Pro, auto light/dark)
 
-Tokyo Night (folke/tokyonight.nvim) — storm-blue `#24283b` **Storm** dark /
-pale blue-grey `#e1e2e7` **Day** light, blue `#7aa2f7`/`#2e7de9` accent, cursor
-on the foreground colour. Storm rather than the default Night because Night's
-`#1a1b26` ground is darker than what has stuck here. Defined in
+Atom One / One Dark Pro — slate `#282c34` dark / grey-white `#fafafa` light,
+blue `#61afef`/`#4078f2` accent, set in **Maple Mono NF** (Medium light /
+Regular dark). Note the light ground is a near-white that has been rejected
+here once before; it is in place because it was asked for explicitly. Defined in
 `shared/terminal/gen-terminal.swift` and mirrored in the ghostty, tmux, and
 btop themes — keep them in sync when tweaking.
 
-Terminal.app carries the palette (Tokyo Night Storm/Day profiles); most CLI
+Terminal.app carries the palette (One Dark/Light profiles); most CLI
 tools follow the terminal's ANSI colors, so they switch for free. nvim
-(folke/tokyonight.nvim + auto-dark-mode) and btop switch explicitly. The `theme-watch` launchd agent polls appearance via
+(olimorris/onedarkpro.nvim + auto-dark-mode) and btop switch explicitly. The `theme-watch` launchd agent polls appearance via
 **System Events** and runs `theme-sync` on change (`defaults read -g
 AppleInterfaceStyle` is unreliable in launchd contexts).
 
@@ -84,12 +84,12 @@ Run once on a fresh machine, in order:
    ```
    Until it exists those overlay symlinks dangle and `sesh` errors on invocation —
    clone it, then re-run `nrs`.
-4. **Terminal.app profiles**: `terminal-theme-install` (imports the two Tokyo
-   Night Storm/Day profiles from `shared/terminal/` and sets the appearance-matched one).
+4. **Terminal.app profiles**: `terminal-theme-install` (imports the two One
+   Dark/Light profiles from `shared/terminal/` and sets the appearance-matched one).
    Terminal.app profiles live in `com.apple.Terminal` as archived NSColor blobs,
    so they can't be managed declaratively.
 5. **Brave chrome colour**: quit Brave, then `brave-theme-install` (seeds
-   `browser.theme.user_color` with the Tokyo Night blue; Chromium derives the light
+   `browser.theme.user_color` with the One Dark blue; Chromium derives the light
    and dark chrome from that one seed and follows the system appearance itself).
 6. **Moom** (classic 3.x — not owned on the App Store): install from Many Tricks
    `https://manytricks.com/download/moom/classic`, enter license, allow Accessibility.
@@ -102,7 +102,6 @@ Run once on a fresh machine, in order:
 
 - Determinate owns the Nix daemon → keep `nix.enable = false`.
 - Neovim keeps its lazy.nvim config (`config/nvim`, shipped via `xdg.configFile`);
-  the colorscheme is folke/tokyonight.nvim (`tokyonight`, `style = "storm"` /
-  `light_style = "day"`, picked from `vim.o.background`).
+  the colorscheme is olimorris/onedarkpro.nvim (`onedark`/`onelight`).
   Plugins pinned by `lazy-lock.json`.
 - Secrets are never committed (`/secrets` gitignored).

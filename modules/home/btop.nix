@@ -2,10 +2,10 @@
 {
   home.packages = [ pkgs.btop ];
 
-  # Tokyo Night Storm/Day btop themes (read-only is fine for theme files).
+  # One Dark/Light btop themes (read-only is fine for theme files).
   xdg.configFile = {
-    "btop/themes/tokyonight_storm.theme".source = ../../shared/themes/btop/tokyonight_storm.theme;
-    "btop/themes/tokyonight_day.theme".source = ../../shared/themes/btop/tokyonight_day.theme;
+    "btop/themes/one_dark.theme".source = ../../shared/themes/btop/one_dark.theme;
+    "btop/themes/one_light.theme".source = ../../shared/themes/btop/one_light.theme;
   };
 
   # btop.conf must stay mutable so theme-sync can rewrite color_theme on the
