@@ -10,7 +10,44 @@
     historyLimit = 10000;
     terminal = "tmux-256color";
     sensibleOnTop = true; # tmux-sensible
-    plugins = [ pkgs.tmuxPlugins.yank ];
+    plugins = [
+      pkgs.tmuxPlugins.yank
+
+      # resurrect + continuum: survive reboots. continuum MUST stay last —
+      # it appends the save/restore hooks and expects resurrect loaded first.
+      {
+        plugin = pkgs.tmuxPlugins.resurrect;
+        extraConfig = ''
+          # Restore each pane's visible scrollback, not just the layout. This is
+          # the part that makes a restored session identifiable: window names
+          # here are all `#{b:pane_current_path}`, so six Claude windows in one
+          # repo look identical until you can see what each was doing.
+          set -g @resurrect-capture-pane-contents 'on'
+
+          # Claude Code is deliberately NOT in @resurrect-processes. It *would*
+          # match (resurrect matches the full `ps` command line, so "~claude"
+          # hits `claude --dangerously-skip-permissions` — the short
+          # pane_current_command is just the version string, e.g. "2.1.266"),
+          # but relaunching it starts a BRAND NEW conversation rather than
+          # reopening the old one. `--continue` is no better when several
+          # sessions share one cwd: it resumes the most recent for that dir, so
+          # every restored window would land on the same conversation. There is
+          # no pid -> session-id link to record either (Claude keeps no open
+          # handle on its transcript and exports no session-id env var).
+          # So: restore the layout, dirs and scrollback, then pick per window
+          # with `claude --resume` (bare = interactive picker). Transcripts
+          # themselves always persist in ~/.claude/projects/<slug>/<id>.jsonl.
+          set -g @resurrect-processes 'false'
+        '';
+      }
+      {
+        plugin = pkgs.tmuxPlugins.continuum;
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+          set -g @continuum-save-interval '15'
+        '';
+      }
+    ];
 
     extraConfig = ''
       setw -g pane-base-index 1
