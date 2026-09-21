@@ -44,7 +44,7 @@
     ]))
 
     # neovim toolchain — runtimes, language servers, formatters, linters
-    nodejs_22
+    nodejs_26
     pnpm
     typescript
     typescript-language-server
