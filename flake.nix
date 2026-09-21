@@ -22,8 +22,13 @@
     # brew itself: nix-homebrew pins a tag that lags the rolling cask tap, so
     # casks adopting new DSL keywords fail to parse. Pin it here instead and
     # bump this tag when `brew bundle` reports an unreadable cask.
+    # This tag must also track nix-homebrew's vendored bin/brew tail
+    # (modules/brew.tail.sh), which it re-syncs from upstream: pinning brew 6
+    # under a nix-homebrew synced to brew 7 makes `brew bundle` die with
+    # `key not found: "HOMEBREW_ORIGINAL_BREW_FILE"` (brew 7 dropped that var,
+    # brew 6's Library/Homebrew/startup/config.rb still requires it).
     brew-src = {
-      url = "github:Homebrew/brew/6.0.15";
+      url = "github:Homebrew/brew/7.0.4";
       flake = false;
     };
     homebrew-core = {
