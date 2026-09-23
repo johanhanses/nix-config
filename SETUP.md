@@ -35,7 +35,7 @@ to apply. To pull in newer package versions, run `nup` (then `git commit` the up
 ## What Nix manages
 
 - **System** (`modules/darwin/`): Determinate Nix (`nix.enable = false`), hostname,
-  fonts (Maple Mono NF + symbols nerd fonts), Homebrew casks (`homebrew.nix`), macOS
+  fonts (Monaspace Argon NF, Maple Mono NF + symbols nerd fonts), Homebrew casks (`homebrew.nix`), macOS
   defaults incl. Caps Lock→Control & key repeat (`defaults.nix`).
 - **Home** (`modules/home/`): zsh (prompt/aliases/worktree fns), git (+delta),
   tmux, fzf/bat/eza/zoxide/gh/sesh, btop, neovim, and the `theme-watch` agent.
@@ -44,8 +44,8 @@ to apply. To pull in newer package versions, run `nup` (then `git commit` the up
 ## Theming (Atom One / One Dark Pro, auto light/dark)
 
 Atom One / One Dark Pro — slate `#282c34` dark / grey-white `#fafafa` light,
-blue `#61afef`/`#4078f2` accent, set in **Maple Mono NF** (Medium light /
-Regular dark). Note the light ground is a near-white that has been rejected
+blue `#61afef`/`#4078f2` accent, set in **Monaspace Argon NF** (Medium in both
+light and dark). Note the light ground is a near-white that has been rejected
 here once before; it is in place because it was asked for explicitly. Defined in
 `shared/terminal/gen-terminal.swift` and mirrored in the ghostty, tmux, and
 btop themes — keep them in sync when tweaking.

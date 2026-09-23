@@ -1,9 +1,10 @@
 # One Dark — mirrors shared/terminal/gen-terminal.swift (canonical palette).
 
 # A theme file may set any config option except `theme`/`config-file`, so the
-# font weight rides along with the appearance switch: one notch lighter than
-# light mode, since light-on-dark text blooms and reads heavier.
-font-style = Regular
+# font weight rides along with the appearance switch. Dark used to drop to
+# Regular (light-on-dark blooms), but it read harder than light mode, so it now
+# matches light at Medium.
+font-style = Medium
 
 background = #282c34
 foreground = #abb2bf
