@@ -1,5 +1,5 @@
 # One Light — Atom One Light, blue accent — powerline status bar (rounded caps + icons).
-# Needs a full-width Nerd Font (Monaspace Argon NF) — the Mono/NFM variant squeezes caps.
+# Needs a full-width Nerd Font (Monaspace Neon NF) — the Mono/NFM variant squeezes caps.
 
 %hidden BG="#fafafa"
 %hidden FG="#383a42"

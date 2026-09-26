@@ -3,11 +3,11 @@
 # so light/dark switching needs no theme-sync wiring.
 theme = light:one-light,dark:one-dark
 
-# Same face as Terminal.app (family "Monaspace Argon NF", upstream's own Nerd
+# Same face as Terminal.app (family "Monaspace Neon NF", upstream's own Nerd
 # Font build) at 15. The weight is NOT set here — each theme file sets its own
 # `font-style` (currently Medium in both), so a per-appearance weight stays
 # possible, the way the Terminal.app profiles do it.
-font-family = Monaspace Argon NF
+font-family = Monaspace Neon NF
 font-size = 15
 adjust-cell-height = 10%
 

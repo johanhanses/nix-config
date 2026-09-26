@@ -23,15 +23,15 @@
   programs.zsh.enable = true;
 
   # Fonts (nerd fonts for the terminal + nvim icons).
-  # Terminal face: Monaspace Argon NF — upstream's own Nerd Font build, shipped
+  # Terminal face: Monaspace Neon NF — upstream's own Nerd Font build, shipped
   # inside pkgs.monaspace. That package carries ~635 files (five families, plus
-  # Frozen/Var/Wide cuts), so only the normal-width Argon NF faces are copied out.
+  # Frozen/Var/Wide cuts), so only the normal-width Neon NF faces are copied out.
   # maple-mono.NF (family "Maple Mono NF") stays installed as the previous
   # terminal font, for quick switching back.
   fonts.packages = with pkgs; [
-    (runCommand "monaspace-argon-nf" { } ''
+    (runCommand "monaspace-neon-nf" { } ''
       mkdir -p $out/share/fonts/opentype
-      for f in ${monaspace}/share/fonts/opentype/MonaspaceArgonNF-*.otf; do
+      for f in ${monaspace}/share/fonts/opentype/MonaspaceNeonNF-*.otf; do
         case $f in *Wide*) ;; *) cp $f $out/share/fonts/opentype/ ;; esac
       done
     '')

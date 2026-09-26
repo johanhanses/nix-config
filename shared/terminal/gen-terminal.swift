@@ -18,7 +18,7 @@ func arch(_ obj: Any) -> Data {
     return try! NSKeyedArchiver.archivedData(withRootObject: obj, requiringSecureCoding: false)
 }
 
-// Nerd Font build (Monaspace Argon NF, upstream's own) so powerline caps
+// Nerd Font build (Monaspace Neon NF, upstream's own) so powerline caps
 // render smooth.
 //
 // Both appearances use Medium. Dark once dropped to Regular (light-on-dark text
@@ -59,7 +59,7 @@ func makeProfile(name: String, face: String, bg: String, fg: String, cursor: Str
 
 let dark = makeProfile(
     name: "One Dark",
-    face: "MonaspaceArgonNF-Medium",
+    face: "MonaspaceNeonNF-Medium",
     bg: "282c34", fg: "abb2bf", cursor: "528bff", sel: "3e4451",
     ansi: [
         "3f4451", "e06c75", "98c379", "d19a66", "61afef", "c678dd", "56b6c2", "abb2bf",
@@ -69,7 +69,7 @@ let dark = makeProfile(
 
 let light = makeProfile(
     name: "One Light",
-    face: "MonaspaceArgonNF-Medium",
+    face: "MonaspaceNeonNF-Medium",
     bg: "fafafa", fg: "383a42", cursor: "526fff", sel: "e5e5e6",
     ansi: [
         "383a42", "e45649", "50a14f", "c18401", "4078f2", "a626a4", "0184bc", "a0a1a7",

@@ -48,7 +48,7 @@ Constraints that aren't obvious from any single file:
   nix-darwin's own Nix management.
 - **Theming**: Atom One / One Dark Pro everywhere — grey-white `#fafafa` light /
   slate `#282c34` dark, blue `#61afef`/`#4078f2` accent, with the font a
-  separate axis: **Monaspace Argon NF** (see below), not the BlexMono this
+  separate axis: **Monaspace Neon NF** (see below), not the BlexMono this
   palette originally shipped with. Background lightness has driven every past rejection,
   so record it: L* 17.9 dark / 98.3 light here. The dark end sits in the band
   that has always held (a previous L* 16.5 was fine; `#1a1b26` at L* 10.1 was
@@ -64,7 +64,7 @@ Constraints that aren't obvious from any single file:
   polls macOS appearance via System Events and runs `theme-sync` — `defaults read -g
   AppleInterfaceStyle` is unreliable inside launchd, so don't "simplify" to it.
   When adding a themed tool, wire both flavors.
-- **Font**: Monaspace Argon NF (family "Monaspace Argon NF"; upstream's own
+- **Font**: Monaspace Neon NF (family "Monaspace Neon NF"; upstream's own
   Nerd Font build, copied out of `pkgs.monaspace` in `system.nix` so the other
   ~600 Monaspace files don't flood the font menus), Medium in both
   appearances. `maple-mono.NF`, the previous font, stays installed for quick
@@ -72,7 +72,7 @@ Constraints that aren't obvious from any single file:
   that read harder than light mode, so it was bumped to Medium (Sep 2026).
   The weight is per-appearance-capable: it lives in the
   ghostty *theme* files (`font-style`) and in the Terminal.app profile faces
-  (`MonaspaceArgonNF-Medium` for both), never in
+  (`MonaspaceNeonNF-Medium` for both), never in
   `shared/ghostty/config`. Theme and font are independent axes here: the palette
   is the One Dark era's, the font is not.
 - **Agent workflow**: always validate with `nrb` before asking the user to apply with
