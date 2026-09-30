@@ -12,6 +12,7 @@
       save = 25000;
       share = true;
       ignoreSpace = true;
+      extended = true; # store start time + duration per entry (`history -i`)
     };
 
     sessionVariables = {

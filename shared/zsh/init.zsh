@@ -7,6 +7,12 @@ precmd() { vcs_info; printf '\e[2 q'; print -Pn '\e]2;%1~\a' }
 zstyle ':vcs_info:git:*' formats ' %F{magenta}(%b)%f'
 setopt PROMPT_SUBST
 PROMPT=$'%B%F{red}\uF179  %F{yellow}\uF07B  %F{blue}%1~%f${vcs_info_msg_0_}%b\n%F{cyan}$%f '
+RPROMPT='%F{8}%D{%H:%M:%S}%f'
+
+# Redraw the prompt on Enter so the clock records when the command ran,
+# not when the prompt was first drawn (which could be hours earlier).
+_accept_line_stamp() { zle reset-prompt; zle .accept-line }
+zle -N accept-line _accept_line_stamp
 
 # fzf + fd
 if command -v fd >/dev/null 2>&1; then
