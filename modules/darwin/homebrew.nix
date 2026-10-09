@@ -48,6 +48,8 @@
       "TabBack for Safari" = 1660506599;
       "uBlock Origin Lite" = 6745342698;
       "Darker - Dark Mode for Safari" = 1637413102;
+      "Pages" = 361309726; # unified ID; old Mac-only 409201541 is gone
+      "Numbers" = 361304891; # unified ID; old Mac-only 409203825 is gone
     };
   };
 }
