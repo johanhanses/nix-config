@@ -40,6 +40,13 @@
       flake = false;
     };
 
+    # azure-cli only: pinned to the last nixpkgs where it builds. Upstream marks
+    # its dependency python fabric broken once invoke >= 3
+    # (https://github.com/fabric/fabric/issues/2376). Drop this input (and the
+    # override in modules/home/packages.nix) once `nix eval
+    # nixpkgs#azure-cli.meta.broken`-style checks pass on unstable again.
+    nixpkgs-azure.url = "github:NixOS/nixpkgs/d54020a6ac3211e9f4201631bdf67678818c0cdf";
+
     # Determinate owns the Nix installation/daemon (nix.enable = false in nix-darwin).
     determinate.url = "github:DeterminateSystems/determinate";
   };
@@ -55,6 +62,7 @@
       homebrew-core,
       homebrew-cask,
       determinate,
+      ...
     }:
     let
       # Version of the brew-src tag above, read back out of our own lock.

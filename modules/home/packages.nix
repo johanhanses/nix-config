@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   # CLI tooling (everything that used to be Homebrew `brew`), now from Nix.
   # Interactive tools with their own home-manager module (fzf, bat, eza, zoxide,
@@ -25,7 +25,8 @@
 
     # cloud / work auth
     awscli2
-    azure-cli
+    # from the pinned nixpkgs-azure input (fabric is broken on unstable; see flake.nix)
+    inputs.nixpkgs-azure.legacyPackages.${pkgs.stdenv.hostPlatform.system}.azure-cli
     saml2aws
     _1password-cli # `op` — agent sessions read the DT hub-Vault root token from 1Password
 
