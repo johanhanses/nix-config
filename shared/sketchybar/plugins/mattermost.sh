@@ -9,17 +9,23 @@ MM_CFG="$HOME/Repos/github.com/johanhanses/dotfiles-private/mattermost/config"
 TOKEN=$(security find-generic-password -s mattermost-token -w 2>/dev/null)
 [ -n "${MATTERMOST_URL:-}" ] && [ -n "$TOKEN" ] || { sketchybar --set "$NAME" drawing=off; exit 0; }
 
-# teams/unread skips DMs/group messages, so join every channel (incl. D/G)
-# with its membership: unread = total - read; channels set to
-# "mentions only" (mark_unread=mention) don't count as unread.
+# Count the way the app does with Collapsed Reply Threads: channels by their
+# *root* posts (the plain msg/mention counters include thread replies, which
+# reading the channel never clears — that left the widget stuck for hours),
+# plus unread threads/thread mentions from teams/unread. Channels come from
+# channels + channel_members because teams/unread skips DMs/group messages;
+# channels set to "mentions only" (mark_unread=mention) don't count as unread.
 API="$MATTERMOST_URL/api/v4/users/me"
-channels=$(curl -sf -m 5 -H "Authorization: Bearer $TOKEN" "$API/channels?per_page=200") || exit 0 # offline: keep last state
-members=$(curl -sf -m 5 -H "Authorization: Bearer $TOKEN" "$API/channel_members?per_page=200") || exit 0
-counts=$(jq -rn --argjson ch "$channels" --argjson cm "$members" '
-  ($ch | map({(.id): .total_msg_count}) | add) as $total
+get() { curl -sf -m 5 -H "Authorization: Bearer $TOKEN" "$API/$1"; }
+channels=$(get "channels?per_page=200") || exit 0 # offline: keep last state
+members=$(get "channel_members?per_page=200") || exit 0
+teams=$(get "teams/unread") || exit 0
+counts=$(jq -rn --argjson ch "$channels" --argjson cm "$members" --argjson tu "$teams" '
+  ($ch | map({(.id): .total_msg_count_root}) | add) as $total
   | [$cm[] | select($total[.channel_id])] as $m
-  | [($m | map(.mention_count) | add // 0),
-     ($m | map(select(.notify_props.mark_unread != "mention" and $total[.channel_id] > .msg_count)) | length)]
+  | [($m | map(.mention_count_root) | add // 0) + ($tu | map(.thread_mention_count) | add // 0),
+     ($m | map(select(.notify_props.mark_unread != "mention" and $total[.channel_id] > .msg_count_root)) | length)
+       + ($tu | map(.thread_count) | add // 0)]
   | @tsv') || exit 0
 mentions=${counts%%	*}
 unread=${counts##*	}
