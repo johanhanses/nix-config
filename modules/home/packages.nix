@@ -9,6 +9,7 @@
     fd
     jq
     yq-go
+    fastfetch # system info splash (neofetch is archived)
 
     # git tooling
     lazygit

@@ -6,7 +6,12 @@
   # there. Colours follow macOS appearance via colors.sh + theme-sync.
   services.sketchybar = {
     enable = true;
-    extraPackages = [ pkgs.jq ];
+    # on the agent PATH for plugins (launchd does not expand the per-user
+    # profile entry, so home.packages are not visible to it)
+    extraPackages = [
+      pkgs.jq
+      pkgs.gh
+    ];
   };
 
   # JankyBorders — accent border around the focused window. These are only the

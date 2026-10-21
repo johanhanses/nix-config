@@ -42,12 +42,6 @@
     };
 
     LaunchServices.LSQuarantine = false; # no "are you sure you want to open" nag
-
-    # Moom (hidden pref): keep laying windows out below the menu-bar strip even
-    # though the menu bar auto-hides, so they clear SketchyBar instead of
-    # sliding under it. Counter-intuitively it's `true` that reserves the strip
-    # (verified: window top 32pt -> 48pt). Moom reads it at launch.
-    CustomUserPreferences."com.manytricks.Moom"."Ignore Menu Bar: Auto-Hidden" = true;
   };
 
   # Remap Caps Lock -> Control.

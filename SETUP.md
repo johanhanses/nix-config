@@ -93,6 +93,11 @@ Run once on a fresh machine, in order:
    and dark chrome from that one seed and follows the system appearance itself).
 6. **Moom** (classic 3.x — not owned on the App Store): install from Many Tricks
    `https://manytricks.com/download/moom/classic`, enter license, allow Accessibility.
+   Custom controls (keyboard mode is ⌘M, then): ⌘1 left ⅔ · ⌘2 right ⅓ · ⌘3 fill
+   for the built-in screen; ⌘4 / ⌘5 / ⌘6 are the same for the external display,
+   with frame height 0.982955 so windows start below SketchyBar (the native menu
+   bar auto-hides and Moom's gap is one value for all edges — the notch screen
+   gets that space from its safe area, a plain external screen doesn't).
 7. **Auth** (tokens expire): `gh auth login`, `saml2aws login`.
 8. **App Store menu-bar apps** (RunCat/TabBack): install from the App Store, then add
    their IDs to `homebrew.nix` `masApps` (find with `mas search <name>`).
