@@ -6,9 +6,6 @@
 #   - Terminal.app  : switch the profile (requires the two profiles imported)
 #   - btop          : rewrite color_theme in the mutable btop.conf
 #   - tmux          : source the matching status-bar theme
-#   - sketchybar    : record the mode in ~/.local/state/theme-mode and reload
-#                     (its colors.sh reads that file)
-#   - borders       : re-colour the running JankyBorders instance
 #   - Mattermost    : push a custom theme via REST (URL from the private
 #                     config, token from the login keychain)
 #   - bat / fzf / delta / nvim self-follow (ANSI palette / auto-dark-mode)
@@ -31,13 +28,11 @@ if [ "$(detect_dark)" = "dark" ]; then
   TERM_PROFILE="One Dark"
   BTOP_THEME="one_dark"
   TMUX_THEME="one-dark"
-  BORDER_ACCENT=0xff61afef
 else
   MODE=light
   TERM_PROFILE="One Light"
   BTOP_THEME="one_light"
   TMUX_THEME="one-light"
-  BORDER_ACCENT=0xff4078f2
 fi
 
 # Terminal.app — set default + all open windows to the matching profile.
@@ -64,18 +59,6 @@ fi
 # tmux — source the matching status-bar theme.
 if command -v tmux >/dev/null 2>&1 && tmux info >/dev/null 2>&1; then
   tmux source-file "$HOME/.config/tmux/themes/$TMUX_THEME.tmux" >/dev/null 2>&1 || true
-fi
-
-# SketchyBar — colors.sh picks the palette from the mode file on reload.
-mkdir -p "$HOME/.local/state"
-printf '%s\n' "$MODE" >"$HOME/.local/state/theme-mode"
-if command -v sketchybar >/dev/null 2>&1 && pgrep -x sketchybar >/dev/null 2>&1; then
-  sketchybar --reload >/dev/null 2>&1 || true
-fi
-
-# JankyBorders — a second `borders` call updates the running instance.
-if command -v borders >/dev/null 2>&1 && pgrep -x borders >/dev/null 2>&1; then
-  borders active_color=$BORDER_ACCENT >/dev/null 2>&1 || true
 fi
 
 # Mattermost Desktop via REST — push a One Dark/Light custom theme (user + teams).

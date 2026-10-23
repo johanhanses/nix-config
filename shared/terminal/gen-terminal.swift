@@ -2,8 +2,7 @@
 // archived NSColor/NSFont blobs. Run: swift gen-terminal.swift <output-dir>
 // Palette: Atom One / One Dark Pro — slate dark #282c34 / grey-white light
 // #fafafa, blue accent.
-// Mirrored by the ghostty, tmux, btop and sketchybar (shared/sketchybar/colors.sh)
-// themes and the JankyBorders accent in theme-sync — keep them in sync.
+// Mirrored by the ghostty, tmux and btop themes — keep them in sync.
 import AppKit
 
 func color(_ hex: String) -> NSColor {

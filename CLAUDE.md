@@ -35,9 +35,7 @@ together four layers:
   managed declaratively via nix-homebrew with pinned taps; casks auto-upgrade on switch).
 - `modules/home/` — home-manager (entry: `default.nix`), one file per tool:
   zsh, git, tmux, cli (fzf/bat/eza/zoxide/gh/sesh), btop, neovim, theme, and
-  `packages.nix` for plain CLI packages. The SketchyBar/JankyBorders agents
-  live in `modules/darwin/bar.nix` (native menu bar auto-hidden in
-  `defaults.nix`); the bar's raw config is `shared/sketchybar/`. GUI apps go in `homebrew.nix`, CLI tools
+  `packages.nix` for plain CLI packages. GUI apps go in `homebrew.nix`, CLI tools
   in `packages.nix`.
 - `shared/` + `config/` — raw (non-Nix) config files shipped by the home modules
   via `xdg.configFile`/`home.file`: zsh init, tmux themes, sesh, Terminal.app
@@ -59,13 +57,10 @@ Constraints that aren't obvious from any single file:
   here because it was asked for explicitly. If light mode gets rejected again,
   lightness is the first thing to move, not the accent.
   Canonical hex values live in `shared/terminal/gen-terminal.swift`; the
-  ghostty/tmux/btop themes, the sketchybar `colors.sh` and the JankyBorders
-  accent (in `theme-sync`) mirror them and must be kept in sync (nvim uses
+  ghostty/tmux/btop themes mirror them and must be kept in sync (nvim uses
   `olimorris/onedarkpro.nvim`: `onedark`/`onelight`). Most CLI tools
-  inherit the terminal's ANSI palette and switch for free; nvim, btop,
-  sketchybar and borders switch explicitly (sketchybar reads the mode from
-  `~/.local/state/theme-mode`, written by `theme-sync`, so the bar never needs
-  its own System Events permission). A `theme-watch` launchd agent (defined in `modules/home/theme.nix`)
+  inherit the terminal's ANSI palette and switch for free; nvim and btop
+  switch explicitly. A `theme-watch` launchd agent (defined in `modules/home/theme.nix`)
   polls macOS appearance via System Events and runs `theme-sync` — `defaults read -g
   AppleInterfaceStyle` is unreliable inside launchd, so don't "simplify" to it.
   When adding a themed tool, wire both flavors.
@@ -81,7 +76,7 @@ Constraints that aren't obvious from any single file:
   ghostty *theme* files (`font-style`) and in the Terminal.app profile faces
   (`JetBrainsMonoNF-Medium` for both), never in
   `shared/ghostty/config`. Theme and font are independent axes here: the palette
-  is the One Dark era's, the font is not. SketchyBar uses the same family.
+  is the One Dark era's, the font is not.
 - **Agent workflow**: always validate with `nrb` before asking the user to apply with
   `nrs`. The tmux theme files (`shared/tmux/themes/`) embed Nerd Font powerline glyphs
   that are destroyed by rewriting the file — derive new variants via `sed` from the

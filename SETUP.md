@@ -35,7 +35,7 @@ to apply. To pull in newer package versions, run `nup` (then `git commit` the up
 ## What Nix manages
 
 - **System** (`modules/darwin/`): Determinate Nix (`nix.enable = false`), hostname,
-  fonts (JetBrains Mono NF; Monaspace Neon NF, Maple Mono NF kept; symbols nerd fonts), SketchyBar + JankyBorders (`bar.nix`), Homebrew casks (`homebrew.nix`), macOS
+  fonts (JetBrains Mono NF; Monaspace Neon NF, Maple Mono NF kept; symbols nerd fonts), Homebrew casks (`homebrew.nix`), macOS
   defaults incl. Caps Lock→Control & key repeat (`defaults.nix`).
 - **Home** (`modules/home/`): zsh (prompt/aliases/worktree fns), git (+delta),
   tmux, fzf/bat/eza/zoxide/gh/sesh, btop, neovim, and the `theme-watch` agent.
@@ -93,12 +93,13 @@ Run once on a fresh machine, in order:
    and dark chrome from that one seed and follows the system appearance itself).
 6. **Moom** (classic 3.x — not owned on the App Store): install from Many Tricks
    `https://manytricks.com/download/moom/classic`, enter license, allow Accessibility.
-   Custom controls (keyboard mode is ⌘M, then): ⌘1 left ⅔ · ⌘2 right ⅓ · ⌘3 fill
-   for the built-in screen; ⌘4 / ⌘5 / ⌘6 are the same for the external display,
-   with frame height 0.982955 so windows start below SketchyBar (the native menu
-   bar auto-hides and Moom's gap is one value for all edges — the notch screen
-   gets that space from its safe area, a plain external screen doesn't).
+   Custom controls (keyboard mode is ⌘M, then): ⌘1 left ⅔ · ⌘2 right ⅓ · ⌘3 fill.
 7. **Auth** (tokens expire): `gh auth login`, `saml2aws login`.
+   **Trailer** (menu-bar count of PRs awaiting my review): token = `gh auth token`
+   (`repo` + `read:org`). Repositories: Set all PRs → Mine, Set all hiding → Hide
+   My PRs. Reviews: "…to me" → Move to "Mine". Display: both "assigned…" → Do
+   Nothing. Its menu won't open on macOS 27 with an external display attached
+   (trailer#506) — configure with only the built-in screen.
 8. **App Store menu-bar apps** (RunCat/TabBack): install from the App Store, then add
    their IDs to `homebrew.nix` `masApps` (find with `mas search <name>`).
 9. **Log out / back in** so Caps Lock→Control + key-repeat settings fully apply.

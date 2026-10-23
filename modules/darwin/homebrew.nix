@@ -25,6 +25,7 @@
       "1password"
       "tailscale-app"
       "badgeify"
+      "trailer" # menu-bar PR count (GitHub)
       "claude"
       "codex"
       "codex-app"
