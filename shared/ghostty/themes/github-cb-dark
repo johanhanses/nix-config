@@ -1,0 +1,29 @@
+# GitHub CB Dark — GitHub's Dark Colorblind ANSI on the Dark Dimmed ground.
+# Mirrors shared/terminal/gen-terminal.swift (canonical palette).
+
+# A theme file may set any config option except `theme`/`config-file`, so the
+# font weight rides along with the appearance switch (Medium in both today).
+font-style = Medium
+
+background = #22272e
+foreground = #adbac7
+cursor-color = #58a6ff
+selection-background = #314b69
+selection-foreground = #cdd9e5
+
+palette = 0=#484f58
+palette = 1=#ec8e2c
+palette = 2=#58a6ff
+palette = 3=#d29922
+palette = 4=#58a6ff
+palette = 5=#bc8cff
+palette = 6=#39c5cf
+palette = 7=#b1bac4
+palette = 8=#6e7681
+palette = 9=#fdac54
+palette = 10=#79c0ff
+palette = 11=#e3b341
+palette = 12=#79c0ff
+palette = 13=#d2a8ff
+palette = 14=#56d4dd
+palette = 15=#cdd9e5

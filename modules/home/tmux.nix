@@ -111,18 +111,18 @@
       # toggle status bar
       bind-key b set-option status
 
-      # --- theme: One Dark/Light status bar (segmented powerline).
+      # --- theme: GitHub CB Dark/Light status bar (one-accent pills).
       #     Variant chosen by macOS appearance at startup; re-sourced on toggle
       #     by theme-sync. ---
       if-shell '[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]' \
-        "source-file ~/.config/tmux/themes/one-dark.tmux" \
-        "source-file ~/.config/tmux/themes/one-light.tmux"
+        "source-file ~/.config/tmux/themes/github-cb-dark.tmux" \
+        "source-file ~/.config/tmux/themes/github-cb-light.tmux"
     '';
   };
 
   # Ship the tmux status-bar themes (sourced above + by theme-sync).
   xdg.configFile = {
-    "tmux/themes/one-dark.tmux".source = ../../shared/tmux/themes/one-dark.tmux;
-    "tmux/themes/one-light.tmux".source = ../../shared/tmux/themes/one-light.tmux;
+    "tmux/themes/github-cb-dark.tmux".source = ../../shared/tmux/themes/github-cb-dark.tmux;
+    "tmux/themes/github-cb-light.tmux".source = ../../shared/tmux/themes/github-cb-light.tmux;
   };
 }

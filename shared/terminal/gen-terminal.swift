@@ -1,7 +1,9 @@
-// Generates the One Dark/Light Terminal.app profiles (.terminal plists) with proper
-// archived NSColor/NSFont blobs. Run: swift gen-terminal.swift <output-dir>
-// Palette: Atom One / One Dark Pro — slate dark #282c34 / grey-white light
-// #fafafa, blue accent.
+// Generates the GitHub CB Dark/Light Terminal.app profiles (.terminal plists) with
+// proper archived NSColor/NSFont blobs. Run: swift gen-terminal.swift <output-dir>
+// Palette: GitHub's colorblind ANSI (no red/green — removals/errors orange,
+// additions/passes blue), both grounds dimmed: dark on GitHub Dark Dimmed
+// #22272e (L* 15.4), light on grey #d7dade (L* 86.9) with the light hues
+// deepened a shade to keep text contrast on it.
 // Mirrored by the ghostty, tmux and btop themes — keep them in sync.
 import AppKit
 
@@ -59,27 +61,27 @@ func makeProfile(name: String, face: String, bg: String, fg: String, cursor: Str
 }
 
 let dark = makeProfile(
-    name: "One Dark",
+    name: "GitHub CB Dark",
     face: "JetBrainsMonoNF-Medium",
-    bg: "282c34", fg: "abb2bf", cursor: "528bff", sel: "3e4451",
+    bg: "22272e", fg: "adbac7", cursor: "58a6ff", sel: "314b69",
     ansi: [
-        "3f4451", "e06c75", "98c379", "d19a66", "61afef", "c678dd", "56b6c2", "abb2bf",
-        "5c6370", "e06c75", "98c379", "e5c07b", "61afef", "c678dd", "56b6c2", "ffffff",
+        "484f58", "ec8e2c", "58a6ff", "d29922", "58a6ff", "bc8cff", "39c5cf", "b1bac4",
+        "6e7681", "fdac54", "79c0ff", "e3b341", "79c0ff", "d2a8ff", "56d4dd", "cdd9e5",
     ]
 )
 
 let light = makeProfile(
-    name: "One Light",
+    name: "GitHub CB Light",
     face: "JetBrainsMonoNF-Medium",
-    bg: "fafafa", fg: "383a42", cursor: "526fff", sel: "e5e5e6",
+    bg: "d7dade", fg: "24292f", cursor: "085cbf", sel: "a9bed7",
     ansi: [
-        "383a42", "e45649", "50a14f", "c18401", "4078f2", "a626a4", "0184bc", "a0a1a7",
-        "696c77", "e45649", "50a14f", "c18401", "4078f2", "a626a4", "0184bc", "fafafa",
+        "24292f", "974b00", "0550ae", "4d2d00", "085cbf", "7138db", "17686e", "6e7781",
+        "57606a", "8a4600", "0969da", "633c01", "006ce3", "8547f7", "297a8e", "8c959f",
     ]
 )
 
 let outDir = CommandLine.arguments[1]
-for (fname, dict) in [("One Dark.terminal", dark), ("One Light.terminal", light)] {
+for (fname, dict) in [("GitHub CB Dark.terminal", dark), ("GitHub CB Light.terminal", light)] {
     let data = try! PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
     let url = URL(fileURLWithPath: outDir).appendingPathComponent(fname)
     try! data.write(to: url)

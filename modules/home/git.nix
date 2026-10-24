@@ -26,6 +26,8 @@
     # out-of-store to ~/.config/git/local.gitconfig (see xdg.configFile below).
     includes = [
       { path = "${config.home.homeDirectory}/.config/git/local.gitconfig"; }
+      # delta light/dark feature, written by theme-sync (missing file = ignored)
+      { path = "${config.home.homeDirectory}/.local/state/delta-theme.gitconfig"; }
     ];
 
     settings = {
@@ -61,6 +63,29 @@
       decorations = true;
       # base16 follows the terminal's ANSI palette → tracks the theme light/dark.
       syntax-theme = "base16";
+      # defaults are fixed 256-colour red/green; ANSI names follow the palette
+      # (red/green render orange/blue in GitHub CB)
+      line-numbers-minus-style = "red";
+      line-numbers-plus-style = "green";
+
+      # The +/- line backgrounds are NOT ANSI-driven (delta's defaults are
+      # red/green), so the colorblind ones live here: removals orange, additions
+      # blue, as GitHub's colorblind diffs (15% / 40% tints over each ground).
+      # theme-sync picks one via ~/.local/state/delta-theme.gitconfig.
+      cb-dark = {
+        dark = true;
+        minus-style = ''syntax "#3e322d"'';
+        minus-emph-style = ''syntax "#6c432c"'';
+        plus-style = ''syntax "#25364d"'';
+        plus-emph-style = ''syntax "#2b4f81"'';
+      };
+      cb-light = {
+        light = true;
+        minus-style = ''syntax "#d2c7bd"'';
+        minus-emph-style = ''syntax "#caad90"'';
+        plus-style = ''syntax "#b8c9dd"'';
+        plus-emph-style = ''syntax "#8fb2dd"'';
+      };
     };
   };
 

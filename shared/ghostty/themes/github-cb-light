@@ -1,0 +1,29 @@
+# GitHub CB Light — GitHub's Light Colorblind ANSI on a dimmed grey ground
+# (#d7dade, L* 86.9), hues deepened a shade to keep text contrast.
+# Mirrors shared/terminal/gen-terminal.swift (canonical palette).
+
+# See the note in ./github-cb-dark: the font weight switches with the appearance.
+font-style = Medium
+
+background = #d7dade
+foreground = #24292f
+cursor-color = #085cbf
+selection-background = #a9bed7
+selection-foreground = #24292f
+
+palette = 0=#24292f
+palette = 1=#974b00
+palette = 2=#0550ae
+palette = 3=#4d2d00
+palette = 4=#085cbf
+palette = 5=#7138db
+palette = 6=#17686e
+palette = 7=#6e7781
+palette = 8=#57606a
+palette = 9=#8a4600
+palette = 10=#0969da
+palette = 11=#633c01
+palette = 12=#006ce3
+palette = 13=#8547f7
+palette = 14=#297a8e
+palette = 15=#8c959f

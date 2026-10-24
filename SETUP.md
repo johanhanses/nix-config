@@ -2,8 +2,8 @@
 
 nix-darwin + home-manager configuration for this Mac (hostname **megamackan**),
 migrated from the script-based `dotfiles2026`. Curated: minimal GUI apps, full
-terminal/CLI/tmux-worktree workflow, **Atom One / One Dark Pro theme** (grey-white
-light / slate dark, blue accent) with automatic light/dark switching.
+terminal/CLI/tmux-worktree workflow, **GitHub CB theme** (GitHub's colorblind
+palette on dimmed grounds, blue accent) with automatic light/dark switching.
 
 ## Rebuild
 
@@ -41,18 +41,19 @@ to apply. To pull in newer package versions, run `nup` (then `git commit` the up
   tmux, fzf/bat/eza/zoxide/gh/sesh, btop, neovim, and the `theme-watch` agent.
 - **CLI tools**: `packages.nix` (ripgrep, fd, k8s, aws/azure/saml2aws, node+LSPs…).
 
-## Theming (Atom One / One Dark Pro, auto light/dark)
+## Theming (GitHub CB, auto light/dark)
 
-Atom One / One Dark Pro — slate `#282c34` dark / grey-white `#fafafa` light,
-blue `#61afef`/`#4078f2` accent, set in **JetBrains Mono Nerd Font** (Medium in both
-light and dark). Note the light ground is a near-white that has been rejected
-here once before; it is in place because it was asked for explicitly. Defined in
-`shared/terminal/gen-terminal.swift` and mirrored in the ghostty, tmux, and
-btop themes — keep them in sync when tweaking.
+GitHub CB — GitHub's colorblind ANSI (no red/green: removals and errors are
+orange, additions and passes blue) on dimmed grounds: Dark Dimmed `#22272e` dark /
+grey `#d7dade` light, blue `#58a6ff`/`#085cbf` accent, set in **JetBrains Mono
+Nerd Font** (Medium in both). Defined in `shared/terminal/gen-terminal.swift`
+and mirrored in the ghostty, tmux and btop themes, the Mattermost palettes in
+`theme-sync` and the delta features in `git.nix` — keep them in sync when tweaking.
 
-Terminal.app carries the palette (One Dark/Light profiles); most CLI
+Terminal.app carries the palette (GitHub CB Dark/Light profiles); most CLI
 tools follow the terminal's ANSI colors, so they switch for free. nvim
-(olimorris/onedarkpro.nvim + auto-dark-mode) and btop switch explicitly. The `theme-watch` launchd agent polls appearance via
+(projekt0n/github-nvim-theme, colorblind variants re-grounded, + auto-dark-mode),
+btop, delta and Mattermost switch explicitly. The `theme-watch` launchd agent polls appearance via
 **System Events** and runs `theme-sync` on change (`defaults read -g
 AppleInterfaceStyle` is unreliable in launchd contexts).
 
@@ -84,12 +85,12 @@ Run once on a fresh machine, in order:
    ```
    Until it exists those overlay symlinks dangle and `sesh` errors on invocation —
    clone it, then re-run `nrs`.
-4. **Terminal.app profiles**: `terminal-theme-install` (imports the two One
-   Dark/Light profiles from `shared/terminal/` and sets the appearance-matched one).
+4. **Terminal.app profiles**: `terminal-theme-install` (imports the two GitHub
+   CB Dark/Light profiles from `shared/terminal/` and sets the appearance-matched one).
    Terminal.app profiles live in `com.apple.Terminal` as archived NSColor blobs,
    so they can't be managed declaratively.
 5. **Brave chrome colour**: quit Brave, then `brave-theme-install` (seeds
-   `browser.theme.user_color` with the One Dark blue; Chromium derives the light
+   `browser.theme.user_color` with the GitHub CB blue; Chromium derives the light
    and dark chrome from that one seed and follows the system appearance itself).
 6. **Moom** (classic 3.x — not owned on the App Store): install from Many Tricks
    `https://manytricks.com/download/moom/classic`, enter license, allow Accessibility.
@@ -108,6 +109,7 @@ Run once on a fresh machine, in order:
 
 - Determinate owns the Nix daemon → keep `nix.enable = false`.
 - Neovim keeps its lazy.nvim config (`config/nvim`, shipped via `xdg.configFile`);
-  the colorscheme is olimorris/onedarkpro.nvim (`onedark`/`onelight`).
+  the colorscheme is projekt0n/github-nvim-theme
+  (`github_dark_colorblind`/`github_light_colorblind`, re-grounded).
   Plugins pinned by `lazy-lock.json`.
 - Secrets are never committed (`/secrets` gitignored).

@@ -2,10 +2,13 @@
 # theme-sync — align terminal-adjacent tools with the current macOS appearance.
 # Invoked by the theme-watch agent (on appearance change) and tmux <prefix>+r.
 #
-# One Light (light) / One Dark (dark):
+# GitHub CB Light (light) / GitHub CB Dark (dark):
 #   - Terminal.app  : switch the profile (requires the two profiles imported)
 #   - btop          : rewrite color_theme in the mutable btop.conf
 #   - tmux          : source the matching status-bar theme
+#   - delta         : write ~/.local/state/delta-theme.gitconfig (included by
+#                     the git config) selecting the cb-dark/cb-light feature,
+#                     since delta's diff backgrounds are not ANSI-driven
 #   - Mattermost    : push a custom theme via REST (URL from the private
 #                     config, token from the login keychain)
 #   - bat / fzf / delta / nvim self-follow (ANSI palette / auto-dark-mode)
@@ -25,14 +28,14 @@ detect_dark() {
 
 if [ "$(detect_dark)" = "dark" ]; then
   MODE=dark
-  TERM_PROFILE="One Dark"
-  BTOP_THEME="one_dark"
-  TMUX_THEME="one-dark"
+  TERM_PROFILE="GitHub CB Dark"
+  BTOP_THEME="github_cb_dark"
+  TMUX_THEME="github-cb-dark"
 else
   MODE=light
-  TERM_PROFILE="One Light"
-  BTOP_THEME="one_light"
-  TMUX_THEME="one-light"
+  TERM_PROFILE="GitHub CB Light"
+  BTOP_THEME="github_cb_light"
+  TMUX_THEME="github-cb-light"
 fi
 
 # Terminal.app — set default + all open windows to the matching profile.
@@ -61,10 +64,14 @@ if command -v tmux >/dev/null 2>&1 && tmux info >/dev/null 2>&1; then
   tmux source-file "$HOME/.config/tmux/themes/$TMUX_THEME.tmux" >/dev/null 2>&1 || true
 fi
 
-# Mattermost Desktop via REST — push a One Dark/Light custom theme (user + teams).
+# delta — pick the matching diff colours (features defined in modules/home/git.nix).
+mkdir -p "$HOME/.local/state"
+printf '[delta]\n\tfeatures = cb-%s\n' "$MODE" >"$HOME/.local/state/delta-theme.gitconfig"
+
+# Mattermost Desktop via REST — push a GitHub CB Dark/Light custom theme (user + teams).
 MM_CFG="$HOME/Repos/github.com/johanhanses/dotfiles-private/mattermost/config"
-ONE_DARK='{"sidebarBg":"#21252b","sidebarText":"#abb2bf","sidebarUnreadText":"#d7dae0","sidebarTextHoverBg":"#2c313a","sidebarTextActiveBorder":"#61afef","sidebarTextActiveColor":"#d7dae0","sidebarHeaderBg":"#21252b","sidebarHeaderTextColor":"#abb2bf","onlineIndicator":"#98c379","awayIndicator":"#e5c07b","dndIndicator":"#e06c75","mentionBg":"#61afef","mentionColor":"#282c34","centerChannelBg":"#282c34","centerChannelColor":"#abb2bf","newMessageSeparator":"#d19a66","linkColor":"#61afef","buttonBg":"#61afef","buttonColor":"#282c34","errorTextColor":"#e06c75","mentionHighlightBg":"#3e4451","mentionHighlightLink":"#56b6c2","codeTheme":"monokai","sidebarTeamBarBg":"#21252b"}'
-ONE_LIGHT='{"sidebarBg":"#eaeaeb","sidebarText":"#383a42","sidebarUnreadText":"#202227","sidebarTextHoverBg":"#e5e5e6","sidebarTextActiveBorder":"#4078f2","sidebarTextActiveColor":"#202227","sidebarHeaderBg":"#e5e5e6","sidebarHeaderTextColor":"#383a42","onlineIndicator":"#50a14f","awayIndicator":"#c18401","dndIndicator":"#e45649","mentionBg":"#4078f2","mentionColor":"#fafafa","centerChannelBg":"#fafafa","centerChannelColor":"#383a42","newMessageSeparator":"#986801","linkColor":"#4078f2","buttonBg":"#4078f2","buttonColor":"#fafafa","errorTextColor":"#e45649","mentionHighlightBg":"#e2e9f8","mentionHighlightLink":"#0184bc","codeTheme":"github","sidebarTeamBarBg":"#e5e5e6"}'
+CB_DARK='{"sidebarBg":"#1c2128","sidebarText":"#adbac7","sidebarUnreadText":"#cdd9e5","sidebarTextHoverBg":"#2d333b","sidebarTextActiveBorder":"#58a6ff","sidebarTextActiveColor":"#cdd9e5","sidebarHeaderBg":"#1c2128","sidebarHeaderTextColor":"#adbac7","onlineIndicator":"#58a6ff","awayIndicator":"#d29922","dndIndicator":"#ec8e2c","mentionBg":"#58a6ff","mentionColor":"#22272e","centerChannelBg":"#22272e","centerChannelColor":"#adbac7","newMessageSeparator":"#ec8e2c","linkColor":"#58a6ff","buttonBg":"#58a6ff","buttonColor":"#22272e","errorTextColor":"#ec8e2c","mentionHighlightBg":"#314b69","mentionHighlightLink":"#39c5cf","codeTheme":"monokai","sidebarTeamBarBg":"#1c2128"}'
+CB_LIGHT='{"sidebarBg":"#cacfd3","sidebarText":"#24292f","sidebarUnreadText":"#1b1f24","sidebarTextHoverBg":"#bec4c9","sidebarTextActiveBorder":"#085cbf","sidebarTextActiveColor":"#1b1f24","sidebarHeaderBg":"#c1c6ca","sidebarHeaderTextColor":"#24292f","onlineIndicator":"#085cbf","awayIndicator":"#9a6700","dndIndicator":"#974b00","mentionBg":"#085cbf","mentionColor":"#ffffff","centerChannelBg":"#d7dade","centerChannelColor":"#24292f","newMessageSeparator":"#974b00","linkColor":"#085cbf","buttonBg":"#085cbf","buttonColor":"#ffffff","errorTextColor":"#974b00","mentionHighlightBg":"#b8c7d9","mentionHighlightLink":"#17686e","codeTheme":"github","sidebarTeamBarBg":"#c1c6ca"}'
 if [ -f "$MM_CFG" ] && command -v jq >/dev/null 2>&1; then
   # shellcheck source=/dev/null
   . "$MM_CFG"
@@ -75,7 +82,7 @@ if [ -f "$MM_CFG" ] && command -v jq >/dev/null 2>&1; then
     echo "mattermost: skipped — no token in keychain (service 'mattermost-token'); see $MM_CFG" >&2
   fi
   if [ -n "${MATTERMOST_URL:-}" ] && [ -n "${MATTERMOST_TOKEN:-}" ]; then
-    if [ "$MODE" = dark ]; then MM_THEME="$ONE_DARK"; else MM_THEME="$ONE_LIGHT"; fi
+    if [ "$MODE" = dark ]; then MM_THEME="$CB_DARK"; else MM_THEME="$CB_LIGHT"; fi
     MM_ME=$(curl -s -w '\n%{http_code}' -H "Authorization: Bearer $MATTERMOST_TOKEN" "$MATTERMOST_URL/api/v4/users/me" 2>/dev/null)
     MM_CODE=$(printf '%s' "$MM_ME" | tail -n1)
     if [ "$MM_CODE" = 200 ]; then

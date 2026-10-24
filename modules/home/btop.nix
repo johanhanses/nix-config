@@ -2,10 +2,10 @@
 {
   home.packages = [ pkgs.btop ];
 
-  # One Dark/Light btop themes (read-only is fine for theme files).
+  # GitHub CB Dark/Light btop themes (read-only is fine for theme files).
   xdg.configFile = {
-    "btop/themes/one_dark.theme".source = ../../shared/themes/btop/one_dark.theme;
-    "btop/themes/one_light.theme".source = ../../shared/themes/btop/one_light.theme;
+    "btop/themes/github_cb_dark.theme".source = ../../shared/themes/btop/github_cb_dark.theme;
+    "btop/themes/github_cb_light.theme".source = ../../shared/themes/btop/github_cb_light.theme;
   };
 
   # btop.conf must stay mutable so theme-sync can rewrite color_theme on the

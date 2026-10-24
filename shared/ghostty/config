@@ -1,7 +1,7 @@
-# Ghostty — matches the One Dark/Light Terminal.app profiles.
+# Ghostty — matches the GitHub CB Dark/Light Terminal.app profiles.
 # Themes live in ./themes; Ghostty follows macOS appearance natively,
 # so light/dark switching needs no theme-sync wiring.
-theme = light:one-light,dark:one-dark
+theme = light:github-cb-light,dark:github-cb-dark
 
 # Same face as Terminal.app (family "JetBrainsMono Nerd Font", the full-width
 # NF cut) at 15. The weight is NOT set here — each theme file sets its own
