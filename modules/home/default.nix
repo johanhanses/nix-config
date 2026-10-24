@@ -11,6 +11,7 @@
     ./neovim.nix
     ./ghostty.nix
     ./theme.nix
+    ./swiftbar.nix
   ];
 
   home.username = "johanhanses";

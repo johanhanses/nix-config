@@ -25,7 +25,7 @@
       "1password"
       "tailscale-app"
       "badgeify"
-      "trailer" # menu-bar PR count (GitHub)
+      "swiftbar" # menu-bar PR review count (plugin: shared/swiftbar, modules/home/swiftbar.nix)
       "claude"
       "codex"
       "codex-app"

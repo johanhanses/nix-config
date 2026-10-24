@@ -96,11 +96,11 @@ Run once on a fresh machine, in order:
    `https://manytricks.com/download/moom/classic`, enter license, allow Accessibility.
    Custom controls (keyboard mode is ⌘M, then): ⌘1 left ⅔ · ⌘2 right ⅓ · ⌘3 fill.
 7. **Auth** (tokens expire): `gh auth login`, `saml2aws login`.
-   **Trailer** (menu-bar count of PRs awaiting my review): token = `gh auth token`
-   (`repo` + `read:org`). Repositories: Set all PRs → Mine, Set all hiding → Hide
-   My PRs. Reviews: "…to me" → Move to "Mine". Display: both "assigned…" → Do
-   Nothing. Its menu won't open on macOS 27 with an external display attached
-   (trailer#506) — configure with only the built-in screen.
+   **SwiftBar** (menu-bar count of PRs awaiting my review): first launch, allow
+   it to open at login (its plugin folder is set declaratively to
+   `shared/swiftbar/`). The plugin uses `gh`'s token, so `gh auth login` covers it.
+   Replaced Trailer, whose menu won't open on an external display (trailer#506),
+   which rules it out in clamshell mode.
 8. **App Store menu-bar apps** (RunCat/TabBack): install from the App Store, then add
    their IDs to `homebrew.nix` `masApps` (find with `mas search <name>`).
 9. **Log out / back in** so Caps Lock→Control + key-repeat settings fully apply.
