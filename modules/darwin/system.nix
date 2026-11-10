@@ -23,12 +23,13 @@
   programs.zsh.enable = true;
 
   # Fonts (nerd fonts for the terminal + nvim icons).
-  # Terminal face: JetBrains Mono Nerd Font (family "JetBrainsMono Nerd Font",
+  # Terminal face: Cascadia Mono Nerd Font (family "CaskaydiaMono Nerd Font",
   # the full-width NF cut — not "NF Mono", which squeezes powerline caps).
-  # Monaspace Neon NF (upstream's own Nerd Font build, inside pkgs.monaspace —
+  # JetBrains Mono NF (the previous font), Monaspace Neon NF (upstream's own Nerd Font build, inside pkgs.monaspace —
   # ~635 files, so only the normal-width Neon NF faces are copied out) and
-  # maple-mono.NF stay installed as earlier terminal fonts, for quick switching.
+  # and maple-mono.NF stay installed as earlier terminal fonts, for quick switching.
   fonts.packages = with pkgs; [
+    nerd-fonts.caskaydia-mono
     nerd-fonts.jetbrains-mono
     (runCommand "monaspace-neon-nf" { } ''
       mkdir -p $out/share/fonts/opentype

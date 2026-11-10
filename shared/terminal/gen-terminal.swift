@@ -21,11 +21,11 @@ func arch(_ obj: Any) -> Data {
     return try! NSKeyedArchiver.archivedData(withRootObject: obj, requiringSecureCoding: false)
 }
 
-// Full-width Nerd Font build (JetBrains Mono NF, not "NF Mono") so powerline caps
+// Full-width Nerd Font build (Cascadia Mono NF, not "NF Mono") so powerline caps
 // render smooth.
 //
-// Both appearances use Medium. Dark once dropped to Regular (light-on-dark text
-// blooms), but that read harder than light mode, so it was bumped back up.
+// Both appearances use Regular: Cascadia Mono has no Medium (Regular -> SemiBold).
+// JetBrains Mono ran Medium in both after dark Regular read harder than light.
 func font(_ face: String) -> NSFont {
     return NSFont(name: face, size: 15)!
 }
@@ -62,7 +62,7 @@ func makeProfile(name: String, face: String, bg: String, fg: String, cursor: Str
 
 let dark = makeProfile(
     name: "GitHub CB Dark",
-    face: "JetBrainsMonoNF-Medium",
+    face: "CaskaydiaMonoNF-Regular",
     bg: "22272e", fg: "adbac7", cursor: "58a6ff", sel: "314b69",
     ansi: [
         "484f58", "ec8e2c", "58a6ff", "d29922", "58a6ff", "bc8cff", "39c5cf", "b1bac4",
@@ -72,7 +72,7 @@ let dark = makeProfile(
 
 let light = makeProfile(
     name: "GitHub CB Light",
-    face: "JetBrainsMonoNF-Medium",
+    face: "CaskaydiaMonoNF-Regular",
     bg: "d7dade", fg: "24292f", cursor: "085cbf", sel: "a9bed7",
     ansi: [
         "24292f", "974b00", "0550ae", "4d2d00", "085cbf", "7138db", "17686e", "6e7781",

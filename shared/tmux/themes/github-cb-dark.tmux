@@ -4,7 +4,7 @@
 # only: the session pill turns orange while the prefix is held, and a zoomed
 # window shows an orange marker. Selection/copy-mode use the terminal's own
 # selection colour.
-# Needs a full-width Nerd Font (JetBrainsMono Nerd Font) — the "NF Mono" variant squeezes caps.
+# Needs a full-width Nerd Font (CaskaydiaMono Nerd Font) — the "NF Mono" variant squeezes caps.
 # Glyphs are Nerd Font codepoints: derive variants with sed, never retype.
 
 %hidden BG="#22272e"

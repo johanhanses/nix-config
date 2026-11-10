@@ -50,7 +50,7 @@ Constraints that aren't obvious from any single file:
   removals/errors orange, additions/passes blue) on dimmed grounds, Dark Dimmed
   `#22272e` dark / grey `#d7dade` light, blue `#58a6ff`/`#085cbf` accent (Oct
   2026). The light hues are a shade deeper than GitHub's so text keeps contrast
-  on the grey. The font is a separate axis: **JetBrains Mono Nerd Font** (see
+  on the grey. The font is a separate axis: **Cascadia Mono Nerd Font** (see
   below). Background lightness has driven every past rejection, so record it:
   L* 15.4 dark / 86.9 light here. The dark end sits in the band that has always
   held (16.5–17.9 kept; GitHub's own `#0d1117` at L* 5.0 and `#1a1b26` at L*
@@ -67,17 +67,18 @@ Constraints that aren't obvious from any single file:
   polls macOS appearance via System Events and runs `theme-sync` — `defaults read -g
   AppleInterfaceStyle` is unreliable inside launchd, so don't "simplify" to it.
   When adding a themed tool, wire both flavors.
-- **Font**: JetBrains Mono Nerd Font (family "JetBrainsMono Nerd Font",
-  `nerd-fonts.jetbrains-mono` in `system.nix`; the full-width NF cut, never
-  "NF Mono", which squeezes powerline caps), Medium in both appearances
-  (Oct 2026). Monaspace Neon NF (the previous font, copied out of
-  `pkgs.monaspace` so its ~600 other files don't flood the font menus) and
-  `maple-mono.NF` stay installed for quick switching. Dark used to drop to
-  Regular (light-on-dark text blooms), but that read harder than light mode,
-  so it was bumped to Medium (Sep 2026).
+- **Font**: Cascadia Mono Nerd Font (family "CaskaydiaMono Nerd Font",
+  `nerd-fonts.caskaydia-mono` in `system.nix`; the full-width NF cut, never
+  "NF Mono", which squeezes powerline caps), Regular in both appearances
+  (Nov 2026; Omarchy's former default). It has no Medium: the next step up is
+  SemiBold. JetBrains Mono NF (the previous font, Medium in both), Monaspace
+  Neon NF (copied out of `pkgs.monaspace` so its ~600 other files don't flood
+  the font menus) and `maple-mono.NF` stay installed for quick switching.
+  Dark once dropped to a lighter weight than light (light-on-dark text
+  blooms), but that read harder than light mode, so both now match (Sep 2026).
   The weight is per-appearance-capable: it lives in the
   ghostty *theme* files (`font-style`) and in the Terminal.app profile faces
-  (`JetBrainsMonoNF-Medium` for both), never in
+  (`CaskaydiaMonoNF-Regular` for both), never in
   `shared/ghostty/config`. Theme and font are independent axes here.
 - **Agent workflow**: always validate with `nrb` before asking the user to apply with
   `nrs`. The tmux theme files (`shared/tmux/themes/`) embed Nerd Font powerline glyphs

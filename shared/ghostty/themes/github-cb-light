@@ -3,7 +3,7 @@
 # Mirrors shared/terminal/gen-terminal.swift (canonical palette).
 
 # See the note in ./github-cb-dark: the font weight switches with the appearance.
-font-style = Medium
+font-style = Regular
 
 background = #d7dade
 foreground = #24292f

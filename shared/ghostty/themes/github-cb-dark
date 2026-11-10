@@ -2,8 +2,8 @@
 # Mirrors shared/terminal/gen-terminal.swift (canonical palette).
 
 # A theme file may set any config option except `theme`/`config-file`, so the
-# font weight rides along with the appearance switch (Medium in both today).
-font-style = Medium
+# font weight rides along with the appearance switch (Regular in both today; Cascadia Mono jumps Regular -> SemiBold).
+font-style = Regular
 
 background = #22272e
 foreground = #adbac7

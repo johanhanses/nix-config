@@ -3,11 +3,11 @@
 # so light/dark switching needs no theme-sync wiring.
 theme = light:github-cb-light,dark:github-cb-dark
 
-# Same face as Terminal.app (family "JetBrainsMono Nerd Font", the full-width
+# Same face as Terminal.app (family "CaskaydiaMono Nerd Font", the full-width
 # NF cut) at 15. The weight is NOT set here — each theme file sets its own
-# `font-style` (currently Medium in both), so a per-appearance weight stays
+# `font-style` (currently Regular in both; Cascadia Mono has no Medium), so a per-appearance weight stays
 # possible, the way the Terminal.app profiles do it.
-font-family = JetBrainsMono Nerd Font
+font-family = CaskaydiaMono Nerd Font
 font-size = 15
 adjust-cell-height = 10%
 
