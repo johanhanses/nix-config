@@ -38,7 +38,7 @@ to apply. To pull in newer package versions, run `nup` (then `git commit` the up
   fonts (Cascadia Mono NF; JetBrains Mono NF, Monaspace Neon NF, Maple Mono NF kept; symbols nerd fonts), Homebrew casks (`homebrew.nix`), macOS
   defaults incl. Caps Lock→Control & key repeat (`defaults.nix`).
 - **Home** (`modules/home/`): zsh (prompt/aliases/worktree fns), git (+delta),
-  tmux, fzf/bat/eza/zoxide/gh/sesh, btop, neovim, and the `theme-watch` agent.
+  tmux, fzf/bat/eza/zoxide/gh/sesh, btop, neovim, herdr, and the `theme-watch` agent.
 - **CLI tools**: `packages.nix` (ripgrep, fd, k8s, aws/azure/saml2aws, node+LSPs…).
 
 ## Theming (GitHub CB, auto light/dark)

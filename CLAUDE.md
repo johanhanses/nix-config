@@ -34,13 +34,16 @@ together four layers:
   Determinate Nix wiring (`system.nix`), Homebrew casks/masApps (`homebrew.nix`,
   managed declaratively via nix-homebrew with pinned taps; casks auto-upgrade on switch).
 - `modules/home/` — home-manager (entry: `default.nix`), one file per tool:
-  zsh, git, tmux, cli (fzf/bat/eza/zoxide/gh/sesh), btop, neovim, theme, and
+  zsh, git, tmux, cli (fzf/bat/eza/zoxide/gh/sesh), btop, neovim, theme, herdr, and
   `packages.nix` for plain CLI packages. GUI apps go in `homebrew.nix`, CLI tools
   in `packages.nix`.
 - `shared/` + `config/` — raw (non-Nix) config files shipped by the home modules
   via `xdg.configFile`/`home.file`: zsh init, tmux themes, sesh, Terminal.app
   profiles, scripts. `config/nvim` is a full lazy.nvim setup shipped wholesale;
   edit it directly (plugins pinned by `lazy-lock.json`), don't port it to Nix.
+  `shared/herdr/config.toml` is linked out-of-store because Herdr writes to it
+  itself; its UI changes show up in `git diff` (`herdr server reload-config`
+  applies edits live). `herdr-seed` creates one Herdr workspace per sesh session.
 
 Constraints that aren't obvious from any single file:
 

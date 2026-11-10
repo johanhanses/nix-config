@@ -1,0 +1,32 @@
+onboarding = false
+
+[theme]
+# GitHub CB: "terminal" inherits Ghostty's ANSI palette (github-cb-dark/light),
+# and auto_switch follows macOS appearance via the host terminal.
+name = "terminal"
+auto_switch = false
+dark_name = "terminal"
+light_name = "terminal"
+
+# Colorblind rule (no red/green): red -> orange, green -> blue, plus the accent.
+# Mirrors shared/terminal/gen-terminal.swift.
+[theme.custom.dark]
+accent = "#58a6ff"
+red = "#ec8e2c"
+green = "#58a6ff"
+
+[theme.custom.light]
+accent = "#085cbf"
+red = "#974b00"
+green = "#0550ae"
+
+[keys]
+# same prefix as tmux (modules/home/tmux.nix)
+prefix = "ctrl+a"
+
+[ui.toast]
+# background agent pop-ups as real macOS notifications (default: off)
+delivery = "system"
+
+[ui]
+status_indicators = "symbols"
