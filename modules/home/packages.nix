@@ -17,6 +17,9 @@
     # tmux session manager (used by the sesh popup + wts alias)
     sesh
 
+    # multiplexer for AI coding agents (CLI only; runs inside Ghostty like tmux)
+    herdr
+
     # kubernetes
     kubectl
     kubernetes-helm

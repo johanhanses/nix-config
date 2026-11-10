@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# herdr-seed — create a Herdr workspace for every sesh config session
+# (shared/sesh/sesh.toml + the untracked ~/.config/sesh/local.toml overlay).
+#
+# Idempotent: a session whose name already matches a workspace label is
+# skipped, so it is safe to re-run after adding entries to sesh. Herdr itself
+# persists workspaces across restarts (~/.config/herdr/session.json), so this
+# only needs running once per machine or after sesh changes.
+#
+# Usage: herdr-seed [-n|--dry-run]
+set -euo pipefail
+
+dry=0
+[[ "${1:-}" == "-n" || "${1:-}" == "--dry-run" ]] && dry=1
+
+existing=$(herdr workspace list | jq -r '.result.workspaces[].label')
+
+sesh list -c --json | jq -r '.[] | [.Name, .Path] | @tsv' |
+  while IFS=$'\t' read -r name path; do
+    if grep -Fxq -- "$name" <<<"$existing"; then
+      echo "skip    $name (exists)"
+    elif [[ ! -d "$path" ]]; then
+      echo "skip    $name (missing dir: $path)"
+    elif ((dry)); then
+      echo "would   $name -> $path"
+    else
+      herdr workspace create --cwd "$path" --label "$name" --no-focus >/dev/null
+      echo "created $name -> $path"
+    fi
+  done
