@@ -8,9 +8,9 @@ browser "open -g %u"
 show-read-feeds yes
 feed-sort-order unreadarticlecount-asc
 
-# Colors — terminal ANSI palette (GitHub CB; auto-follows Ghostty light/dark)
+# Colors — terminal ANSI palette (Solitude, via Ghostty)
 # `reverse` inverts fg/bg using the terminal's current pair, so the focused row
-# stays high-contrast in both light and dark mode without picking a specific bg color.
+# stays high-contrast without picking a specific bg color.
 color background       default default
 color listnormal       default default
 color listnormal_unread default default bold

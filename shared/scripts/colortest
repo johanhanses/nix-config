@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Print ANSI + truecolor swatches so you can see what your terminal palette
-# (via the Ghostty github-cb themes) maps each ANSI slot to, side-by-side with
-# the canonical GitHub CB Light / Dark hex values (no red/green: "red" is
-# orange, "green" is blue).
+# (via the Ghostty solitude theme) maps each ANSI slot to, side-by-side with
+# the canonical Solitude hex values (greys only; bright red is the one rust).
 
 printf '\n  --- ANSI 8-color (uses your Ghostty palette) ---\n'
 for i in 30 31 32 33 34 35 36 37; do
@@ -22,24 +21,15 @@ swatch() {
   printf "  \e[38;2;%d;%d;%dm█████ #%s %s\e[0m\n" "$r" "$g" "$b" "$hex" "$name"
 }
 
-printf '\n  --- Truecolor: GitHub CB Light accents ---\n'
-swatch 24292f fg
-swatch 974b00 'red (orange)'
-swatch 0550ae 'green (blue)'
-swatch 4d2d00 yellow
-swatch 085cbf blue
-swatch 7138db magenta
-swatch 17686e cyan
-swatch 57606a comment
-
-printf '\n  --- Truecolor: GitHub CB Dark accents ---\n'
-swatch adbac7 fg
-swatch ec8e2c 'red (orange)'
-swatch 58a6ff 'green (blue)'
-swatch d29922 yellow
-swatch 58a6ff blue
-swatch bc8cff magenta
-swatch 39c5cf cyan
-swatch 6e7681 comment
+printf '\n  --- Truecolor: Solitude ---\n'
+swatch cacccc fg
+swatch 565d60 'red (dim grey)'
+swatch 9fa5a9 'green (light grey)'
+swatch d9dbdc 'yellow (near white)'
+swatch 798186 'blue (accent grey)'
+swatch aeaeae magenta
+swatch 707070 cyan
+swatch 4b4e55 comment
+swatch de6145 'bright red (rust)'
 
 echo

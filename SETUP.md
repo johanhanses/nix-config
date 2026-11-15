@@ -2,8 +2,8 @@
 
 nix-darwin + home-manager configuration for this Mac (hostname **megamackan**),
 migrated from the script-based `dotfiles2026`. Curated: minimal GUI apps, full
-terminal/CLI/tmux-worktree workflow, **GitHub CB theme** (GitHub's colorblind
-palette on dimmed grounds, blue accent) with automatic light/dark switching.
+terminal/CLI/tmux-worktree workflow, **Solitude theme** (Omarchy's greyscale
+theme: greys on near-black, one rust red), the same in light and dark appearance.
 
 ## Rebuild
 
@@ -38,24 +38,22 @@ to apply. To pull in newer package versions, run `nup` (then `git commit` the up
   fonts (Cascadia Mono NF; JetBrains Mono NF, Monaspace Neon NF, Maple Mono NF kept; symbols nerd fonts), Homebrew casks (`homebrew.nix`), macOS
   defaults incl. Caps Lock→Control & key repeat (`defaults.nix`).
 - **Home** (`modules/home/`): zsh (prompt/aliases/worktree fns), git (+delta),
-  tmux, fzf/bat/eza/zoxide/gh/sesh, btop, neovim, herdr, and the `theme-watch` agent.
+  tmux, fzf/bat/eza/zoxide/gh/sesh, btop, neovim, herdr.
 - **CLI tools**: `packages.nix` (ripgrep, fd, k8s, aws/azure/saml2aws, node+LSPs…).
 
-## Theming (GitHub CB, auto light/dark)
+## Theming (Solitude, one theme)
 
-GitHub CB — GitHub's colorblind ANSI (no red/green: removals and errors are
-orange, additions and passes blue) on dimmed grounds: Dark Dimmed `#22272e` dark /
-grey `#d7dade` light, blue `#58a6ff`/`#085cbf` accent, set in **Cascadia Mono
-Nerd Font** (Regular in both). Defined in `shared/terminal/gen-terminal.swift`
-and mirrored in the ghostty, tmux and btop themes, the Mattermost palettes in
-`theme-sync` and the delta features in `git.nix` — keep them in sync when tweaking.
+Solitude — Omarchy's greyscale theme: greys on near-black `#101315` with one
+rust red `#de6145`, set in **Cascadia Mono Nerd Font** (Regular). There is no
+light variant; the terminal ignores macOS appearance. Defined in
+`shared/ghostty/themes/solitude` and mirrored in the tmux and btop themes, the
+Mattermost palette in `theme-sync`, the delta styles in `git.nix` and the Herdr
+accents — keep them in sync when tweaking.
 
-Terminal.app carries the palette (GitHub CB Dark/Light profiles); most CLI
-tools follow the terminal's ANSI colors, so they switch for free. nvim
-(projekt0n/github-nvim-theme, colorblind variants re-grounded, + auto-dark-mode),
-btop, delta and Mattermost switch explicitly. The `theme-watch` launchd agent polls appearance via
-**System Events** and runs `theme-sync` on change (`defaults read -g
-AppleInterfaceStyle` is unreliable in launchd contexts).
+Most CLI tools follow the terminal's ANSI colors. nvim uses ficcdaf/ashen.nvim
+(the colorscheme Omarchy pairs with Solitude) on the same ground. `theme-sync`
+applies the theme to btop, tmux and Mattermost; run it once after a fresh
+install or a theme change (tmux prefix+r also runs it).
 
 ## Manual steps (not declarative)
 
@@ -85,13 +83,12 @@ Run once on a fresh machine, in order:
    ```
    Until it exists those overlay symlinks dangle and `sesh` errors on invocation —
    clone it, then re-run `nrs`.
-4. **Terminal.app profiles**: `terminal-theme-install` (imports the two GitHub
-   CB Dark/Light profiles from `shared/terminal/` and sets the appearance-matched one).
-   Terminal.app profiles live in `com.apple.Terminal` as archived NSColor blobs,
-   so they can't be managed declaratively.
-5. **Brave chrome colour**: quit Brave, then `brave-theme-install` (seeds
-   `browser.theme.user_color` with the GitHub CB blue; Chromium derives the light
-   and dark chrome from that one seed and follows the system appearance itself).
+4. **Theme**: `theme-sync` (sets the btop theme, sources the tmux theme and
+   pushes the Mattermost palette; needs the Mattermost token in the keychain).
+5. **Browser chrome colour**: quit Chrome and Brave, then `browser-theme-install`
+   (seeds `browser.theme.user_color` with Solitude's grey and pins the browser
+   dark; Chromium derives its chrome from that one seed, so it is a close match
+   rather than the exact palette).
 6. **Moom** (classic 3.x — not owned on the App Store): install from Many Tricks
    `https://manytricks.com/download/moom/classic`, enter license, allow Accessibility.
    Custom controls (keyboard mode is ⌘M, then): ⌘1 left ⅔ · ⌘2 right ⅓ · ⌘3 fill.
@@ -109,7 +106,6 @@ Run once on a fresh machine, in order:
 
 - Determinate owns the Nix daemon → keep `nix.enable = false`.
 - Neovim keeps its lazy.nvim config (`config/nvim`, shipped via `xdg.configFile`);
-  the colorscheme is projekt0n/github-nvim-theme
-  (`github_dark_colorblind`/`github_light_colorblind`, re-grounded).
+  the colorscheme is ficcdaf/ashen.nvim on Solitude's ground.
   Plugins pinned by `lazy-lock.json`.
 - Secrets are never committed (`/secrets` gitignored).

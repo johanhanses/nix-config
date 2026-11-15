@@ -1,20 +1,20 @@
-# GitHub CB Dark — GitHub Dark Colorblind on the Dark Dimmed ground — one-accent status bar (option B).
-# Blue is the only hue: solid session pill, current window on a blue tint,
-# other windows plain text, one neutral date/time pill. Orange is a signal
-# only: the session pill turns orange while the prefix is held, and a zoomed
-# window shows an orange marker. Selection/copy-mode use the terminal's own
-# selection colour.
+# Solitude (Omarchy): greys on near-black, one-accent status bar.
+# Light grey is the only tone: solid session pill, current window on a grey
+# tint, other windows plain text, one neutral date/time pill. Rust is a signal
+# only: the session pill turns rust while the prefix is held, and a zoomed
+# window shows a rust marker (the variable is still called ORANGE).
+# Selection/copy-mode use the terminal's own selection colour.
 # Needs a full-width Nerd Font (CaskaydiaMono Nerd Font) — the "NF Mono" variant squeezes caps.
 # Glyphs are Nerd Font codepoints: derive variants with sed, never retype.
 
-%hidden BG="#22272e"
-%hidden FG="#adbac7"
-%hidden SURFACE="#373e47"
-%hidden MUTED="#768390"
-%hidden ACCENT="#58a6ff"
-%hidden TINT="#2d3f57"
-%hidden ORANGE="#ec8e2c"
-%hidden SEL="#314b69"
+%hidden BG="#101315"
+%hidden FG="#cacccc"
+%hidden SURFACE="#343d41"
+%hidden MUTED="#798186"
+%hidden ACCENT="#a8adb0"
+%hidden TINT="#25292b"
+%hidden ORANGE="#de6145"
+%hidden SEL="#343d41"
 %hidden LEAD="#{?client_prefix,${ORANGE},${ACCENT}}"
 
 set -g status on

@@ -10,7 +10,6 @@
     ./newsboat.nix
     ./neovim.nix
     ./ghostty.nix
-    ./theme.nix
     ./swiftbar.nix
     ./herdr.nix
   ];

@@ -1,0 +1,33 @@
+# Solitude — Omarchy's greyscale theme: greys on near-black (#101315, L* 5.7)
+# with one rust red (bright red, #de6145) as the only colour.
+# This file is the canonical palette; the tmux and btop themes, the Mattermost
+# palette in theme-sync, the delta styles in git.nix, the Herdr accents and the
+# nvim ground mirror it. Slot mapping follows Omarchy's ghostty template
+# (themes/solitude/colors.toml in basecamp/omarchy).
+
+# A theme file may set any config option except `theme`/`config-file`, so the
+# font weight lives here (Regular; Cascadia Mono jumps Regular -> SemiBold).
+font-style = Regular
+
+background = #101315
+foreground = #cacccc
+cursor-color = #a5aeb4
+selection-background = #343d41
+selection-foreground = #cacccc
+
+palette = 0=#101315
+palette = 1=#565d60
+palette = 2=#9fa5a9
+palette = 3=#d9dbdc
+palette = 4=#798186
+palette = 5=#aeaeae
+palette = 6=#707070
+palette = 7=#cacccc
+palette = 8=#4b4e55
+palette = 9=#de6145
+palette = 10=#343d41
+palette = 11=#c9c2b4
+palette = 12=#5d6367
+palette = 13=#9a9a9a
+palette = 14=#707070
+palette = 15=#a5aeb4

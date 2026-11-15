@@ -1,24 +1,24 @@
 onboarding = false
 
 [theme]
-# GitHub CB: "terminal" inherits Ghostty's ANSI palette (github-cb-dark/light),
-# and auto_switch follows macOS appearance via the host terminal.
+# Solitude: "terminal" inherits Ghostty's ANSI palette (themes/solitude). The
+# theme is the same in light and dark appearance, so both blocks below match.
 name = "terminal"
 auto_switch = false
 dark_name = "terminal"
 light_name = "terminal"
 
-# Colorblind rule (no red/green): red -> orange, green -> blue, plus the accent.
-# Mirrors shared/terminal/gen-terminal.swift.
+# Solitude's ANSI red is a dim grey, so failures get its one rust red and
+# passes a light grey. Mirrors shared/ghostty/themes/solitude.
 [theme.custom.dark]
-accent = "#58a6ff"
-red = "#ec8e2c"
-green = "#58a6ff"
+accent = "#a8adb0"
+red = "#de6145"
+green = "#9fa5a9"
 
 [theme.custom.light]
-accent = "#085cbf"
-red = "#974b00"
-green = "#0550ae"
+accent = "#a8adb0"
+red = "#de6145"
+green = "#9fa5a9"
 
 [keys]
 # same prefix as tmux (modules/home/tmux.nix)

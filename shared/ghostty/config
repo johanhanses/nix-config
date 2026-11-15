@@ -1,17 +1,15 @@
-# Ghostty — matches the GitHub CB Dark/Light Terminal.app profiles.
-# Themes live in ./themes; Ghostty follows macOS appearance natively,
-# so light/dark switching needs no theme-sync wiring.
-theme = light:github-cb-light,dark:github-cb-dark
+# Ghostty — Solitude (Omarchy's greyscale theme), the same in light and dark
+# macOS appearance. The theme lives in ./themes and is the canonical palette.
+theme = solitude
 
-# Same face as Terminal.app (family "CaskaydiaMono Nerd Font", the full-width
-# NF cut) at 15. The weight is NOT set here — each theme file sets its own
-# `font-style` (currently Regular in both; Cascadia Mono has no Medium), so a per-appearance weight stays
-# possible, the way the Terminal.app profiles do it.
+# Family "CaskaydiaMono Nerd Font" (the full-width NF cut) at 15. The weight is
+# NOT set here — the theme file sets `font-style` (currently Regular; Cascadia
+# Mono has no Medium), so a per-theme weight stays possible.
 font-family = CaskaydiaMono Nerd Font
 font-size = 15
 adjust-cell-height = 10%
 
-# Match the Terminal.app profile geometry and cursor.
+# Window geometry and cursor.
 window-width = 120
 window-height = 34
 cursor-style = block

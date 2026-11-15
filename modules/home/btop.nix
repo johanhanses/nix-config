@@ -2,14 +2,12 @@
 {
   home.packages = [ pkgs.btop ];
 
-  # GitHub CB Dark/Light btop themes (read-only is fine for theme files).
-  xdg.configFile = {
-    "btop/themes/github_cb_dark.theme".source = ../../shared/themes/btop/github_cb_dark.theme;
-    "btop/themes/github_cb_light.theme".source = ../../shared/themes/btop/github_cb_light.theme;
-  };
+  # Solitude btop theme (read-only is fine for theme files).
+  xdg.configFile."btop/themes/solitude.theme".source = ../../shared/themes/btop/solitude.theme;
 
-  # btop.conf must stay mutable so theme-sync can rewrite color_theme on the
-  # light/dark toggle — install it once if absent (not a read-only Nix symlink).
+  # btop.conf must stay mutable (btop writes its own settings back, and
+  # theme-sync rewrites color_theme) — install it once if absent, not as a
+  # read-only Nix symlink.
   home.activation.btopConf = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     conf="$HOME/.config/btop/btop.conf"
     if [ ! -e "$conf" ]; then

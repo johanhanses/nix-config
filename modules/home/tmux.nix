@@ -64,7 +64,7 @@
       setw -g aggressive-resize on
       set -g detach-on-destroy off
 
-      # reload config + re-sync light/dark theme
+      # reload config + re-apply the theme (btop, tmux, Mattermost)
       unbind r
       bind r source-file ~/.config/tmux/tmux.conf \; run-shell -b 'theme-sync' \; display-message 'tmux.conf reloaded + theme synced'
 
@@ -111,18 +111,11 @@
       # toggle status bar
       bind-key b set-option status
 
-      # --- theme: GitHub CB Dark/Light status bar (one-accent pills).
-      #     Variant chosen by macOS appearance at startup; re-sourced on toggle
-      #     by theme-sync. ---
-      if-shell '[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]' \
-        "source-file ~/.config/tmux/themes/github-cb-dark.tmux" \
-        "source-file ~/.config/tmux/themes/github-cb-light.tmux"
+      # --- theme: Solitude status bar (one-accent pills). ---
+      source-file ~/.config/tmux/themes/solitude.tmux
     '';
   };
 
-  # Ship the tmux status-bar themes (sourced above + by theme-sync).
-  xdg.configFile = {
-    "tmux/themes/github-cb-dark.tmux".source = ../../shared/tmux/themes/github-cb-dark.tmux;
-    "tmux/themes/github-cb-light.tmux".source = ../../shared/tmux/themes/github-cb-light.tmux;
-  };
+  # Ship the tmux status-bar theme (sourced above + by theme-sync).
+  xdg.configFile."tmux/themes/solitude.tmux".source = ../../shared/tmux/themes/solitude.tmux;
 }

@@ -1,57 +1,19 @@
 #!/bin/sh
-# theme-sync — align terminal-adjacent tools with the current macOS appearance.
-# Invoked by the theme-watch agent (on appearance change) and tmux <prefix>+r.
+# theme-sync — apply the Solitude theme to the tools that don't simply inherit
+# the terminal's ANSI palette. Run by hand after changing the theme, and by
+# tmux <prefix>+r. The theme is the same in light and dark macOS appearance, so
+# nothing watches for appearance changes any more.
 #
-# GitHub CB Light (light) / GitHub CB Dark (dark):
-#   - Terminal.app  : switch the profile (requires the two profiles imported)
-#   - btop          : rewrite color_theme in the mutable btop.conf
-#   - tmux          : source the matching status-bar theme
-#   - delta         : write ~/.local/state/delta-theme.gitconfig (included by
-#                     the git config) selecting the cb-dark/cb-light feature,
-#                     since delta's diff backgrounds are not ANSI-driven
-#   - Mattermost    : push a custom theme via REST (URL from the private
-#                     config, token from the login keychain)
-#   - bat / fzf / delta / nvim self-follow (ANSI palette / auto-dark-mode)
+#   - btop        : set color_theme in the mutable btop.conf
+#   - tmux        : source the status-bar theme
+#   - Mattermost  : push a custom theme via REST (URL from the private config,
+#                   token from the login keychain)
+#   - Ghostty, nvim and delta carry the theme in their own config; bat and fzf
+#     follow the terminal palette.
 set -u
 
-# Detect appearance. `defaults read -g AppleInterfaceStyle` is unreliable in
-# non-interactive / launchd contexts (cfprefsd returns "does not exist" even in
-# dark mode), so use System Events, falling back to defaults.
-detect_dark() {
-  d=$(osascript -e 'tell application "System Events" to tell appearance preferences to get dark mode' 2>/dev/null)
-  case "$d" in
-    true) echo dark ;;
-    false) echo light ;;
-    *) if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark; then echo dark; else echo light; fi ;;
-  esac
-}
-
-if [ "$(detect_dark)" = "dark" ]; then
-  MODE=dark
-  TERM_PROFILE="GitHub CB Dark"
-  BTOP_THEME="github_cb_dark"
-  TMUX_THEME="github-cb-dark"
-else
-  MODE=light
-  TERM_PROFILE="GitHub CB Light"
-  BTOP_THEME="github_cb_light"
-  TMUX_THEME="github-cb-light"
-fi
-
-# Terminal.app — set default + all open windows to the matching profile.
-if pgrep -x Terminal >/dev/null 2>&1; then
-  osascript <<EOF 2>/dev/null || true
-tell application "Terminal"
-  set default settings to settings set "$TERM_PROFILE"
-  set startup settings to settings set "$TERM_PROFILE"
-  repeat with w in windows
-    try
-      set current settings of tabs of w to settings set "$TERM_PROFILE"
-    end try
-  end repeat
-end tell
-EOF
-fi
+BTOP_THEME="solitude"
+TMUX_THEME="solitude"
 
 # btop — rewrite the theme in the mutable conf.
 BTOP_CONF="$HOME/.config/btop/btop.conf"
@@ -59,19 +21,16 @@ if [ -f "$BTOP_CONF" ]; then
   /usr/bin/sed -i '' "s/^color_theme = .*/color_theme = \"$BTOP_THEME\"/" "$BTOP_CONF" 2>/dev/null || true
 fi
 
-# tmux — source the matching status-bar theme.
+# tmux — source the status-bar theme.
 if command -v tmux >/dev/null 2>&1 && tmux info >/dev/null 2>&1; then
   tmux source-file "$HOME/.config/tmux/themes/$TMUX_THEME.tmux" >/dev/null 2>&1 || true
 fi
 
-# delta — pick the matching diff colours (features defined in modules/home/git.nix).
-mkdir -p "$HOME/.local/state"
-printf '[delta]\n\tfeatures = cb-%s\n' "$MODE" >"$HOME/.local/state/delta-theme.gitconfig"
-
-# Mattermost Desktop via REST — push a GitHub CB Dark/Light custom theme (user + teams).
+# Mattermost Desktop via REST — push Solitude as a custom theme (user + teams).
+# Greys throughout; the rust red marks only what needs attention (mentions, the
+# new-message line, errors, do-not-disturb). Mirrors shared/ghostty/themes/solitude.
 MM_CFG="$HOME/Repos/github.com/johanhanses/dotfiles-private/mattermost/config"
-CB_DARK='{"sidebarBg":"#1c2128","sidebarText":"#adbac7","sidebarUnreadText":"#cdd9e5","sidebarTextHoverBg":"#2d333b","sidebarTextActiveBorder":"#58a6ff","sidebarTextActiveColor":"#cdd9e5","sidebarHeaderBg":"#1c2128","sidebarHeaderTextColor":"#adbac7","onlineIndicator":"#58a6ff","awayIndicator":"#d29922","dndIndicator":"#ec8e2c","mentionBg":"#58a6ff","mentionColor":"#22272e","centerChannelBg":"#22272e","centerChannelColor":"#adbac7","newMessageSeparator":"#ec8e2c","linkColor":"#58a6ff","buttonBg":"#58a6ff","buttonColor":"#22272e","errorTextColor":"#ec8e2c","mentionHighlightBg":"#314b69","mentionHighlightLink":"#39c5cf","codeTheme":"monokai","sidebarTeamBarBg":"#1c2128"}'
-CB_LIGHT='{"sidebarBg":"#cacfd3","sidebarText":"#24292f","sidebarUnreadText":"#1b1f24","sidebarTextHoverBg":"#bec4c9","sidebarTextActiveBorder":"#085cbf","sidebarTextActiveColor":"#1b1f24","sidebarHeaderBg":"#c1c6ca","sidebarHeaderTextColor":"#24292f","onlineIndicator":"#085cbf","awayIndicator":"#9a6700","dndIndicator":"#974b00","mentionBg":"#085cbf","mentionColor":"#ffffff","centerChannelBg":"#d7dade","centerChannelColor":"#24292f","newMessageSeparator":"#974b00","linkColor":"#085cbf","buttonBg":"#085cbf","buttonColor":"#ffffff","errorTextColor":"#974b00","mentionHighlightBg":"#b8c7d9","mentionHighlightLink":"#17686e","codeTheme":"github","sidebarTeamBarBg":"#c1c6ca"}'
+MM_THEME='{"sidebarBg":"#0c0e10","sidebarText":"#cacccc","sidebarUnreadText":"#d9dbdc","sidebarTextHoverBg":"#1d2225","sidebarTextActiveBorder":"#a8adb0","sidebarTextActiveColor":"#d9dbdc","sidebarHeaderBg":"#0c0e10","sidebarHeaderTextColor":"#cacccc","sidebarTeamBarBg":"#080a0b","onlineIndicator":"#cacccc","awayIndicator":"#798186","dndIndicator":"#de6145","mentionBg":"#de6145","mentionColor":"#101315","centerChannelBg":"#101315","centerChannelColor":"#cacccc","newMessageSeparator":"#de6145","linkColor":"#a5aeb4","buttonBg":"#798186","buttonColor":"#101315","errorTextColor":"#de6145","mentionHighlightBg":"#343d41","mentionHighlightLink":"#d9dbdc","codeTheme":"monokai"}'
 if [ -f "$MM_CFG" ] && command -v jq >/dev/null 2>&1; then
   # shellcheck source=/dev/null
   . "$MM_CFG"
@@ -82,7 +41,6 @@ if [ -f "$MM_CFG" ] && command -v jq >/dev/null 2>&1; then
     echo "mattermost: skipped — no token in keychain (service 'mattermost-token'); see $MM_CFG" >&2
   fi
   if [ -n "${MATTERMOST_URL:-}" ] && [ -n "${MATTERMOST_TOKEN:-}" ]; then
-    if [ "$MODE" = dark ]; then MM_THEME="$CB_DARK"; else MM_THEME="$CB_LIGHT"; fi
     MM_ME=$(curl -s -w '\n%{http_code}' -H "Authorization: Bearer $MATTERMOST_TOKEN" "$MATTERMOST_URL/api/v4/users/me" 2>/dev/null)
     MM_CODE=$(printf '%s' "$MM_ME" | tail -n1)
     if [ "$MM_CODE" = 200 ]; then
@@ -98,12 +56,12 @@ if [ -f "$MM_CFG" ] && command -v jq >/dev/null 2>&1; then
       done
       if curl -sf -X PUT -H "Authorization: Bearer $MATTERMOST_TOKEN" -H "Content-Type: application/json" \
         --data "$MM_PAYLOAD" "$MATTERMOST_URL/api/v4/users/$MM_UID/preferences" >/dev/null 2>&1; then
-        echo "mattermost: synced ($MODE)"
+        echo "mattermost: synced"
       else
-        echo "mattermost: preference push failed ($MODE)" >&2
+        echo "mattermost: preference push failed" >&2
       fi
     fi
   fi
 fi
 
-echo "theme-sync: $MODE"
+echo "theme-sync: solitude"

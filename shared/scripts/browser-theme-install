@@ -1,0 +1,65 @@
+#!/bin/sh
+# browser-theme-install — tint Chrome's and Brave's window chrome to sit with
+# the Solitude terminal theme, and pin both to dark.
+#
+# Chromium's GM3 colour system takes ONE seed colour and derives a full tonal
+# palette from it, so a grey seed gives neutral grey chrome. It is an
+# approximation of Solitude, not its exact hex values: an exact match would need
+# a packaged theme extension, and a Web Store theme is a single static palette.
+#
+# Browsers rewrite Preferences on exit, so each must be fully quit or the edit
+# is silently clobbered; a running browser is skipped with a message. Run once;
+# re-run after changing the seed.
+#
+#   browser-theme-install            # both browsers, Solitude grey
+#   browser-theme-install '#798186'  # another seed
+set -eu
+
+SEED="${1:-#798186}"          # Solitude accent grey
+PROFILE="${BROWSER_PROFILE:-Default}"
+SUPPORT="$HOME/Library/Application Support"
+
+apply() {
+  name="$1" proc="$2" dir="$3"
+  prefs="$dir/$PROFILE/Preferences"
+  if [ ! -f "$prefs" ]; then
+    echo "$name: no Preferences at $prefs — skipped"
+    return 0
+  fi
+  if pgrep -x "$proc" >/dev/null 2>&1; then
+    echo "$name: running — quit it and re-run (its prefs are held in memory" >&2
+    echo "  and rewritten on exit, so the edit would be lost)." >&2
+    return 0
+  fi
+  backup="$prefs.bak-$(date +%Y%m%d%H%M%S)"
+  cp "$prefs" "$backup"
+  python3 - "$prefs" "$SEED" <<'PY'
+import json, sys
+prefs, seed = sys.argv[1], sys.argv[2].lstrip("#")
+rgb = int(seed, 16)
+# Chromium stores SkColor (0xAARRGGBB) as a signed 32-bit int pref.
+argb = 0xFF000000 | rgb
+signed = argb - (1 << 32) if argb >= (1 << 31) else argb
+
+d = json.load(open(prefs))
+theme = d.setdefault("browser", {}).setdefault("theme", {})
+# Pref names gained a "2" suffix in newer Chromium; set both spellings, the
+# browser ignores the one it does not know.
+for key in ("user_color", "user_color2"):
+    theme[key] = signed
+# 0 = follow the system, 1 = light, 2 = dark
+for key in ("color_scheme", "color_scheme2"):
+    theme[key] = 2
+# an installed Web Store theme would win over the seed colour
+ext = d.get("extensions", {})
+if isinstance(ext.get("theme"), dict):
+    ext["theme"].pop("id", None)
+
+json.dump(d, open(prefs, "w"), separators=(",", ":"))
+PY
+  echo "$name: seed $SEED, dark (backup: $(basename "$backup"))"
+  echo "  revert with: cp '$backup' '$prefs'"
+}
+
+apply "Chrome" "Google Chrome" "$SUPPORT/Google/Chrome"
+apply "Brave" "Brave Browser" "$SUPPORT/BraveSoftware/Brave-Browser"

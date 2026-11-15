@@ -34,12 +34,11 @@ together four layers:
   Determinate Nix wiring (`system.nix`), Homebrew casks/masApps (`homebrew.nix`,
   managed declaratively via nix-homebrew with pinned taps; casks auto-upgrade on switch).
 - `modules/home/` — home-manager (entry: `default.nix`), one file per tool:
-  zsh, git, tmux, cli (fzf/bat/eza/zoxide/gh/sesh), btop, neovim, theme, herdr, and
+  zsh, git, tmux, cli (fzf/bat/eza/zoxide/gh/sesh), btop, neovim, herdr, and
   `packages.nix` for plain CLI packages. GUI apps go in `homebrew.nix`, CLI tools
   in `packages.nix`.
 - `shared/` + `config/` — raw (non-Nix) config files shipped by the home modules
-  via `xdg.configFile`/`home.file`: zsh init, tmux themes, sesh, Terminal.app
-  profiles, scripts. `config/nvim` is a full lazy.nvim setup shipped wholesale;
+  via `xdg.configFile`/`home.file`: zsh init, tmux theme, sesh, scripts. `config/nvim` is a full lazy.nvim setup shipped wholesale;
   edit it directly (plugins pinned by `lazy-lock.json`), don't port it to Nix.
   `shared/herdr/config.toml` is linked out-of-store because Herdr writes to it
   itself; its UI changes show up in `git diff` (`herdr server reload-config`
@@ -49,47 +48,40 @@ Constraints that aren't obvious from any single file:
 
 - **Determinate Nix owns the daemon** — keep `nix.enable = false`; do not add
   nix-darwin's own Nix management.
-- **Theming**: "GitHub CB" everywhere — GitHub's colorblind ANSI (no red/green:
-  removals/errors orange, additions/passes blue) on dimmed grounds, Dark Dimmed
-  `#22272e` dark / grey `#d7dade` light, blue `#58a6ff`/`#085cbf` accent (Oct
-  2026). The light hues are a shade deeper than GitHub's so text keeps contrast
-  on the grey. The font is a separate axis: **Cascadia Mono Nerd Font** (see
-  below). Background lightness has driven every past rejection, so record it:
-  L* 15.4 dark / 86.9 light here. The dark end sits in the band that has always
-  held (16.5–17.9 kept; GitHub's own `#0d1117` at L* 5.0 and `#1a1b26` at L*
-  10.1 were rejected as too dark). Light was deliberately dimmed ("less of a
-  light mode") after near-white (98.3) and pure white (100) both wore thin.
-  Canonical hex values live in `shared/terminal/gen-terminal.swift`; the
-  ghostty/tmux/btop themes, the Mattermost palettes in `theme-sync` and the
-  delta `cb-dark`/`cb-light` features in `git.nix` mirror them and must be kept
-  in sync (nvim uses `projekt0n/github-nvim-theme` colorblind variants with the
-  grounds and their derived tints overridden in `colorscheme.lua`). Most CLI
-  tools inherit the terminal's ANSI palette and switch for free; nvim, btop,
-  delta (via `~/.local/state/delta-theme.gitconfig`) and Mattermost switch
-  explicitly. A `theme-watch` launchd agent (defined in `modules/home/theme.nix`)
-  polls macOS appearance via System Events and runs `theme-sync` — `defaults read -g
-  AppleInterfaceStyle` is unreliable inside launchd, so don't "simplify" to it.
-  When adding a themed tool, wire both flavors.
+- **Theming**: "Solitude" everywhere — Omarchy's greyscale theme (Nov 2026):
+  greys on near-black `#101315` with one rust red `#de6145` as the only colour,
+  and **no light variant**: the terminal looks the same in light and dark macOS
+  appearance, and nothing watches for appearance changes (the `theme-watch`
+  agent and the Terminal.app profiles are gone). The font is a separate axis:
+  **Cascadia Mono Nerd Font** (see below). Background lightness has driven every
+  past rejection, so record it: Solitude sits at L* 5.7, well below the 15.4-17.9
+  band that held before (GitHub's `#0d1117` at L* 5.0 and `#1a1b26` at L* 10.1
+  were rejected as too dark), chosen from a rendered mockup. If it
+  wears thin, lifting the ground is the first thing to try.
+  Canonical hex values live in `shared/ghostty/themes/solitude`; the tmux and
+  btop themes, the Mattermost palette in `theme-sync`, the delta styles in
+  `git.nix` and the Herdr accents in `shared/herdr/config.toml` mirror them and
+  must be kept in sync. nvim uses `ficcdaf/ashen.nvim` (the colorscheme Omarchy
+  pairs with Solitude) with its ground overridden in `colorscheme.lua`. Most CLI
+  tools inherit the terminal's ANSI palette. Solitude's ANSI red is a dim grey,
+  so anything that must read as a failure or removal is given the rust by hex
+  (delta, Herdr, btop) rather than by ANSI name. `theme-sync` is a one-shot
+  apply (btop.conf, tmux, Mattermost push), run by hand or by tmux prefix+r;
+  `browser-theme-install` seeds Chrome and Brave with a grey and pins them dark
+  (browsers must be quit). When adding a themed tool, wire it to Solitude only.
 - **Font**: Cascadia Mono Nerd Font (family "CaskaydiaMono Nerd Font",
   `nerd-fonts.caskaydia-mono` in `system.nix`; the full-width NF cut, never
-  "NF Mono", which squeezes powerline caps), Regular in both appearances
-  (Nov 2026; Omarchy's former default). It has no Medium: the next step up is
-  SemiBold. JetBrains Mono NF (the previous font, Medium in both), Monaspace
-  Neon NF (copied out of `pkgs.monaspace` so its ~600 other files don't flood
-  the font menus) and `maple-mono.NF` stay installed for quick switching.
-  Dark once dropped to a lighter weight than light (light-on-dark text
-  blooms), but that read harder than light mode, so both now match (Sep 2026).
-  The weight is per-appearance-capable: it lives in the
-  ghostty *theme* files (`font-style`) and in the Terminal.app profile faces
-  (`CaskaydiaMonoNF-Regular` for both), never in
-  `shared/ghostty/config`. Theme and font are independent axes here.
+  "NF Mono", which squeezes powerline caps), Regular (Nov 2026; Omarchy's former
+  default). It has no Medium: the next step up is SemiBold. JetBrains Mono NF
+  (the previous font, at Medium), Monaspace Neon NF (copied out of
+  `pkgs.monaspace` so its ~600 other files don't flood the font menus) and
+  `maple-mono.NF` stay installed for quick switching. The weight lives in the
+  ghostty *theme* file (`font-style`), never in `shared/ghostty/config`. Theme
+  and font are independent axes here.
 - **Agent workflow**: always validate with `nrb` before asking the user to apply with
-  `nrs`. The tmux theme files (`shared/tmux/themes/`) embed Nerd Font powerline glyphs
-  that are destroyed by rewriting the file — derive new variants via `sed` from the
-  existing ones, never retype them. Regenerating the Terminal.app profiles
-  (`swift gen-terminal.swift`) requires the configured font to be registered with macOS;
-  if it isn't installed yet (pre-`nrs`), temporarily copy the TTFs from the nix store
-  into `~/Library/Fonts`, generate, then remove them. `drift-check`
+  `nrs`. The tmux theme file (`shared/tmux/themes/`) embeds Nerd Font powerline glyphs
+  that are destroyed by rewriting the file — derive new variants via `sed` (or a
+  byte-preserving script) from the existing one, never retype them. `drift-check`
   (`shared/scripts/`) reports brew/mas installs and stray binaries not declared in the
   flake — anything it flags gets zapped or orphaned on the next switch.
 - `secrets/` is gitignored and intentionally empty in the repo; secrets are restored
