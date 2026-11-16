@@ -29,7 +29,7 @@
       "claude"
       "codex"
       "codex-app"
-      "wispr-flow"
+      "superwhisper"
       "mattermost"
       "microsoft-teams"
       "docker-desktop"
