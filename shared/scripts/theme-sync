@@ -30,7 +30,7 @@ fi
 # Greys throughout; the rust red marks only what needs attention (mentions, the
 # new-message line, errors, do-not-disturb). Mirrors shared/ghostty/themes/solitude.
 MM_CFG="$HOME/Repos/github.com/johanhanses/dotfiles-private/mattermost/config"
-MM_THEME='{"sidebarBg":"#0c0e10","sidebarText":"#cacccc","sidebarUnreadText":"#d9dbdc","sidebarTextHoverBg":"#1d2225","sidebarTextActiveBorder":"#a8adb0","sidebarTextActiveColor":"#d9dbdc","sidebarHeaderBg":"#0c0e10","sidebarHeaderTextColor":"#cacccc","sidebarTeamBarBg":"#080a0b","onlineIndicator":"#cacccc","awayIndicator":"#798186","dndIndicator":"#de6145","mentionBg":"#de6145","mentionColor":"#101315","centerChannelBg":"#101315","centerChannelColor":"#cacccc","newMessageSeparator":"#de6145","linkColor":"#a5aeb4","buttonBg":"#798186","buttonColor":"#101315","errorTextColor":"#de6145","mentionHighlightBg":"#343d41","mentionHighlightLink":"#d9dbdc","codeTheme":"monokai"}'
+MM_THEME='{"sidebarBg":"#0c0e10","sidebarText":"#cacccc","sidebarUnreadText":"#d9dbdc","sidebarTextHoverBg":"#1d2225","sidebarTextActiveBorder":"#a8adb0","sidebarTextActiveColor":"#d9dbdc","sidebarHeaderBg":"#0c0e10","sidebarHeaderTextColor":"#cacccc","sidebarTeamBarBg":"#080a0b","onlineIndicator":"#3db887","awayIndicator":"#ffbc1f","dndIndicator":"#d24b4e","mentionBg":"#de6145","mentionColor":"#101315","centerChannelBg":"#101315","centerChannelColor":"#cacccc","newMessageSeparator":"#de6145","linkColor":"#a5aeb4","buttonBg":"#798186","buttonColor":"#101315","errorTextColor":"#de6145","mentionHighlightBg":"#343d41","mentionHighlightLink":"#d9dbdc","codeTheme":"monokai"}'
 if [ -f "$MM_CFG" ] && command -v jq >/dev/null 2>&1; then
   # shellcheck source=/dev/null
   . "$MM_CFG"

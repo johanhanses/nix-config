@@ -31,6 +31,7 @@
       "codex-app"
       "superwhisper"
       "mattermost"
+      "element" # Matrix client
       "microsoft-teams"
       "docker-desktop"
       "obsidian"
