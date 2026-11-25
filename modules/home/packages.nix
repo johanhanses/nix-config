@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
     # modern basics
     ripgrep
+    wimlib # WIM images (wimlib-imagex); from nixpkgs because brew cannot install it here
     fd
     jq
     yq-go

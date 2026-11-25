@@ -29,7 +29,7 @@
       "claude"
       "codex"
       "codex-app"
-      "superwhisper"
+      "wispr-flow"
       "mattermost"
       "element" # Matrix client
       "microsoft-teams"
